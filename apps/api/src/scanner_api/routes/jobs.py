@@ -7,11 +7,12 @@ GET lista (paginado, com filtros) e GET /{id} retorna detalhe.
 from __future__ import annotations
 
 import logging
+import shutil
 import uuid
 from datetime import UTC, datetime, timedelta
 
 import aiofiles
-from fastapi import APIRouter, Depends, File, Form, HTTPException, Query, UploadFile
+from fastapi import APIRouter, Depends, File, Form, HTTPException, Query, Response, UploadFile
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import selectinload
@@ -24,11 +25,13 @@ from scanner_api.schemas import (
     JobDetail,
     JobFileInfo,
     JobSummary,
+    JobUpdate,
 )
 from scanner_api.settings import get_settings
 from scanner_api.storage import (
     ensure_data_dirs,
     ensure_job_dirs,
+    job_dir,
     job_input_path,
     job_progress_path,
 )
@@ -225,3 +228,82 @@ async def get_job(
             for f in job.files
         ],
     )
+
+
+@router.patch("/{job_id}", response_model=JobDetail)
+async def update_job(
+    job_id: str,
+    body: JobUpdate,
+    session: AsyncSession = Depends(get_session),
+) -> JobDetail:
+    """Atualiza campos editáveis de um job.
+
+    Permite togglar favorite, renomear (title) e ajustar expires_at.
+    Side effect: se `is_favorite=1`, força `expires_at=NULL` (favoritos
+    nunca expiram).
+
+    Raises:
+        HTTPException(404): Job não encontrado.
+    """
+    stmt = select(Job).where(Job.id == job_id).options(selectinload(Job.files))
+    result = await session.execute(stmt)
+    job = result.scalar_one_or_none()
+    if job is None:
+        raise HTTPException(status_code=404, detail=f"Job não encontrado: {job_id}")
+
+    payload = body.model_dump(exclude_unset=True)
+    if "title" in payload:
+        job.title = payload["title"]
+    if "expires_at" in payload:
+        job.expires_at = payload["expires_at"]
+    if "is_favorite" in payload:
+        job.is_favorite = payload["is_favorite"]
+        if job.is_favorite == 1:
+            job.expires_at = None
+
+    await session.commit()
+    await session.refresh(job, ["files"])
+
+    return JobDetail(
+        id=job.id,
+        status=job.status,
+        title=job.title,
+        input_count=job.input_count,
+        merge_mode=job.merge_mode,
+        formats=job.formats,
+        created_at=job.created_at,
+        finished_at=job.finished_at,
+        is_favorite=job.is_favorite,
+        error_msg=job.error_msg,
+        page_count=job.page_count,
+        files=[
+            JobFileInfo(role=f.role, filename=f.filename, size_bytes=f.size_bytes)
+            for f in job.files
+        ],
+    )
+
+
+@router.delete("/{job_id}", status_code=204)
+async def delete_job(
+    job_id: str,
+    session: AsyncSession = Depends(get_session),
+) -> Response:
+    """Remove um job: linha do DB (cascade em JobFile) + pasta no disco.
+
+    Raises:
+        HTTPException(404): Job não encontrado.
+    """
+    settings = get_settings()
+    job = await session.get(Job, job_id)
+    if job is None:
+        raise HTTPException(status_code=404, detail=f"Job não encontrado: {job_id}")
+
+    await session.delete(job)
+    await session.commit()
+
+    # Remove a pasta do filesystem (best-effort)
+    target = job_dir(settings.data_dir, job_id)
+    shutil.rmtree(target, ignore_errors=True)
+    log.info("Job %s deletado (DB + disco)", job_id)
+
+    return Response(status_code=204)

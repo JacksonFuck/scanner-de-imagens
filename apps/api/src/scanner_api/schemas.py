@@ -53,6 +53,19 @@ class JobSummary(BaseModel):
     is_favorite: int
 
 
+class JobUpdate(BaseModel):
+    """Body do PATCH /api/jobs/{id} — todos os campos opcionais.
+
+    Side effect: se `is_favorite=1`, `expires_at` é forçado para NULL
+    (favoritos nunca expiram). Para definir manualmente expires_at sem
+    favoritar, envie is_favorite=0 OU omita is_favorite.
+    """
+
+    is_favorite: int | None = Field(default=None, ge=0, le=1)
+    title: str | None = None
+    expires_at: datetime | None = None
+
+
 class JobDetail(BaseModel):
     """Detalhe completo de um job (inclui files)."""
 
