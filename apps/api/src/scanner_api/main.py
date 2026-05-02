@@ -22,11 +22,22 @@ log = logging.getLogger(__name__)
 async def lifespan(app: FastAPI) -> AsyncIterator[None]:
     """Startup/shutdown hooks.
 
-    Phase 1A: apenas log + placeholder. Phase 1B adiciona ProcessPoolExecutor.
+    Inicializa data dirs + worker pool. Em testes, lifespan pode não rodar
+    (httpx ASGI client direto não dispara) — handlers usam fallback safe.
     """
+    from scanner_api.settings import get_settings
+    from scanner_api.storage import ensure_data_dirs
+    from scanner_api.workers.pool import init_pool, shutdown_pool
+
+    settings = get_settings()
+    ensure_data_dirs(settings.data_dir)
+    await init_pool(settings.max_workers)
     log.info("scanner_api %s startup", __version__)
-    yield
-    log.info("scanner_api %s shutdown", __version__)
+    try:
+        yield
+    finally:
+        await shutdown_pool()
+        log.info("scanner_api %s shutdown", __version__)
 
 
 def create_app() -> FastAPI:

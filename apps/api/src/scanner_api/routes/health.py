@@ -66,17 +66,33 @@ def _disk_free_gb(data_dir: Path) -> float:
     return usage.free / (1024**3)
 
 
+def _pool_metrics() -> tuple[int, int]:
+    """Retorna (queue_depth, workers_busy) do pool, ou (0, 0) se off.
+
+    Em testes ou antes do lifespan rodar, o pool pode não existir — fallback
+    silencioso para 0/0 (mesmo comportamento da Phase 1A).
+    """
+    try:
+        from scanner_api.workers.pool import get_pool
+
+        pool = get_pool()
+        return pool.queue_depth, pool.workers_busy
+    except RuntimeError:
+        return 0, 0
+
+
 @router.get("/health", response_model=HealthResponse)
 async def health() -> HealthResponse:
     """Retorna estado do servidor."""
     settings = get_settings()
     device, gpu_name = _resolve_device()
+    queue_depth, workers_busy = _pool_metrics()
 
     return HealthResponse(
         device=device,
         gpu_name=gpu_name,
-        queue_depth=0,  # Phase 1B conecta com pool real
-        workers_busy=0,
+        queue_depth=queue_depth,
+        workers_busy=workers_busy,
         db_size_mb=round(_db_size_mb(settings.db_path), 2),
         disk_free_gb=round(_disk_free_gb(settings.data_dir), 2),
         version=__version__,
