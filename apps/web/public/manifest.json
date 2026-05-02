@@ -1,0 +1,25 @@
+{
+  "name": "Scanner de Imagens",
+  "short_name": "Scanner",
+  "description": "Converte fotos de páginas de livros e artigos em Markdown estruturado, com export opcional para DOCX e PDF.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "theme_color": "#0f172a",
+  "background_color": "#ffffff",
+  "icons": [
+    {
+      "src": "/icon-192.svg",
+      "sizes": "192x192",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icon-512.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
