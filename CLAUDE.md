@@ -134,11 +134,49 @@ Output processado: `vault/chats/code/` e `vault/chats/web/`.
 
 ```
 .
-├── CLAUDE.md            # este arquivo
-├── .claude/commands/    # /retomar, /salvar
-├── vault/               # memória persistente (Obsidian)
-├── scripts/             # automação Python + PowerShell
-├── claude-exports/      # staging de chats (gitignored)
-├── reports/             # relatórios de sessão (markdown)
-└── (src/, graphify-out/ — quando houver código)
+├── CLAUDE.md                # este arquivo (regras context-mode + nav)
+├── README.md                # quickstart + status
+├── HANDOFF.md  →  docs/HANDOFF.md   # documento âncora completo
+├── TODO.md                  # roadmap (Phase 1C, 2, 3, 4 + backlog)
+├── pyproject.toml           # pacote `scanner` (CLI core)
+├── .claude/commands/        # /retomar, /salvar
+│
+├── src/scanner/             # PACOTE CORE: CLI + pipeline + engine + exports
+│   ├── cli.py, pipeline.py, errors.py
+│   ├── engine/docling_engine.py
+│   ├── export/{markdown,docx,pdf}.py
+│   └── postprocess/ptbr_fixer.py
+│
+├── apps/api/                # PACOTE BACKEND: scanner-api
+│   ├── pyproject.toml, Dockerfile, alembic.ini
+│   └── src/scanner_api/
+│       ├── main.py, settings.py, storage.py, progress.py, schemas.py
+│       ├── db/{engine,models,migrations}
+│       ├── workers/{pool,worker_main}.py
+│       └── routes/{health,jobs,files,ws}.py
+│
+├── tests/                   # 48 tests do core
+├── apps/api/tests/          # 62 tests do backend
+│
+├── docs/                    # Documentação técnica
+│   ├── HANDOFF.md
+│   └── superpowers/{specs,plans}
+│
+├── vault/                   # memória persistente (Obsidian Zettelkasten)
+├── graphify-out/            # knowledge graph (4667 nodes, 19987 edges)
+├── scripts/                 # automação Python + PowerShell standalone
+├── samples/, output/        # gitignored
+├── tessdata-portuguese/     # gitignored (22MB de modelos OCR)
+└── docling-main/            # gitignored (clone source de referência)
 ```
+
+## Comandos importantes
+
+| Tarefa | Comando |
+|--------|---------|
+| Rodar CLI | `python -m scanner convert <input> -o <output> [-f all]` |
+| Rodar API local | `uvicorn scanner_api.main:app --port 8000 --reload` |
+| Tests core | `python -m pytest -q` |
+| Tests api | `cd apps/api && python -m pytest -q` |
+| Lint | `python -m ruff check src/ tests/ apps/api/src apps/api/tests` |
+| Atualizar grafo | `graphify update .` |

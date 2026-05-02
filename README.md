@@ -1,130 +1,139 @@
 # Scanner de Imagens
 
-> OCR de fotografias de páginas de livros e artigos → **Markdown estruturado** + export opcional para **DOCX**, preservando imagens e qualidade.
+> OCR de fotografias de páginas de livros e artigos → **Markdown estruturado** + export opcional para **DOCX e PDF**, preservando imagens, tabelas e qualidade.
 
-Construído sobre [Docling](https://github.com/DS4SD/docling) (IBM Research) — engine que aceita JPG/PNG/PDF nativamente, faz OCR, detecta tabelas e classifica imagens dentro das páginas.
+Sistema dual: **CLI** para uso local + **API REST/WebSocket** para integração web.
 
-📖 **[Documentação completa em docs/HANDOFF.md](docs/HANDOFF.md)** — instalação, arquitetura, decisões, troubleshooting, roadmap.
+📖 **[Documentação completa em docs/HANDOFF.md](docs/HANDOFF.md)** — instalação, arquitetura, decisões, troubleshooting.
+📋 **[TODO.md](TODO.md)** — roadmap (Phase 1C, 2, 3, 4 + backlog).
 
 ---
 
-## Instalação
+## Status
 
-Requer **Python 3.11+** e **pandoc** (para export DOCX).
+| Componente | Estado | Detalhes |
+|---|---|---|
+| **CLI** (`python -m scanner`) | ✅ Funcional | MD + DOCX + PDF + ALL |
+| **API REST** (`uvicorn scanner_api.main:app`) | ✅ Funcional | Endpoints CRUD + downloads + path traversal protection |
+| **WebSocket** (`/ws/jobs/{id}`) | ✅ Funcional | Stream de progresso ao vivo |
+| **Worker pool** | ✅ Funcional | ProcessPoolExecutor + asyncio.Queue |
+| **Pós-processador PT-BR** | ✅ Funcional | ~150 palavras + regex |
+| **Push notifications** | ⏭️ Phase 1C | VAPID keys + service worker |
+| **PATCH/DELETE /api/jobs** | ⏭️ Phase 1C | Favoritar, renomear, apagar |
+| **Frontend Next.js** | ⏭️ Phase 2 | Dashboard + dropzone + dark mode |
+| **PWA** | ⏭️ Phase 3 | Service worker + manifest + push UI |
+| **Deploy Docker + Hostinger** | ⏭️ Phase 4 | docker-compose + nginx + Let's Encrypt |
+
+---
+
+## Stack
+
+- **Engine OCR**: [Docling](https://github.com/DS4SD/docling) 2.92 (IBM) + EasyOCR 1.7
+- **CLI**: Typer + Rich
+- **Backend**: FastAPI 0.115 + SQLAlchemy 2.0 async + aiosqlite + Alembic
+- **Worker**: ProcessPoolExecutor (isola Docling do event loop)
+- **Export**: pypandoc + pandoc 3.9 + xelatex
+- **GPU**: PyTorch 2.11+cu128 (Python 3.14 compat)
+
+110 testes passing, ruff clean.
+
+---
+
+## Quickstart (CLI)
 
 ```bash
-# clonar e entrar no diretório do projeto
-cd "Scanner de imagens"
-
-# criar venv
-python -m venv .venv
-.\.venv\Scripts\Activate.ps1   # Windows PowerShell
-# source .venv/bin/activate     # Linux/macOS
-
-# instalar (dev mode)
+# Instalar
+git clone https://github.com/JacksonFuck/scanner-de-imagens.git
+cd scanner-de-imagens
+python -m venv .venv && source .venv/bin/activate  # Windows: .venv\Scripts\Activate.ps1
 pip install -e ".[dev]"
+pip install easyocr
+
+# (opcional) GPU
+pip install --force-reinstall torch torchvision --index-url https://download.pytorch.org/whl/cu128
+
+# Converter foto única
+python -m scanner convert ./foto.jpg -o ./output -f md
+
+# Pasta inteira → MD + DOCX + PDF, GPU, livro consolidado
+python -m scanner convert ./fotos -o ./output -f all --device cuda --merge
 ```
 
-Pandoc: instale via [pandoc.org/installing](https://pandoc.org/installing.html) ou deixe o `pypandoc` baixar automaticamente na primeira execução.
+---
 
-## Uso
-
-### CLI
+## Quickstart (Backend)
 
 ```bash
-# converter uma foto
-scanner convert ./pagina.jpg -o ./output
+# Instalar API
+pip install -e ./apps/api[dev]
 
-# converter pasta inteira
-scanner convert ./fotos/ -o ./output
+# Subir local
+SCANNER_DATA_DIR=/tmp/scanner SCANNER_VAPID_PUBLIC_KEY=stub \
+SCANNER_VAPID_PRIVATE_KEY=stub SCANNER_VAPID_EMAIL=t@e.com \
+uvicorn scanner_api.main:app --port 8000 --reload
 
-# gerar Markdown E DOCX
-scanner convert ./pagina.jpg -o ./output -f both
-
-# desabilitar OCR (se a imagem já tem texto selecionável — ex.: PDF nativo)
-scanner convert ./doc.pdf -o ./output --no-ocr
-
-# logs detalhados
-scanner -v convert ./pagina.jpg -o ./output
+# Testar
+curl http://localhost:8000/api/health
+# {"device":"cuda","gpu_name":"NVIDIA GeForce RTX 3060",
+#  "queue_depth":0,"workers_busy":0,"db_size_mb":0.05,
+#  "disk_free_gb":234.5,"version":"0.1.0"}
 ```
 
-### Python API
+---
 
-```python
-from pathlib import Path
-from scanner import scan, ScanRequest, OutputFormat
+## Endpoints
 
-result = scan(ScanRequest(
-    source=Path("./pagina.jpg"),
-    output_dir=Path("./output"),
-    formats=OutputFormat.BOTH,
-))
+| Método | Path | Descrição |
+|---|---|---|
+| `GET` | `/api/health` | Estado: device/queue/disk/version |
+| `POST` | `/api/jobs` | Upload multipart + queue para worker |
+| `GET` | `/api/jobs?favorite=&status=&page=` | Listagem paginada |
+| `GET` | `/api/jobs/{id}` | Detalhe com files |
+| `GET` | `/api/jobs/{id}/files/{filename}` | Download seguro |
+| `WS` | `/ws/jobs/{id}` | Stream de progresso ao vivo |
 
-print(result.markdown_path)  # ./output/pagina.md
-print(result.docx_path)      # ./output/pagina.docx
-print(result.images)         # tuple de Paths para imagens extraídas
-```
+Detalhes em [docs/HANDOFF.md § 7](docs/HANDOFF.md#7-backend-fastapi--endpoints-e-features).
 
-### Output
+---
 
-Para `pagina.jpg`, gera:
+## Performance
 
-```
-output/
-├── pagina.md                 # markdown estruturado
-├── pagina.docx               # (se -f both ou -f docx)
-└── pagina-images/            # imagens extraídas
-    ├── image_000001.png
-    ├── image_000002.png
-    └── ...
-```
+| Configuração | Tempo/foto | 69 fotos |
+|---|---|---|
+| CPU (PyTorch+cpu) | ~35s | ~40 min |
+| GPU (RTX 3060 + cu128) | ~5s | **~9 min** |
 
-O `.md` referencia as imagens por caminho relativo: `![](pagina-images/image_000001.png)`.
+7x speedup com GPU. Custo de tokens LLM: **0**.
 
-## Formatos suportados
+---
 
-| Entrada | Saída |
-|---------|-------|
-| JPG, JPEG, PNG, TIFF, BMP, WebP | Markdown |
-| PDF (digital ou escaneado) | Markdown + imagens extraídas |
-|  | DOCX (via pandoc) |
-
-## Arquitetura
+## Estrutura do monorepo
 
 ```
-src/scanner/
-├── cli.py                    # Typer + Rich — CLI
-├── pipeline.py               # orquestrador (scan, scan_batch, collect_inputs)
-├── engine/
-│   └── docling_engine.py     # adapter da DocumentConverter API do Docling
-├── export/
-│   ├── markdown.py           # grava .md
-│   └── docx.py               # MD -> DOCX via pypandoc
-└── errors.py                 # ScannerError, InvalidInputError, ConversionError
+.
+├── src/scanner/                  # Pacote core (CLI)
+│   ├── cli.py, pipeline.py, errors.py
+│   ├── engine/docling_engine.py
+│   ├── export/{markdown,docx,pdf}.py
+│   └── postprocess/ptbr_fixer.py
+├── apps/api/                     # Pacote backend
+│   └── src/scanner_api/
+│       ├── main.py, settings.py, storage.py, progress.py, schemas.py
+│       ├── db/{engine,models,migrations/}
+│       ├── workers/{pool,worker_main}.py
+│       └── routes/{health,jobs,files,ws}.py
+├── tests/                        # 48 tests do core
+├── apps/api/tests/               # 62 tests do backend
+├── docs/HANDOFF.md               # Documentação âncora
+├── docs/superpowers/             # Specs + plans
+├── TODO.md                       # Roadmap
+├── vault/                        # Obsidian (memória persistente)
+├── graphify-out/                 # Knowledge graph (4667 nodes)
+└── scripts/                      # Utilitários standalone
 ```
 
-## Testes
-
-```bash
-# testes rápidos (não carregam Docling)
-pytest
-
-# todos os testes incluindo os "slow" (carregam modelos ML)
-pytest -m slow
-
-# com cobertura
-pytest --cov=scanner --cov-report=html
-```
-
-## Memória persistente do projeto
-
-Este repo usa o setup descrito em [`reports/leia-o-texto-abaixo-joyful-bubble.md`](./reports/leia-o-texto-abaixo-joyful-bubble.md):
-
-- **Vault Obsidian** em `vault/` — decisões, arquitetura, logs de sessão
-- **Comandos custom** `/retomar` e `/salvar` para o Claude Code
-- **Pipeline de chats** em `scripts/` (PowerShell + Python)
-- **Knowledge graph** via Graphify (rodar `graphify . --obsidian --obsidian-dir .\vault\graphify`)
+---
 
 ## Licença
 
-MIT
+MIT — Jackson (jacksontorax@gmail.com)
