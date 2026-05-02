@@ -21,7 +21,7 @@ Sistema dual: **CLI** para uso local + **API REST/WebSocket** para integração 
 | **Push notifications** | ⏭️ Phase 1C | VAPID keys + service worker |
 | **PATCH/DELETE /api/jobs** | ⏭️ Phase 1C | Favoritar, renomear, apagar |
 | **Frontend Next.js** | 🟡 Phase 2 (scaffold) | `apps/web/` — Next.js 15 + Tailwind 4 + WS live |
-| **PWA** | ⏭️ Phase 3 | Service worker + manifest + push UI |
+| **PWA** | ✅ Phase 3 | Manifest + service worker (offline-first) + push subscribe UI + install prompt |
 | **Deploy Docker + Hostinger** | ⏭️ Phase 4 | docker-compose + nginx + Let's Encrypt |
 
 ---

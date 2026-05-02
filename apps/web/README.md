@@ -45,8 +45,22 @@ apps/web/
 └── public/
 ```
 
-## Pendente (Phase 3+)
+## PWA features
 
-- Tests E2E (Playwright)
+O frontend é uma Progressive Web App:
+
+- **Instalável** — manifest + ícones (192/512 SVG maskable). Botão "Instalar app" aparece quando `beforeinstallprompt` dispara.
+- **Push notifications** — VAPID end-to-end. Botão "Ativar notificações" assina via `pushManager.subscribe`, registra no backend (`POST /api/push/subscribe`); o SW exibe `Notification` quando o backend envia push (job concluído).
+- **Offline-first / cache resiliente** — Service Worker com 3 estratégias:
+  - `/api/*` → network-first (fallback de cache)
+  - `_next/static/*` + assets → cache-first
+  - HTML → network-first (fallback de cache para `/`, `/jobs`, `/health` pré-cacheados)
+
+Arquivos relevantes: `public/manifest.json`, `public/sw.js`, `public/icon-{192,512}.svg`, `components/{ServiceWorkerRegistrar,EnablePush,InstallPrompt}.tsx`.
+
+## Pendente (Phase 4+)
+
+- Tests E2E (Playwright) — incluir cenário PWA (SW registra, push end-to-end com VAPID mock)
 - Theme toggle manual (atual segue prefers-color-scheme)
 - Auth (quando backend tiver)
+- Ícones PNG raster opcionais (maior compat com algumas plataformas)

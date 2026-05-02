@@ -96,15 +96,16 @@
 
 > Spec: Section 9
 
-- [ ] `public/manifest.json` (name, short_name, theme_color, icons 192/512)
-- [ ] `public/sw.ts` — Service Worker:
-  - [ ] Cache estratégia `network-first` para `/api/*`
-  - [ ] Cache `cache-first` para assets estáticos (`_next/static`)
-  - [ ] Listener `push` → `Notification.show()`
-  - [ ] Listener `notificationclick` → abre `/jobs/<id>`
-- [ ] Componente `<InstallPrompt>` (beforeinstallprompt event)
-- [ ] Componente `<EnablePush>` — pede permissão + assina + envia para `POST /api/push/subscribe`
-- [ ] Tests: SW registra, push notification chega, deep link abre tela certa
+- [x] `public/manifest.json` (name, short_name, theme_color, icons 192/512)
+- [x] `public/sw.js` — Service Worker (sw.ts não — JS plano servido raw):
+  - [x] Cache estratégia `network-first` para `/api/*`
+  - [x] Cache `cache-first` para assets estáticos (`_next/static`)
+  - [x] Listener `push` → `Notification.show()`
+  - [x] Listener `notificationclick` → abre `data.url` (default `/`)
+- [x] Componente `<InstallPrompt>` (beforeinstallprompt event)
+- [x] Componente `<EnablePush>` — pede permissão + assina + envia para `POST /api/push/subscribe`
+- [x] Componente `<ServiceWorkerRegistrar>` (registra `/sw.js` no client)
+- [ ] Tests E2E (Playwright): SW registra, push notification chega, deep link abre tela certa — pendente Phase 4+
 
 ---
 
