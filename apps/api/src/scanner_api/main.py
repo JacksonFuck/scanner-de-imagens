@@ -59,10 +59,11 @@ def create_app() -> FastAPI:
     )
 
     # Routes
-    from scanner_api.routes import health_router
+    from scanner_api.routes import health_router, jobs_router
 
     app.include_router(health_router)
-    # Phase 1B adiciona: jobs_router, files_router, ws_router
+    app.include_router(jobs_router)
+    # Phase 1B continua: files_router, ws_router
     # Phase 1C adiciona: push_router
 
     return app

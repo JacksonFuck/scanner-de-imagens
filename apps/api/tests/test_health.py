@@ -58,8 +58,9 @@ async def test_health_disk_free_is_positive(client: AsyncClient) -> None:
     assert body["disk_free_gb"] > 0
 
 
-async def test_health_db_size_zero_before_init(client: AsyncClient) -> None:
-    """Antes de Alembic upgrade, scanner.db não existe — tamanho = 0."""
+async def test_health_db_size_is_small_for_empty_schema(client: AsyncClient) -> None:
+    """Schema recém-criado (Base.metadata.create_all em conftest) é pequeno
+    mas não zero — verificamos que está abaixo de 1MB (sanity)."""
     response = await client.get("/api/health")
     body = response.json()
-    assert body["db_size_mb"] == 0.0
+    assert 0.0 <= body["db_size_mb"] < 1.0
