@@ -12,10 +12,10 @@ download de uma release oficial via `download_pandoc()` na primeira execução.
 from __future__ import annotations
 
 import logging
-import shutil
 from pathlib import Path
 
 from scanner.errors import ConfigurationError, ConversionError
+from scanner.export._pandoc import ensure_pandoc
 
 log = logging.getLogger(__name__)
 
@@ -42,7 +42,7 @@ def write_docx(markdown_path: Path, target: Path, *, resource_dir: Path | None =
         resource_dir = markdown_path.parent
     target.parent.mkdir(parents=True, exist_ok=True)
 
-    pandoc_bin = _ensure_pandoc()
+    pandoc_bin = ensure_pandoc()
     log.debug("Usando pandoc: %s", pandoc_bin)
 
     try:
@@ -65,48 +65,3 @@ def write_docx(markdown_path: Path, target: Path, *, resource_dir: Path | None =
 
     log.info("DOCX gravado: %s", target)
     return target
-
-
-def _ensure_pandoc() -> str:
-    """Garante que pandoc está disponível.
-
-    Ordem de busca:
-    1. PATH do shell (`shutil.which`) — pandoc instalado pelo usuário
-    2. Cache do pypandoc (`pypandoc.get_pandoc_path`) — auto-download anterior
-    3. Caminho conhecido do Windows (`~/AppData/Local/Pandoc/pandoc.exe`)
-    4. Auto-download como último recurso
-
-    Sem isso, o passo 4 é tentado a cada chamada e GitHub retorna 403 (rate limit).
-    """
-    if shutil.which("pandoc"):
-        return "pandoc"
-
-    try:
-        import pypandoc
-    except ImportError as exc:
-        raise ConfigurationError("pypandoc não instalado.") from exc
-
-    # Tenta usar pandoc baixado anteriormente pelo pypandoc
-    try:
-        cached = pypandoc.get_pandoc_path()
-        if cached and Path(cached).exists():
-            log.debug("pandoc cacheado encontrado: %s", cached)
-            return cached
-    except OSError:
-        pass  # pypandoc lança OSError se nunca baixou
-
-    # Fallback explícito ao path padrão do Windows
-    win_default = Path.home() / "AppData" / "Local" / "Pandoc" / "pandoc.exe"
-    if win_default.exists():
-        log.debug("pandoc encontrado em %s", win_default)
-        return str(win_default)
-
-    log.warning("pandoc não encontrado em PATH/cache — fazendo download via pypandoc")
-    try:
-        pypandoc.download_pandoc()
-    except Exception as exc:
-        raise ConfigurationError(
-            "Falha ao baixar pandoc automaticamente. "
-            "Instale manualmente: https://pandoc.org/installing.html"
-        ) from exc
-    return "pandoc"
