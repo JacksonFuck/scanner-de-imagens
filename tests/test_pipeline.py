@@ -5,12 +5,13 @@ Não carregam Docling: usam apenas as funções que validam paths e formatos.
 
 from __future__ import annotations
 
+import warnings
 from pathlib import Path
 
 import pytest
 
 from scanner.errors import InvalidInputError
-from scanner.pipeline import OutputFormat, ScanRequest, collect_inputs
+from scanner.pipeline import OutputFormat, ScanRequest, collect_inputs, formats_for
 
 
 class TestCollectInputs:
@@ -56,3 +57,48 @@ class TestScanRequest:
     def test_pode_desabilitar_ocr(self, fake_image_file: Path, tmp_output_dir: Path) -> None:
         req = ScanRequest(source=fake_image_file, output_dir=tmp_output_dir, do_ocr=False)
         assert req.do_ocr is False
+
+
+class TestOutputFormat:
+    """Cobertura do enum estendido (PDF, ALL) + alias deprecated (BOTH)."""
+
+    def test_enum_has_pdf_and_all(self) -> None:
+        """Novos valores PDF e ALL devem existir no enum."""
+        assert OutputFormat.PDF.value == "pdf"
+        assert OutputFormat.ALL.value == "all"
+
+    def test_enum_keeps_legacy_both_alias(self) -> None:
+        """BOTH continua existindo (alias temporário) durante a janela de deprecation."""
+        assert OutputFormat.BOTH.value == "both"
+
+    def test_formats_for_md_only(self) -> None:
+        """OutputFormat.MD produz apenas o intermediário Markdown."""
+        assert formats_for(OutputFormat.MD) == frozenset({"md"})
+
+    def test_formats_for_docx_includes_md(self) -> None:
+        """OutputFormat.DOCX produz MD + DOCX (MD é intermediário do Docling)."""
+        assert formats_for(OutputFormat.DOCX) == frozenset({"md", "docx"})
+
+    def test_formats_for_pdf_includes_md(self) -> None:
+        """OutputFormat.PDF produz MD + PDF (sem DOCX)."""
+        assert formats_for(OutputFormat.PDF) == frozenset({"md", "pdf"})
+
+    def test_formats_for_all_includes_three(self) -> None:
+        """OutputFormat.ALL produz os 3 formatos."""
+        assert formats_for(OutputFormat.ALL) == frozenset({"md", "docx", "pdf"})
+
+    def test_formats_for_both_emits_deprecation_warning(self) -> None:
+        """OutputFormat.BOTH emite DeprecationWarning ao ser resolvido."""
+        with warnings.catch_warnings(record=True) as caught:
+            warnings.simplefilter("always")
+            formats_for(OutputFormat.BOTH)
+        assert any(
+            issubclass(w.category, DeprecationWarning) and "BOTH" in str(w.message)
+            for w in caught
+        ), "Esperado DeprecationWarning ao resolver OutputFormat.BOTH"
+
+    def test_formats_for_both_is_alias_of_all(self) -> None:
+        """BOTH e ALL produzem o mesmo conjunto de formatos."""
+        with warnings.catch_warnings():
+            warnings.simplefilter("ignore", DeprecationWarning)
+            assert formats_for(OutputFormat.BOTH) == formats_for(OutputFormat.ALL)

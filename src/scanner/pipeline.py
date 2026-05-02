@@ -7,6 +7,7 @@ Toda a complexidade fica aqui; a CLI é só apresentação.
 from __future__ import annotations
 
 import logging
+import warnings
 from dataclasses import dataclass, field
 from enum import StrEnum
 from pathlib import Path
@@ -19,11 +20,52 @@ log = logging.getLogger(__name__)
 
 
 class OutputFormat(StrEnum):
-    """Formatos de saída solicitáveis."""
+    """Formatos de saída solicitáveis.
+
+    BOTH é DEPRECATED desde v0.2 — use ALL. Permanece como alias por
+    retrocompatibilidade até v0.3, quando será removido. Use `formats_for()`
+    para resolver o enum num conjunto de formatos concretos (que emite
+    DeprecationWarning ao receber BOTH).
+    """
 
     MD = "md"
     DOCX = "docx"
-    BOTH = "both"
+    PDF = "pdf"
+    ALL = "all"
+    BOTH = "both"  # deprecated alias para ALL
+
+
+# Mapeia cada valor do enum para o conjunto de formatos concretos a gerar.
+# MD sempre é gerado (é o intermediário do Docling); os demais são opt-in.
+_FORMATS_BY_ENUM: dict[OutputFormat, frozenset[str]] = {
+    OutputFormat.MD: frozenset({"md"}),
+    OutputFormat.DOCX: frozenset({"md", "docx"}),
+    OutputFormat.PDF: frozenset({"md", "pdf"}),
+    OutputFormat.ALL: frozenset({"md", "docx", "pdf"}),
+    OutputFormat.BOTH: frozenset({"md", "docx", "pdf"}),  # = ALL
+}
+
+
+def formats_for(fmt: OutputFormat) -> frozenset[str]:
+    """Resolve o enum para o conjunto de formatos concretos a gerar.
+
+    Emite DeprecationWarning para `OutputFormat.BOTH` (alias temporário de
+    `ALL`). O alias mantém comportamento idêntico até v0.3.
+
+    Args:
+        fmt: valor do enum OutputFormat.
+
+    Returns:
+        Frozenset de strings: subset de {'md', 'docx', 'pdf'}. 'md' sempre presente.
+    """
+    if fmt == OutputFormat.BOTH:
+        warnings.warn(
+            "OutputFormat.BOTH é deprecated. Use OutputFormat.ALL "
+            "(produz MD + DOCX + PDF). Será removido em v0.3.",
+            DeprecationWarning,
+            stacklevel=2,
+        )
+    return _FORMATS_BY_ENUM[fmt]
 
 
 @dataclass(slots=True)
