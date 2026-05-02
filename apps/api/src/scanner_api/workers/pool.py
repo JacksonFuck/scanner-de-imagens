@@ -18,8 +18,12 @@ import contextlib
 import logging
 from concurrent.futures import Future, ProcessPoolExecutor
 from dataclasses import asdict
+from datetime import UTC, datetime
 from pathlib import Path
 
+from sqlalchemy import select
+
+from scanner_api.push import send_push
 from scanner_api.workers.worker_main import WorkerJobSpec, process_job
 
 log = logging.getLogger(__name__)
@@ -59,6 +63,7 @@ class WorkerPool:
         self._queue: asyncio.Queue[WorkerJobSpec] = asyncio.Queue()
         self._dispatcher_task: asyncio.Task[None] | None = None
         self._busy = 0
+        self._loop: asyncio.AbstractEventLoop | None = None
 
     @property
     def queue_depth(self) -> int:
@@ -73,6 +78,7 @@ class WorkerPool:
     async def start(self) -> None:
         """Cria executor + task que consome a queue."""
         self._executor = ProcessPoolExecutor(max_workers=self.max_workers)
+        self._loop = asyncio.get_running_loop()
         self._dispatcher_task = asyncio.create_task(self._dispatch_loop())
         log.info("WorkerPool started (max_workers=%d)", self.max_workers)
 
@@ -112,20 +118,109 @@ class WorkerPool:
             )
 
     def _on_job_done(self, spec: WorkerJobSpec, future: Future[dict]) -> None:
-        """Callback invocado quando o subprocess termina."""
+        """Callback invocado quando o subprocess termina.
+
+        Agenda a finalização (DB update + push) no event loop, já que
+        este callback pode rodar em thread auxiliar do executor.
+        """
         self._busy = max(0, self._busy - 1)
         try:
             result = future.result()
-            log.info(
-                "Job %s done: status=%s, files=%d",
-                spec.job_id,
-                result.get("status"),
-                len(result.get("output_files", [])),
-            )
-            # NOTA: atualização do DB com result fica para Phase 1B Task 2
-            # (POST handler vai expor uma callback que sincroniza com Job ORM)
         except Exception as exc:
             log.exception("Job %s crashed in subprocess: %s", spec.job_id, exc)
+            result = {"status": "error", "error": str(exc), "output_files": []}
+
+        log.info(
+            "Job %s done: status=%s, files=%d",
+            spec.job_id,
+            result.get("status"),
+            len(result.get("output_files", [])),
+        )
+
+        if self._loop is not None and self._loop.is_running():
+            asyncio.run_coroutine_threadsafe(
+                _finalize_job(spec.job_id, result), self._loop
+            )
+
+
+async def _finalize_job(job_id: str, result: dict) -> None:
+    """Atualiza o Job no DB e dispara push notifications."""
+    from scanner_api.db.engine import async_session_factory
+    from scanner_api.db.models import Job, PushSubscription
+
+    factory = async_session_factory()
+    status = str(result.get("status", "error"))
+    page_count = result.get("page_count")
+    error_msg = result.get("error")
+
+    async with factory() as session:
+        job = await session.get(Job, job_id)
+        if job is None:
+            log.warning("Job %s não encontrado no DB ao finalizar", job_id)
+            return
+        job.status = status
+        job.finished_at = datetime.now(UTC).replace(tzinfo=None)
+        if isinstance(page_count, int):
+            job.page_count = page_count
+        if error_msg:
+            job.error_msg = str(error_msg)
+        title = job.title
+        await session.commit()
+
+        if status == "done":
+            stmt = select(PushSubscription)
+            subs = list((await session.execute(stmt)).scalars())
+            await _broadcast_done(session, subs, job_id, title, page_count)
+
+
+async def _broadcast_done(
+    session, subs: list, job_id: str, title: str | None, page_count: int | None
+) -> None:
+    """Dispara push notification para todas as subscriptions ativas.
+
+    Subscriptions expiradas (410/404) são removidas do DB.
+    """
+    from scanner_api.db.models import PushSubscription
+
+    if not subs:
+        return
+
+    body_parts = []
+    if page_count:
+        body_parts.append(f"{page_count} página(s)")
+    body = ", ".join(body_parts) if body_parts else "Concluído"
+    payload = {
+        "title": f"Job concluído: {title or job_id[:8]}",
+        "body": body,
+        "url": f"/jobs/{job_id}",
+    }
+
+    expired_endpoints = []
+    for sub in subs:
+        loop = asyncio.get_running_loop()
+        result = await loop.run_in_executor(
+            None,
+            send_push,
+            sub.endpoint,
+            sub.p256dh,
+            sub.auth,
+            payload,
+        )
+        if result.expired:
+            expired_endpoints.append(sub.endpoint)
+
+    if expired_endpoints:
+        from sqlalchemy import delete
+
+        await session.execute(
+            delete(PushSubscription).where(
+                PushSubscription.endpoint.in_(expired_endpoints)
+            )
+        )
+        await session.commit()
+        log.info(
+            "Removidas %d subscriptions expiradas", len(expired_endpoints)
+        )
 
 
 # Singleton — criado em main.py lifespan, acessado via get_pool()

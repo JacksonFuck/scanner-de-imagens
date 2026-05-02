@@ -63,6 +63,7 @@ def create_app() -> FastAPI:
         files_router,
         health_router,
         jobs_router,
+        push_router,
         ws_router,
     )
 
@@ -70,7 +71,7 @@ def create_app() -> FastAPI:
     app.include_router(jobs_router)
     app.include_router(files_router)
     app.include_router(ws_router)
-    # Phase 1C adiciona: push_router
+    app.include_router(push_router)
 
     return app
 
