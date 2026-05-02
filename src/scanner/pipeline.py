@@ -13,7 +13,7 @@ from pathlib import Path
 
 from scanner.engine.docling_engine import SUPPORTED_EXTENSIONS, DoclingEngine
 from scanner.errors import InvalidInputError
-from scanner.export import write_docx, write_markdown
+from scanner.export import write_docx
 
 log = logging.getLogger(__name__)
 
@@ -85,16 +85,19 @@ def scan(request: ScanRequest, *, engine: DoclingEngine | None = None) -> ScanRe
     artifacts_dir = out_dir / f"{base}-images"
     md_path = out_dir / f"{base}.md"
 
-    extraction = engine.extract(request.source, artifacts_dir=artifacts_dir)
-    written_md = write_markdown(extraction.markdown, md_path)
+    extraction = engine.extract(
+        request.source,
+        markdown_target=md_path,
+        artifacts_dir=artifacts_dir,
+    )
 
     docx_path: Path | None = None
     if request.formats in (OutputFormat.DOCX, OutputFormat.BOTH):
-        docx_path = write_docx(written_md, out_dir / f"{base}.docx", resource_dir=out_dir)
+        docx_path = write_docx(extraction.markdown_path, out_dir / f"{base}.docx", resource_dir=out_dir)
 
     return ScanResult(
         source=extraction.source,
-        markdown_path=written_md,
+        markdown_path=extraction.markdown_path,
         docx_path=docx_path,
         images=extraction.images,
         page_count=extraction.page_count,

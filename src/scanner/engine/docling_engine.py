@@ -32,10 +32,15 @@ SUPPORTED_EXTENSIONS: frozenset[str] = frozenset(
 
 @dataclass(slots=True, frozen=True)
 class ExtractionResult:
-    """Resultado da extração — payload puro, sem efeitos colaterais."""
+    """Resultado da extração — payload puro, paths para arquivos já gravados.
+
+    O Docling 2.92+ usa `save_as_markdown` que escreve `.md` + extrai imagens
+    atomicamente para `artifacts_dir`. Por isso retornamos `markdown_path` (já
+    no destino final) em vez da string em memória.
+    """
 
     source: Path
-    markdown: str
+    markdown_path: Path  # arquivo .md já gravado pelo Docling
     images: tuple[Path, ...]  # arquivos de imagem extraídos (paths absolutos)
     page_count: int
 
@@ -73,21 +78,29 @@ class DoclingEngine:
         )
         log.debug("DocumentConverter inicializado (do_ocr=%s)", do_ocr)
 
-    def extract(self, source: Path, *, artifacts_dir: Path) -> ExtractionResult:
-        """Extrai conteúdo do arquivo `source` salvando imagens em `artifacts_dir`.
+    def extract(
+        self,
+        source: Path,
+        *,
+        markdown_target: Path,
+        artifacts_dir: Path,
+    ) -> ExtractionResult:
+        """Extrai conteúdo do arquivo `source` para `markdown_target` + imagens em `artifacts_dir`.
 
         Args:
             source: Caminho para JPG/PNG/PDF/etc.
+            markdown_target: Caminho final do `.md` (será criado/sobrescrito).
             artifacts_dir: Pasta onde imagens referenciadas serão escritas.
 
         Returns:
-            ExtractionResult com markdown e lista de imagens.
+            ExtractionResult com paths absolutos dos arquivos gravados.
 
         Raises:
             InvalidInputError: arquivo não existe ou extensão não suportada.
             ConversionError: Docling falhou durante a conversão.
         """
         self._validate_source(source)
+        markdown_target.parent.mkdir(parents=True, exist_ok=True)
         artifacts_dir.mkdir(parents=True, exist_ok=True)
 
         from docling_core.types.doc import ImageRefMode  # type: ignore[import-not-found]
@@ -98,20 +111,29 @@ class DoclingEngine:
         except Exception as exc:  # Docling lança vários tipos diferentes
             raise ConversionError(f"Docling falhou em {source.name}: {exc}") from exc
 
-        markdown = result.document.export_to_markdown(
-            image_mode=ImageRefMode.REFERENCED,
-            artifacts_dir=artifacts_dir,
+        try:
+            result.document.save_as_markdown(
+                filename=markdown_target,
+                artifacts_dir=artifacts_dir,
+                image_mode=ImageRefMode.REFERENCED,
+            )
+        except Exception as exc:
+            raise ConversionError(f"Falha ao gravar markdown de {source.name}: {exc}") from exc
+
+        images = tuple(
+            sorted(artifacts_dir.glob("*.png"))
+            + sorted(artifacts_dir.glob("*.jpg"))
+            + sorted(artifacts_dir.glob("*.jpeg"))
         )
-
-        # Lista as imagens que o export gravou
-        images = tuple(sorted(artifacts_dir.glob("*.png")) + sorted(artifacts_dir.glob("*.jpg")))
-
         page_count = len(getattr(result.document, "pages", {})) or 1
-        log.info("Extração concluída: %d página(s), %d imagem(ns)", page_count, len(images))
+        log.info(
+            "Extração concluída: %d página(s), %d imagem(ns), markdown=%s",
+            page_count, len(images), markdown_target.name,
+        )
 
         return ExtractionResult(
             source=source.resolve(),
-            markdown=markdown,
+            markdown_path=markdown_target.resolve(),
             images=images,
             page_count=page_count,
         )

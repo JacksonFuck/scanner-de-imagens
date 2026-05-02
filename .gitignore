@@ -55,6 +55,15 @@ ehthumbs.db
 docling-main/
 
 # ---- Imagens de teste / dados grandes ----
+samples/*.png
+samples/*.jpg
+samples/*.jpeg
+samples/*.pdf
+!samples/README.md
+output/
+docling-install.log
+graphify-run.log
+
 # Descomente quando criar a pasta:
 # tests/fixtures/large/
 # data/raw/
