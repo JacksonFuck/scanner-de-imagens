@@ -14,7 +14,7 @@ from pathlib import Path
 
 from scanner.engine.docling_engine import SUPPORTED_EXTENSIONS, DoclingEngine
 from scanner.errors import InvalidInputError
-from scanner.export import write_docx
+from scanner.export import write_docx, write_pdf
 
 log = logging.getLogger(__name__)
 
@@ -90,6 +90,7 @@ class ScanResult:
     source: Path
     markdown_path: Path
     docx_path: Path | None
+    pdf_path: Path | None
     images: tuple[Path, ...]
     page_count: int
     artifacts_dir: Path
@@ -98,6 +99,8 @@ class ScanResult:
         parts = [f"  - {self.markdown_path}"]
         if self.docx_path:
             parts.append(f"  - {self.docx_path}")
+        if self.pdf_path:
+            parts.append(f"  - {self.pdf_path}")
         if self.images:
             parts.append(f"  - {len(self.images)} imagem(ns) em {self.artifacts_dir}")
         return f"Scan de {self.source.name} ({self.page_count}p):\n" + "\n".join(parts)
@@ -141,14 +144,28 @@ def scan(request: ScanRequest, *, engine: DoclingEngine | None = None) -> ScanRe
         artifacts_dir=artifacts_dir,
     )
 
+    formats_set = formats_for(request.formats)
     docx_path: Path | None = None
-    if request.formats in (OutputFormat.DOCX, OutputFormat.BOTH):
-        docx_path = write_docx(extraction.markdown_path, out_dir / f"{base}.docx", resource_dir=out_dir)
+    pdf_path: Path | None = None
+
+    if "docx" in formats_set:
+        docx_path = write_docx(
+            extraction.markdown_path,
+            out_dir / f"{base}.docx",
+            resource_dir=out_dir,
+        )
+    if "pdf" in formats_set:
+        pdf_path = write_pdf(
+            extraction.markdown_path,
+            out_dir / f"{base}.pdf",
+            resource_dir=out_dir,
+        )
 
     return ScanResult(
         source=extraction.source,
         markdown_path=extraction.markdown_path,
         docx_path=docx_path,
+        pdf_path=pdf_path,
         images=extraction.images,
         page_count=extraction.page_count,
         artifacts_dir=artifacts_dir,
@@ -222,15 +239,14 @@ def merge_results(
 ) -> Path:
     """Concatena MDs de múltiplos resultados em um único arquivo.
 
-    Cada seção começa com um heading H1 com o nome da imagem original e um
-    separador horizontal antes da próxima. Se `formats` incluir DOCX, também
-    gera o `.docx` correspondente via pandoc.
+    Cada seção começa com um heading H2 com o nome da imagem original e um
+    separador horizontal antes da próxima. Se `formats` incluir DOCX e/ou
+    PDF, também gera os arquivos correspondentes via pandoc.
 
     Returns:
-        Path do MD combinado (DOCX, se gerado, fica como `base_name.docx`).
+        Path do MD combinado. DOCX/PDF, se gerados, ficam como
+        `<base_name>.docx` e `<base_name>.pdf` no mesmo `output_dir`.
     """
-    from scanner.export import write_docx
-
     output_dir = output_dir.resolve()
     target_md = output_dir / f"{base_name}.md"
 
@@ -250,10 +266,15 @@ def merge_results(
     target_md.write_text("".join(parts), encoding="utf-8")
     log.info("Merge MD: %s (%d seções)", target_md, len(results))
 
-    if formats in (OutputFormat.DOCX, OutputFormat.BOTH):
+    formats_set = formats_for(formats)
+    if "docx" in formats_set:
         target_docx = output_dir / f"{base_name}.docx"
         write_docx(target_md, target_docx, resource_dir=output_dir)
         log.info("Merge DOCX: %s", target_docx)
+    if "pdf" in formats_set:
+        target_pdf = output_dir / f"{base_name}.pdf"
+        write_pdf(target_md, target_pdf, resource_dir=output_dir)
+        log.info("Merge PDF: %s", target_pdf)
 
     return target_md
 

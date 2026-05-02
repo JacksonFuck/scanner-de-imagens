@@ -11,7 +11,13 @@ from pathlib import Path
 import pytest
 
 from scanner.errors import InvalidInputError
-from scanner.pipeline import OutputFormat, ScanRequest, collect_inputs, formats_for
+from scanner.pipeline import (
+    OutputFormat,
+    ScanRequest,
+    ScanResult,
+    collect_inputs,
+    formats_for,
+)
 
 
 class TestCollectInputs:
@@ -102,3 +108,47 @@ class TestOutputFormat:
         with warnings.catch_warnings():
             warnings.simplefilter("ignore", DeprecationWarning)
             assert formats_for(OutputFormat.BOTH) == formats_for(OutputFormat.ALL)
+
+
+class TestScanResult:
+    """ScanResult ganhou pdf_path: Path | None na Task 4."""
+
+    def test_scan_result_has_pdf_path_field(self, tmp_path: Path) -> None:
+        """pdf_path é campo obrigatório do dataclass (pode ser None)."""
+        r = ScanResult(
+            source=tmp_path / "src.jpg",
+            markdown_path=tmp_path / "out.md",
+            docx_path=None,
+            pdf_path=None,
+            images=(),
+            page_count=1,
+            artifacts_dir=tmp_path / "imgs",
+        )
+        assert r.pdf_path is None
+
+    def test_scan_result_str_includes_pdf_when_present(self, tmp_path: Path) -> None:
+        """Repr humano mostra o caminho do PDF quando gerado."""
+        pdf = tmp_path / "out.pdf"
+        r = ScanResult(
+            source=tmp_path / "src.jpg",
+            markdown_path=tmp_path / "out.md",
+            docx_path=None,
+            pdf_path=pdf,
+            images=(),
+            page_count=1,
+            artifacts_dir=tmp_path / "imgs",
+        )
+        assert "out.pdf" in str(r)
+
+    def test_scan_result_str_omits_pdf_when_none(self, tmp_path: Path) -> None:
+        """Repr humano não mostra linha de PDF quando não foi gerado."""
+        r = ScanResult(
+            source=tmp_path / "src.jpg",
+            markdown_path=tmp_path / "out.md",
+            docx_path=None,
+            pdf_path=None,
+            images=(),
+            page_count=1,
+            artifacts_dir=tmp_path / "imgs",
+        )
+        assert ".pdf" not in str(r)
