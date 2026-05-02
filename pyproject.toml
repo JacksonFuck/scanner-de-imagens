@@ -1,0 +1,95 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "scanner-de-imagens"
+version = "0.1.0"
+description = "Scanner OCR de fotos de páginas de livros/artigos → Markdown estruturado + export DOCX, preservando imagens"
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+authors = [
+    { name = "Jackson", email = "jacksontorax@gmail.com" }
+]
+keywords = ["ocr", "docling", "markdown", "docx", "scanner"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Topic :: Text Processing :: Markup :: Markdown",
+]
+
+dependencies = [
+    # Engine de extração — aceita JPG/PNG/PDF nativamente, gera DoclingDocument
+    "docling>=2.0,<3",
+    # CLI
+    "typer>=0.12",
+    "rich>=13",
+    # Pré-processamento de imagens (deskew, denoise, conversão de formato)
+    "pillow>=10",
+    # Conversão Markdown -> DOCX preservando imagens
+    "pypandoc>=1.13",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8",
+    "pytest-cov>=5",
+    "ruff>=0.6",
+    "mypy>=1.10",
+]
+
+[project.scripts]
+scanner = "scanner.cli:app"
+
+[project.urls]
+Homepage = "https://github.com/jacksontorax/scanner-de-imagens"
+Issues = "https://github.com/jacksontorax/scanner-de-imagens/issues"
+
+# ---------------------------------------------------------------------------
+# Tooling
+# ---------------------------------------------------------------------------
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/scanner"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = [
+    "E",   # pycodestyle errors
+    "F",   # pyflakes
+    "W",   # pycodestyle warnings
+    "I",   # isort
+    "B",   # bugbear
+    "UP",  # pyupgrade
+    "SIM", # simplify
+    "RUF", # ruff-specific
+]
+ignore = ["E501"]  # line-length handled by formatter
+
+[tool.mypy]
+python_version = "3.11"
+strict = true
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
+files = ["src/scanner"]
+
+[[tool.mypy.overrides]]
+module = ["docling.*", "pypandoc.*"]
+ignore_missing_imports = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra --strict-markers"
+markers = [
+    "slow: testes lentos que carregam modelos ML do Docling",
+]

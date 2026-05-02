@@ -1,0 +1,66 @@
+# ============================================================
+# Scanner de Imagens — .gitignore
+# ============================================================
+
+# ---- Graphify (knowledge graph) ----
+graphify-out/cache/
+# Mantém versionados: graph.json, graph.html, GRAPH_REPORT.md, wiki/
+
+# ---- Pipeline de chats ----
+# Staging area NÃO entra no git (chats podem conter info sensível)
+claude-exports/
+scripts/sync.log
+
+# ---- Obsidian ----
+# Versiona settings/plugins, ignora estado volátil (vault na raiz e/ou em vault/)
+.obsidian/workspace.json
+.obsidian/workspace-mobile.json
+.obsidian/cache/
+vault/.obsidian/workspace.json
+vault/.obsidian/workspace-mobile.json
+vault/.obsidian/cache/
+.trash/
+vault/.trash/
+
+# ---- Python ----
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+.venv/
+venv/
+env/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+dist/
+build/
+
+# ---- IDE / editor ----
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# ---- Sistema operacional ----
+Thumbs.db
+desktop.ini
+ehthumbs.db
+.DS_Store
+
+# ---- Vendored deps (clones de terceiros) ----
+# Source clonada do Docling — não versionar no repo do app
+docling-main/
+
+# ---- Imagens de teste / dados grandes ----
+# Descomente quando criar a pasta:
+# tests/fixtures/large/
+# data/raw/
+
+# ---- Secrets ----
+.env
+.env.local
+*.pem
+*.key
