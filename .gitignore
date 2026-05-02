@@ -5,6 +5,25 @@
 # ---- Graphify (knowledge graph) ----
 graphify-out/cache/
 # Mantém versionados: graph.json, graph.html, GRAPH_REPORT.md, wiki/
+# Sub-runs do graphify (não deveriam existir mas guard contra hook bug)
+src/**/graphify-out/
+**/.graphify_python
+**/.graphify_*.json
+
+# ---- Pandoc auto-download (pypandoc) ----
+pandoc-*.msi
+pandoc-*.deb
+pandoc-*.tar.gz
+pandoc-*.dmg
+
+# ---- Test scan logs (geram em runs do CLI) ----
+scan-*.log
+scan-test*.log
+*.log
+
+# ---- Notas órfãs do graphify com chars Unicode no nome ----
+# Quando o graphify roda em arquivos sem ID claro, gera notas com docstring no nome
+"Convers*"
 
 # ---- Pipeline de chats ----
 # Staging area NÃO entra no git (chats podem conter info sensível)
