@@ -572,6 +572,16 @@ Detalhe completo em `vault/projeto/decisoes.md`. Resumo cronológico:
 
 ---
 
+## Deployment
+
+Stack containerizada local-ready em `infra/` (3 services: api + web + nginx). Não amarrada a hosting específico — qualquer VPS Linux com Docker + Compose roda.
+
+- **Quickstart**, geração de VAPID keys, certbot HTTPS, cron de purge e backup de `scanner.db`: ver [`infra/README.md`](../infra/README.md).
+- **CI**: `.github/workflows/ci.yml` roda backend pytest+ruff e frontend `next build` em paralelo a cada push/PR para `master`.
+- **Pendente manual**: instalar Docker no VPS, apontar DNS, rodar certbot first-issue, instalar cron de purge.
+
+---
+
 ## 12. Memória persistente do projeto (Vault + Graphify)
 
 ### Vault Obsidian (`vault/`)

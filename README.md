@@ -22,7 +22,8 @@ Sistema dual: **CLI** para uso local + **API REST/WebSocket** para integração 
 | **PATCH/DELETE /api/jobs** | ⏭️ Phase 1C | Favoritar, renomear, apagar |
 | **Frontend Next.js** | 🟡 Phase 2 (scaffold) | `apps/web/` — Next.js 15 + Tailwind 4 + WS live |
 | **PWA** | ✅ Phase 3 | Manifest + service worker (offline-first) + push subscribe UI + install prompt |
-| **Deploy Docker + Hostinger** | ⏭️ Phase 4 | docker-compose + nginx + Let's Encrypt |
+| **Deploy infra (local-ready)** | ✅ Phase 4 | Dockerfiles + docker-compose + nginx + cron + GHA CI (`infra/`) |
+| **Deploy VPS** | ⏭️ manual | DNS + certbot + cron — instruções em `infra/README.md` |
 
 ---
 

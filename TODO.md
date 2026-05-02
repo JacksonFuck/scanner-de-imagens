@@ -113,24 +113,30 @@
 
 > Spec: Section 10
 
-### Infra
-- [ ] `infra/docker-compose.yml`:
-  - [ ] Service `api` (apps/api/Dockerfile, expõe 8000, monta `./data:/data`)
-  - [ ] Service `web` (apps/web/Dockerfile, expõe 3000)
-  - [ ] Service `nginx` (reverse proxy, SSL via Let's Encrypt)
-- [ ] `infra/nginx/scanner.conf` — proxy `/api` e `/ws` para api:8000, demais para web:3000
-- [ ] `infra/cron/purge.sh` — chamada diária `docker compose exec api python -m scanner_api.tasks.purge_expired`
+### Infra (local-ready ✅)
+- [x] `apps/web/Dockerfile` — multi-stage Next.js standalone (node:22-alpine)
+- [x] `apps/web/.dockerignore` + `next.config.ts` `output: "standalone"`
+- [x] `infra/docker-compose.yml`:
+  - [x] Service `api` (apps/api/Dockerfile, expõe 8000, monta `./data:/data`, healthcheck via python)
+  - [x] Service `web` (apps/web/Dockerfile, expõe 3000)
+  - [x] Service `nginx` (reverse proxy 80/443)
+- [x] `infra/nginx/scanner.conf` — proxy `/api` e `/ws` (com Upgrade headers + 3600s timeout) e `/` para web:3000, gzip, client_max_body_size 100M
+- [x] `infra/.env.example` (DOMAIN + VAPID placeholders)
+- [x] `infra/cron/purge.sh` — chamada diária `docker compose exec api python -m scanner_api.tasks.purge_expired`
+- [x] `infra/README.md` — quickstart, certbot, cron, backup, logs
 
-### Setup VPS
-- [ ] Instalar Docker + Compose no VPS Hostinger
+### Setup VPS (manual, fora deste repo)
+- [ ] Instalar Docker + Compose no VPS (Hostinger ou outro)
 - [ ] Domínio + DNS apontando
-- [ ] Certbot + auto-renew
-- [ ] Backup script `/data/scanner.db` (cron diário)
+- [ ] Certbot first-issue + auto-renew (cron weekly) — instruções em `infra/README.md`
+- [ ] Substituir `${DOMAIN}` em `infra/nginx/scanner.conf` (sed/envsubst)
+- [ ] Cron: `infra/cron/purge.sh` daily às 04:00
+- [ ] Backup script `/data/scanner.db` (cron diário, exemplo no README)
 - [ ] Monitoring básico: log to file + alerting opcional
 
 ### CI/CD
-- [ ] GitHub Actions: build Docker images on push to `master`
-- [ ] Workflow de deploy via SSH (rsync ou docker-compose pull + up -d)
+- [x] GitHub Actions CI (`.github/workflows/ci.yml`): backend pytest+ruff + frontend `next build` em paralelo
+- [ ] Workflow de deploy via SSH (rsync ou docker-compose pull + up -d) — pendente decisão de hosting
 
 ---
 
