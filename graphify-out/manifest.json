@@ -1,0 +1,42 @@
+{
+  "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\src\\scanner\\cli.py": {
+    "mtime": 1777698158.3107367,
+    "hash": "baab11e200dac5aaa08d12da4783fa73"
+  },
+  "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\src\\scanner\\errors.py": {
+    "mtime": 1777698052.935989,
+    "hash": "4cfa3a443461ca13ca3047ebaf2f670f"
+  },
+  "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\src\\scanner\\pipeline.py": {
+    "mtime": 1777698468.7341592,
+    "hash": "0d6dd95fa2d2323e7856819bac86ade8"
+  },
+  "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\src\\scanner\\__init__.py": {
+    "mtime": 1777698040.7317882,
+    "hash": "2f8da3be6174c5469ff729fc634eea79"
+  },
+  "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\src\\scanner\\__main__.py": {
+    "mtime": 1777698045.1878798,
+    "hash": "9f6f24b00d5605adb20b62aefec4e1a3"
+  },
+  "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\src\\scanner\\engine\\docling_engine.py": {
+    "mtime": 1777698085.1591055,
+    "hash": "e03170f431b172dafed79b3a53eda1ce"
+  },
+  "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\src\\scanner\\engine\\__init__.py": {
+    "mtime": 1777698059.10532,
+    "hash": "e20d039c8b0d41dd9d20e45eeb20c0e1"
+  },
+  "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\src\\scanner\\export\\docx.py": {
+    "mtime": 1777698116.396805,
+    "hash": "6bf61c9287d0d215f56669e3b99e9637"
+  },
+  "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\src\\scanner\\export\\markdown.py": {
+    "mtime": 1777698100.370662,
+    "hash": "a07bead2646be2c05aa22470594d9538"
+  },
+  "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\src\\scanner\\export\\__init__.py": {
+    "mtime": 1777698093.5889156,
+    "hash": "0de3a12c3d8b208051146d940727d6d8"
+  }
+}
