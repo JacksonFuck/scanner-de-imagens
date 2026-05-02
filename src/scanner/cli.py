@@ -87,6 +87,21 @@ def convert(
             help="Idiomas do OCR separados por vírgula (default: 'pt,en')",
         ),
     ] = "pt,en",
+    ocr_engine: Annotated[
+        str,
+        typer.Option(
+            "--ocr-engine",
+            help="Engine de OCR: 'easyocr' (default, melhor para PT) ou 'tesseract'",
+        ),
+    ] = "easyocr",
+    tessdata: Annotated[
+        str | None,
+        typer.Option(
+            "--tessdata",
+            help="Caminho do tessdata (apenas com --ocr-engine tesseract). "
+                 "Default tenta ./tessdata-portuguese e PATH.",
+        ),
+    ] = None,
     merge: Annotated[
         bool | None,
         typer.Option(
@@ -128,7 +143,18 @@ def convert(
         console.print(f"[dim]Modo: arquivo único → {merge_name}.md (+ docx se -f both/docx)[/dim]")
     else:
         console.print("[dim]Modo: arquivos separados (um por imagem)[/dim]")
-    console.print(f"[dim]OCR: idiomas={list(languages)}, device={device}[/dim]")
+
+    # Auto-detect tessdata path se Tesseract sem path explícito
+    resolved_tessdata = tessdata
+    if ocr_engine == "tesseract" and not resolved_tessdata:
+        local = Path("./tessdata-portuguese").resolve()
+        if local.is_dir():
+            resolved_tessdata = str(local)
+            console.print(f"[dim]tessdata local detectado: {local}[/dim]")
+
+    console.print(
+        f"[dim]OCR: engine={ocr_engine}, idiomas={list(languages)}, device={device}[/dim]"
+    )
 
     result = scan_batch(
         inputs,
@@ -137,6 +163,8 @@ def convert(
         do_ocr=not no_ocr,
         device=device,
         ocr_languages=languages,
+        ocr_engine=ocr_engine,
+        tessdata_path=resolved_tessdata,
         merge=merge_resolved,
         merge_name=merge_name,
     )

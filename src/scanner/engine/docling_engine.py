@@ -29,6 +29,20 @@ SUPPORTED_EXTENSIONS: frozenset[str] = frozenset(
     {".jpg", ".jpeg", ".png", ".tif", ".tiff", ".bmp", ".webp", ".pdf"}
 )
 
+# Mapa ISO-639-1 → ISO-639-2 que o Tesseract usa
+# (EasyOCR usa 2-letter, Tesseract usa 3-letter)
+_TESSERACT_LANG_MAP: dict[str, str] = {
+    "pt": "por",
+    "en": "eng",
+    "es": "spa",
+    "fr": "fra",
+    "de": "deu",
+    "it": "ita",
+    "nl": "nld",
+    "ja": "jpn",
+    "zh": "chi_sim",
+}
+
 
 @dataclass(slots=True, frozen=True)
 class ExtractionResult:
@@ -61,6 +75,8 @@ class DoclingEngine:
         do_table_structure: bool = True,
         device: str = "auto",  # 'auto' | 'cuda' | 'cpu'
         ocr_languages: list[str] | None = None,
+        ocr_engine: str = "easyocr",  # 'easyocr' | 'tesseract'
+        tessdata_path: str | None = None,
         images_scale: float = 3.0,
         force_full_page_ocr: bool = True,
     ) -> None:
@@ -75,6 +91,7 @@ class DoclingEngine:
             from docling.datamodel.pipeline_options import (
                 EasyOcrOptions,
                 PdfPipelineOptions,
+                TesseractCliOcrOptions,
             )
             from docling.document_converter import DocumentConverter, PdfFormatOption
         except ImportError as exc:
@@ -88,17 +105,32 @@ class DoclingEngine:
             num_threads=4,
         )
 
-        # Por que PT precisa ser explícito: EasyOcrOptions default é
-        # ['fr','de','es','en'] — sem PT acentos viram ASCII (ção -> cao).
-        # 'pt' + 'en' cobre documentos brasileiros bilíngues e siglas em inglês.
+        # Por que PT precisa ser explícito: defaults de cada engine omitem PT.
+        # EasyOcr  default = ['fr','de','es','en']
+        # Tesseract default = ['fra','deu','spa','eng']
         if ocr_languages is None:
             ocr_languages = ["pt", "en"]
-        ocr_options = EasyOcrOptions(
-            lang=ocr_languages,
-            force_full_page_ocr=force_full_page_ocr,
-            confidence_threshold=0.3,  # mais permissivo: aceita caracteres acentuados
-            use_gpu=(resolved_device == "cuda"),
-        )
+
+        ocr_engine_lower = ocr_engine.lower()
+        if ocr_engine_lower == "tesseract":
+            tess_langs = [_TESSERACT_LANG_MAP.get(lang, lang) for lang in ocr_languages]
+            ocr_options = TesseractCliOcrOptions(
+                lang=tess_langs,
+                force_full_page_ocr=force_full_page_ocr,
+                path=tessdata_path,
+                psm=1,  # Auto OSD + segmentation — bom para fotos de páginas
+            )
+        elif ocr_engine_lower == "easyocr":
+            ocr_options = EasyOcrOptions(
+                lang=ocr_languages,
+                force_full_page_ocr=force_full_page_ocr,
+                confidence_threshold=0.3,  # mais permissivo: aceita acentuados marginais
+                use_gpu=(resolved_device == "cuda"),
+            )
+        else:
+            raise ConfigurationError(
+                f"OCR engine desconhecido: {ocr_engine!r}. Use 'easyocr' ou 'tesseract'."
+            )
 
         pipeline_options = PdfPipelineOptions()
         pipeline_options.accelerator_options = accelerator
@@ -117,8 +149,8 @@ class DoclingEngine:
             }
         )
         log.info(
-            "DocumentConverter inicializado (do_ocr=%s, device=%s, langs=%s, scale=%.1fx)",
-            do_ocr, resolved_device, ocr_languages, images_scale,
+            "DocumentConverter inicializado (engine=%s, do_ocr=%s, device=%s, langs=%s, scale=%.1fx)",
+            ocr_engine_lower, do_ocr, resolved_device, ocr_languages, images_scale,
         )
 
     @staticmethod

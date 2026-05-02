@@ -37,6 +37,8 @@ class ScanRequest:
     do_table_structure: bool = True
     device: str = "auto"  # 'auto' | 'cuda' | 'cpu'
     ocr_languages: tuple[str, ...] = ("pt", "en")
+    ocr_engine: str = "easyocr"  # 'easyocr' | 'tesseract'
+    tessdata_path: str | None = None
 
 
 @dataclass(slots=True)
@@ -82,6 +84,8 @@ def scan(request: ScanRequest, *, engine: DoclingEngine | None = None) -> ScanRe
         do_table_structure=request.do_table_structure,
         device=request.device,
         ocr_languages=list(request.ocr_languages),
+        ocr_engine=request.ocr_engine,
+        tessdata_path=request.tessdata_path,
     )
 
     base = request.source.stem
@@ -117,6 +121,8 @@ def scan_batch(
     do_ocr: bool = True,
     device: str = "auto",
     ocr_languages: tuple[str, ...] = ("pt", "en"),
+    ocr_engine: str = "easyocr",
+    tessdata_path: str | None = None,
     merge: bool = False,
     merge_name: str = "combined",
 ) -> BatchResult:
@@ -132,6 +138,8 @@ def scan_batch(
         do_ocr=do_ocr,
         device=device,
         ocr_languages=list(ocr_languages),
+        ocr_engine=ocr_engine,
+        tessdata_path=tessdata_path,
     )
     result = BatchResult()
 
@@ -144,6 +152,8 @@ def scan_batch(
                 do_ocr=do_ocr,
                 device=device,
                 ocr_languages=ocr_languages,
+                ocr_engine=ocr_engine,
+                tessdata_path=tessdata_path,
             )
             result.successes.append(scan(req, engine=engine))
         except Exception as exc:  # captura amplo: não queremos parar o batch
