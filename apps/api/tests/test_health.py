@@ -22,6 +22,8 @@ async def test_health_payload_shape(client: AsyncClient) -> None:
         "workers_busy",
         "db_size_mb",
         "disk_free_gb",
+        "pending_purge",
+        "total_subscriptions",
         "version",
     }
     assert set(body.keys()) == expected_keys
@@ -64,3 +66,11 @@ async def test_health_db_size_is_small_for_empty_schema(client: AsyncClient) -> 
     response = await client.get("/api/health")
     body = response.json()
     assert 0.0 <= body["db_size_mb"] < 1.0
+
+
+async def test_health_pending_and_subs_zero_initially(client: AsyncClient) -> None:
+    """DB recém-criado: 0 jobs expirados e 0 subscriptions."""
+    response = await client.get("/api/health")
+    body = response.json()
+    assert body["pending_purge"] == 0
+    assert body["total_subscriptions"] == 0

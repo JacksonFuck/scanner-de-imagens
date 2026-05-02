@@ -7,12 +7,16 @@ Phase 1B atualiza esses valores conectando ao ProcessPoolExecutor real.
 from __future__ import annotations
 
 import shutil
+from datetime import UTC, datetime
 from pathlib import Path
 
 from fastapi import APIRouter
 from pydantic import BaseModel
+from sqlalchemy import func, select
 
 from scanner_api import __version__
+from scanner_api.db.engine import async_session_factory
+from scanner_api.db.models import Job, PushSubscription
 from scanner_api.settings import get_settings
 
 router = APIRouter(prefix="/api", tags=["health"])
@@ -27,6 +31,8 @@ class HealthResponse(BaseModel):
     workers_busy: int
     db_size_mb: float
     disk_free_gb: float
+    pending_purge: int
+    total_subscriptions: int
     version: str
 
 
@@ -81,12 +87,32 @@ def _pool_metrics() -> tuple[int, int]:
         return 0, 0
 
 
+async def _db_counts() -> tuple[int, int]:
+    """Retorna (pending_purge, total_subscriptions). 0/0 em caso de erro."""
+    try:
+        factory = async_session_factory()
+        now = datetime.now(UTC).replace(tzinfo=None)
+        async with factory() as session:
+            pending_stmt = select(func.count(Job.id)).where(
+                Job.expires_at.is_not(None),
+                Job.expires_at < now,
+                Job.is_favorite == 0,
+            )
+            subs_stmt = select(func.count(PushSubscription.endpoint))
+            pending = (await session.execute(pending_stmt)).scalar_one() or 0
+            subs = (await session.execute(subs_stmt)).scalar_one() or 0
+            return int(pending), int(subs)
+    except Exception:
+        return 0, 0
+
+
 @router.get("/health", response_model=HealthResponse)
 async def health() -> HealthResponse:
     """Retorna estado do servidor."""
     settings = get_settings()
     device, gpu_name = _resolve_device()
     queue_depth, workers_busy = _pool_metrics()
+    pending_purge, total_subscriptions = await _db_counts()
 
     return HealthResponse(
         device=device,
@@ -95,5 +121,7 @@ async def health() -> HealthResponse:
         workers_busy=workers_busy,
         db_size_mb=round(_db_size_mb(settings.db_path), 2),
         disk_free_gb=round(_disk_free_gb(settings.data_dir), 2),
+        pending_purge=pending_purge,
+        total_subscriptions=total_subscriptions,
         version=__version__,
     )
