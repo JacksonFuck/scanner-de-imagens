@@ -23,7 +23,7 @@ scan-test*.log
 
 # ---- Notas órfãs do graphify com chars Unicode no nome ----
 # Quando o graphify roda em arquivos sem ID claro, gera notas com docstring no nome
-"Convers*"
+/Convers*.md
 
 # ---- Pipeline de chats ----
 # Staging area NÃO entra no git (chats podem conter info sensível)
