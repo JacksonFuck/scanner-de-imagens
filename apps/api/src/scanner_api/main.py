@@ -47,7 +47,13 @@ def create_app() -> FastAPI:
         allow_headers=["*"],
     )
 
-    # Routes: montadas em Phase 1A Task 6 (health) + Phase 1B (jobs/ws)
+    # Routes
+    from scanner_api.routes import health_router
+
+    app.include_router(health_router)
+    # Phase 1B adiciona: jobs_router, files_router, ws_router
+    # Phase 1C adiciona: push_router
+
     return app
 
 
