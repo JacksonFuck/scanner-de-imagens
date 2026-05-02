@@ -47,8 +47,8 @@ dev = [
 scanner = "scanner.cli:app"
 
 [project.urls]
-Homepage = "https://github.com/jacksontorax/scanner-de-imagens"
-Issues = "https://github.com/jacksontorax/scanner-de-imagens/issues"
+Homepage = "https://github.com/JacksonFuck/scanner-de-imagens"
+Issues = "https://github.com/JacksonFuck/scanner-de-imagens/issues"
 
 # ---------------------------------------------------------------------------
 # Tooling

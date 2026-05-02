@@ -591,4 +591,4 @@ Ao finalizar, use `/salvar [slug]` para gerar log da sessão.
 
 - **Autor**: Jackson (jacksontorax@gmail.com)
 - **Licença**: MIT
-- **Repositório**: (a ser criado em GitHub)
+- **Repositório**: https://github.com/JacksonFuck/scanner-de-imagens
