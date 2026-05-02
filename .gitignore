@@ -4,6 +4,8 @@
 
 # ---- Graphify (knowledge graph) ----
 graphify-out/cache/
+graphify-out/converted/
+graphify-out/.graphify_root
 # Mantém versionados: graph.json, graph.html, GRAPH_REPORT.md, wiki/
 # Sub-runs do graphify (não deveriam existir mas guard contra hook bug)
 src/**/graphify-out/
