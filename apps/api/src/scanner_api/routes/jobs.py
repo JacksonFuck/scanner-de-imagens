@@ -11,12 +11,20 @@ import uuid
 from datetime import UTC, datetime, timedelta
 
 import aiofiles
-from fastapi import APIRouter, Depends, File, Form, HTTPException, UploadFile
+from fastapi import APIRouter, Depends, File, Form, HTTPException, Query, UploadFile
+from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
+from sqlalchemy.orm import selectinload
 
 from scanner_api.db import get_session
 from scanner_api.db.models import Job, JobFile
-from scanner_api.schemas import JobAdvancedOptions, JobCreatedResponse
+from scanner_api.schemas import (
+    JobAdvancedOptions,
+    JobCreatedResponse,
+    JobDetail,
+    JobFileInfo,
+    JobSummary,
+)
 from scanner_api.settings import get_settings
 from scanner_api.storage import (
     ensure_data_dirs,
@@ -142,3 +150,78 @@ async def create_job(
         )
 
     return JobCreatedResponse(job_id=job_id, status="queued")
+
+
+_VALID_STATUSES = ("queued", "running", "done", "error", "cancelled")
+_PAGE_SIZE = 20
+
+
+@router.get("", response_model=list[JobSummary])
+async def list_jobs(
+    favorite: int | None = Query(default=None, ge=0, le=1),
+    status: str | None = Query(default=None),
+    page: int = Query(default=1, ge=1),
+    session: AsyncSession = Depends(get_session),
+) -> list[JobSummary]:
+    """Lista jobs paginada (20/página) com filtros opcionais.
+
+    Args:
+        favorite: 0 ou 1 — filtra por is_favorite. Sem valor = todos.
+        status: queued|running|done|error|cancelled. Sem valor = todos.
+        page: Número da página (1-indexed).
+
+    Returns:
+        Lista (possivelmente vazia) de JobSummary.
+
+    Raises:
+        HTTPException(400): status inválido.
+    """
+    if status is not None and status not in _VALID_STATUSES:
+        raise HTTPException(
+            status_code=400,
+            detail=f"Status inválido: {status}. Aceitos: {list(_VALID_STATUSES)}",
+        )
+
+    stmt = select(Job).order_by(Job.created_at.desc())
+    if favorite is not None:
+        stmt = stmt.where(Job.is_favorite == favorite)
+    if status:
+        stmt = stmt.where(Job.status == status)
+    stmt = stmt.limit(_PAGE_SIZE).offset((page - 1) * _PAGE_SIZE)
+
+    result = await session.execute(stmt)
+    return [JobSummary.model_validate(j) for j in result.scalars()]
+
+
+@router.get("/{job_id}", response_model=JobDetail)
+async def get_job(
+    job_id: str, session: AsyncSession = Depends(get_session)
+) -> JobDetail:
+    """Detalhe de um job (inclui lista de files relacionados).
+
+    Raises:
+        HTTPException(404): Job não encontrado.
+    """
+    stmt = select(Job).where(Job.id == job_id).options(selectinload(Job.files))
+    result = await session.execute(stmt)
+    job = result.scalar_one_or_none()
+    if job is None:
+        raise HTTPException(status_code=404, detail=f"Job não encontrado: {job_id}")
+
+    return JobDetail(
+        id=job.id,
+        status=job.status,
+        title=job.title,
+        input_count=job.input_count,
+        merge_mode=job.merge_mode,
+        formats=job.formats,
+        created_at=job.created_at,
+        finished_at=job.finished_at,
+        is_favorite=job.is_favorite,
+        error_msg=job.error_msg,
+        page_count=job.page_count,
+        files=[
+            JobFileInfo(role=f.role, filename=f.filename, size_bytes=f.size_bytes)
+            for f in job.files
+        ],
+    )

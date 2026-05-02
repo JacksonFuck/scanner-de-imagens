@@ -146,3 +146,98 @@ async def test_create_job_rejects_malformed_advanced(client: AsyncClient) -> Non
         data={"formats": "md", "advanced": "{invalid json"},
     )
     assert response.status_code == 400
+
+
+# ---------------------------------------------------------------------------
+# GET /api/jobs (list + detail)
+# ---------------------------------------------------------------------------
+
+
+async def test_list_jobs_empty_returns_empty_array(client: AsyncClient) -> None:
+    """Sem jobs no DB, GET /api/jobs retorna []."""
+    response = await client.get("/api/jobs")
+    assert response.status_code == 200
+    assert response.json() == []
+
+
+async def test_list_jobs_after_create_includes_new_job(
+    client: AsyncClient,
+) -> None:
+    """Cria 1 job e confirma que aparece na listagem."""
+    files = {"files": ("test.jpg", b"x", "image/jpeg")}
+    create = await client.post("/api/jobs", files=files, data={"formats": "md"})
+    job_id = create.json()["job_id"]
+
+    listing = await client.get("/api/jobs")
+    assert listing.status_code == 200
+    body = listing.json()
+    assert len(body) == 1
+    assert body[0]["id"] == job_id
+    assert body[0]["status"] == "queued"
+    # Schema sanity: tem campos de JobSummary
+    assert {"id", "status", "title", "input_count", "formats", "created_at", "is_favorite"} <= set(
+        body[0].keys()
+    )
+
+
+async def test_list_jobs_filters_by_favorite(client: AsyncClient) -> None:
+    """?favorite=1 só retorna jobs favoritos. Sem nenhum favorito → []."""
+    files = {"files": ("test.jpg", b"x", "image/jpeg")}
+    await client.post("/api/jobs", files=files, data={"formats": "md"})
+
+    fav = await client.get("/api/jobs?favorite=1")
+    assert fav.status_code == 200
+    assert fav.json() == []  # nenhum criado como favorito
+
+    nofav = await client.get("/api/jobs?favorite=0")
+    assert nofav.status_code == 200
+    assert len(nofav.json()) == 1
+
+
+async def test_list_jobs_rejects_invalid_status(client: AsyncClient) -> None:
+    """status fora dos válidos → 400."""
+    response = await client.get("/api/jobs?status=bogus")
+    assert response.status_code == 400
+
+
+async def test_list_jobs_orders_by_created_desc(client: AsyncClient) -> None:
+    """Jobs mais recentes vêm primeiro."""
+    # Cria 3 jobs em sequência
+    job_ids = []
+    for i in range(3):
+        files = {"files": (f"f{i}.jpg", b"x", "image/jpeg")}
+        r = await client.post("/api/jobs", files=files, data={"formats": "md"})
+        job_ids.append(r.json()["job_id"])
+
+    listing = await client.get("/api/jobs")
+    body = listing.json()
+    assert len(body) == 3
+    # Mais recente primeiro = job_ids[-1] no topo
+    assert body[0]["id"] == job_ids[-1]
+    assert body[-1]["id"] == job_ids[0]
+
+
+async def test_get_job_detail_includes_files(client: AsyncClient) -> None:
+    """GET /api/jobs/{id} retorna detalhe + files."""
+    files = {"files": ("foto.jpg", b"x", "image/jpeg")}
+    create = await client.post(
+        "/api/jobs", files=files, data={"formats": "all", "title": "X"}
+    )
+    job_id = create.json()["job_id"]
+
+    detail = await client.get(f"/api/jobs/{job_id}")
+    assert detail.status_code == 200
+    body = detail.json()
+    assert body["id"] == job_id
+    assert body["title"] == "X"
+    assert body["formats"] == "all"
+    assert len(body["files"]) == 1
+    assert body["files"][0]["role"] == "input"
+    assert body["files"][0]["filename"] == "foto.jpg"
+
+
+async def test_get_job_404_for_nonexistent(client: AsyncClient) -> None:
+    """ID inexistente → 404."""
+    response = await client.get("/api/jobs/nonexistent-id")
+    assert response.status_code == 404
+    assert "não encontrado" in response.json()["detail"].lower()
