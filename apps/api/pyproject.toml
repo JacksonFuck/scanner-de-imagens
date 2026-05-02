@@ -1,0 +1,66 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "scanner-api"
+version = "0.1.0"
+description = "FastAPI backend for Scanner de Imagens — exposes scanner pipeline as web API"
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+authors = [{ name = "Jackson", email = "jacksontorax@gmail.com" }]
+
+# NOTA: scanner-de-imagens (o pacote core, em src/scanner) NÃO é listado aqui
+# como dep. Em desenvolvimento, instale ambos como editable a partir do root:
+#   pip install -e .              # scanner core
+#   pip install -e ./apps/api     # scanner-api (este pacote)
+#
+# Em produção (Dockerfile), o mesmo padrão: dois `pip install -e` antes do
+# CMD do uvicorn. Mantém os dois pacotes atualizando juntos sem hack de path-dep.
+
+dependencies = [
+    # FastAPI core
+    "fastapi>=0.115",
+    "uvicorn[standard]>=0.32",
+    # Validação + settings
+    "pydantic>=2.9",
+    "pydantic-settings>=2.6",
+    # ORM + driver SQLite async
+    "sqlalchemy>=2.0",
+    "aiosqlite>=0.20",
+    "alembic>=1.14",
+    # File IO async
+    "aiofiles>=24",
+    "python-multipart>=0.0.20",
+    # Push notifications (Phase 1C usa)
+    "pywebpush>=2.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8",
+    "pytest-asyncio>=0.24",
+    "pytest-cov>=5",
+    "httpx>=0.28",
+    "ruff>=0.6",
+    "mypy>=1.10",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/scanner_api"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP", "SIM", "RUF"]
+ignore = ["E501"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra --strict-markers"
+asyncio_mode = "auto"
+markers = ["slow: tests that load Docling models"]
