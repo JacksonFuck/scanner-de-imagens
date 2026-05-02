@@ -9,7 +9,7 @@
       "source_file": "cli.py",
       "source_location": "L1",
       "id": "cli_py",
-      "community": 0,
+      "community": 4,
       "norm_label": "cli.py"
     },
     {
@@ -18,7 +18,7 @@
       "source_file": "cli.py",
       "source_location": "L32",
       "id": "scanner_cli_version_callback",
-      "community": 0,
+      "community": 4,
       "norm_label": "_version_callback()"
     },
     {
@@ -27,7 +27,7 @@
       "source_file": "cli.py",
       "source_location": "L39",
       "id": "scanner_cli_main",
-      "community": 0,
+      "community": 4,
       "norm_label": "main()"
     },
     {
@@ -36,16 +36,25 @@
       "source_file": "cli.py",
       "source_location": "L56",
       "id": "scanner_cli_convert",
-      "community": 0,
+      "community": 8,
       "norm_label": "convert()"
+    },
+    {
+      "label": "_resolve_merge()",
+      "file_type": "code",
+      "source_file": "cli.py",
+      "source_location": "L178",
+      "id": "scanner_cli_resolve_merge",
+      "community": 12,
+      "norm_label": "_resolve_merge()"
     },
     {
       "label": "_render_results()",
       "file_type": "code",
       "source_file": "cli.py",
-      "source_location": "L107",
+      "source_location": "L198",
       "id": "scanner_cli_render_results",
-      "community": 0,
+      "community": 8,
       "norm_label": "_render_results()"
     },
     {
@@ -54,7 +63,7 @@
       "source_file": "cli.py",
       "source_location": "L1",
       "id": "scanner_cli_rationale_1",
-      "community": 0,
+      "community": 4,
       "norm_label": "cli typer + rich.  apresentacao fina sobre `pipeline.scan_batch`. toda logica de"
     },
     {
@@ -63,25 +72,34 @@
       "source_file": "cli.py",
       "source_location": "L46",
       "id": "scanner_cli_rationale_46",
-      "community": 0,
+      "community": 4,
       "norm_label": "configura logging com base nas flags globais."
     },
     {
       "label": "Converte foto(s) de p\u00e1gina(s) em Markdown estruturado.      Exemplos:        sca",
       "file_type": "rationale",
       "source_file": "cli.py",
-      "source_location": "L77",
-      "id": "scanner_cli_rationale_77",
-      "community": 0,
+      "source_location": "L118",
+      "id": "scanner_cli_rationale_118",
+      "community": 8,
       "norm_label": "converte foto(s) de pagina(s) em markdown estruturado.      exemplos:        sca"
+    },
+    {
+      "label": "Resolve a flag --merge.      - Se expl\u00edcito (True/False): usa o valor passado.",
+      "file_type": "rationale",
+      "source_file": "cli.py",
+      "source_location": "L179",
+      "id": "scanner_cli_rationale_179",
+      "community": 12,
+      "norm_label": "resolve a flag --merge.      - se explicito (true/false): usa o valor passado."
     },
     {
       "label": "Imprime tabela Rich com sucessos e falhas.",
       "file_type": "rationale",
       "source_file": "cli.py",
-      "source_location": "L108",
-      "id": "scanner_cli_rationale_108",
-      "community": 0,
+      "source_location": "L199",
+      "id": "scanner_cli_rationale_199",
+      "community": 8,
       "norm_label": "imprime tabela rich com sucessos e falhas."
     },
     {
@@ -90,7 +108,7 @@
       "source_file": "errors.py",
       "source_location": "L1",
       "id": "errors_py",
-      "community": 9,
+      "community": 15,
       "norm_label": "errors.py"
     },
     {
@@ -99,7 +117,7 @@
       "source_file": "errors.py",
       "source_location": "L11",
       "id": "scanner_errors_scannererror",
-      "community": 0,
+      "community": 10,
       "norm_label": "scannererror"
     },
     {
@@ -108,7 +126,7 @@
       "source_file": "",
       "source_location": "",
       "id": "exception",
-      "community": 0,
+      "community": 10,
       "norm_label": "exception"
     },
     {
@@ -117,7 +135,7 @@
       "source_file": "errors.py",
       "source_location": "L15",
       "id": "scanner_errors_invalidinputerror",
-      "community": 5,
+      "community": 6,
       "norm_label": "invalidinputerror"
     },
     {
@@ -126,7 +144,7 @@
       "source_file": "errors.py",
       "source_location": "L19",
       "id": "scanner_errors_conversionerror",
-      "community": 2,
+      "community": 3,
       "norm_label": "conversionerror"
     },
     {
@@ -144,7 +162,7 @@
       "source_file": "errors.py",
       "source_location": "L1",
       "id": "scanner_errors_rationale_1",
-      "community": 9,
+      "community": 15,
       "norm_label": "excecoes especificas do scanner.  hierarquia simples: tudo herda de `scannererro"
     },
     {
@@ -153,7 +171,7 @@
       "source_file": "errors.py",
       "source_location": "L12",
       "id": "scanner_errors_rationale_12",
-      "community": 0,
+      "community": 10,
       "norm_label": "erro base do scanner \u2014 qualquer falha esperada herda daqui."
     },
     {
@@ -162,7 +180,7 @@
       "source_file": "errors.py",
       "source_location": "L16",
       "id": "scanner_errors_rationale_16",
-      "community": 5,
+      "community": 6,
       "norm_label": "input inexistente, formato nao suportado ou corrompido."
     },
     {
@@ -171,7 +189,7 @@
       "source_file": "errors.py",
       "source_location": "L20",
       "id": "scanner_errors_rationale_20",
-      "community": 2,
+      "community": 3,
       "norm_label": "falha durante extracao via docling ou conversao para docx."
     },
     {
@@ -189,7 +207,7 @@
       "source_file": "pipeline.py",
       "source_location": "L1",
       "id": "pipeline_py",
-      "community": 4,
+      "community": 2,
       "norm_label": "pipeline.py"
     },
     {
@@ -198,7 +216,7 @@
       "source_file": "pipeline.py",
       "source_location": "L21",
       "id": "scanner_pipeline_outputformat",
-      "community": 0,
+      "community": 5,
       "norm_label": "outputformat"
     },
     {
@@ -207,7 +225,7 @@
       "source_file": "",
       "source_location": "",
       "id": "strenum",
-      "community": 0,
+      "community": 5,
       "norm_label": "strenum"
     },
     {
@@ -216,79 +234,88 @@
       "source_file": "pipeline.py",
       "source_location": "L30",
       "id": "scanner_pipeline_scanrequest",
-      "community": 3,
+      "community": 0,
       "norm_label": "scanrequest"
     },
     {
       "label": "ScanResult",
       "file_type": "code",
       "source_file": "pipeline.py",
-      "source_location": "L41",
+      "source_location": "L45",
       "id": "scanner_pipeline_scanresult",
-      "community": 8,
+      "community": 11,
       "norm_label": "scanresult"
     },
     {
       "label": ".__str__()",
       "file_type": "code",
       "source_file": "pipeline.py",
-      "source_location": "L51",
+      "source_location": "L55",
       "id": "scanner_pipeline_scanresult_str",
-      "community": 8,
+      "community": 11,
       "norm_label": ".__str__()"
     },
     {
       "label": "BatchResult",
       "file_type": "code",
       "source_file": "pipeline.py",
-      "source_location": "L61",
+      "source_location": "L65",
       "id": "scanner_pipeline_batchresult",
-      "community": 3,
+      "community": 0,
       "norm_label": "batchresult"
     },
     {
       "label": "total()",
       "file_type": "code",
       "source_file": "pipeline.py",
-      "source_location": "L68",
+      "source_location": "L72",
       "id": "scanner_pipeline_total",
-      "community": 4,
+      "community": 2,
       "norm_label": "total()"
     },
     {
       "label": "scan()",
       "file_type": "code",
       "source_file": "pipeline.py",
-      "source_location": "L72",
+      "source_location": "L76",
       "id": "scanner_pipeline_scan",
-      "community": 4,
+      "community": 2,
       "norm_label": "scan()"
     },
     {
       "label": "scan_batch()",
       "file_type": "code",
       "source_file": "pipeline.py",
-      "source_location": "L105",
+      "source_location": "L116",
       "id": "scanner_pipeline_scan_batch",
-      "community": 3,
+      "community": 0,
       "norm_label": "scan_batch()"
+    },
+    {
+      "label": "merge_results()",
+      "file_type": "code",
+      "source_file": "pipeline.py",
+      "source_location": "L174",
+      "id": "scanner_pipeline_merge_results",
+      "community": 13,
+      "norm_label": "merge_results()"
     },
     {
       "label": "collect_inputs()",
       "file_type": "code",
       "source_file": "pipeline.py",
-      "source_location": "L135",
+      "source_location": "L219",
       "id": "scanner_pipeline_collect_inputs",
-      "community": 5,
+      "community": 6,
       "norm_label": "collect_inputs()"
     },
     {
       "label": "_validate_request()",
       "file_type": "code",
       "source_file": "pipeline.py",
-      "source_location": "L156",
+      "source_location": "L240",
       "id": "scanner_pipeline_validate_request",
-      "community": 4,
+      "community": 2,
       "norm_label": "_validate_request()"
     },
     {
@@ -297,7 +324,7 @@
       "source_file": "pipeline.py",
       "source_location": "L1",
       "id": "scanner_pipeline_rationale_1",
-      "community": 4,
+      "community": 2,
       "norm_label": "orquestrador \u2014 costura ingest \u2192 engine \u2192 exports.  funcao publica `scan()` e o p"
     },
     {
@@ -306,7 +333,7 @@
       "source_file": "pipeline.py",
       "source_location": "L22",
       "id": "scanner_pipeline_rationale_22",
-      "community": 0,
+      "community": 5,
       "norm_label": "formatos de saida solicitaveis."
     },
     {
@@ -315,52 +342,61 @@
       "source_file": "pipeline.py",
       "source_location": "L31",
       "id": "scanner_pipeline_rationale_31",
-      "community": 3,
+      "community": 0,
       "norm_label": "pedido de scan \u2014 input + onde gravar + o que produzir."
     },
     {
       "label": "Resultado: caminhos dos arquivos gerados.",
       "file_type": "rationale",
       "source_file": "pipeline.py",
-      "source_location": "L42",
-      "id": "scanner_pipeline_rationale_42",
-      "community": 8,
+      "source_location": "L46",
+      "id": "scanner_pipeline_rationale_46",
+      "community": 11,
       "norm_label": "resultado: caminhos dos arquivos gerados."
     },
     {
       "label": "Resultado de um batch (1+ arquivos).",
       "file_type": "rationale",
       "source_file": "pipeline.py",
-      "source_location": "L62",
-      "id": "scanner_pipeline_rationale_62",
-      "community": 3,
+      "source_location": "L66",
+      "id": "scanner_pipeline_rationale_66",
+      "community": 0,
       "norm_label": "resultado de um batch (1+ arquivos)."
     },
     {
       "label": "Roda o pipeline para UM arquivo.      Reuse `engine` quando processar m\u00faltiplos",
       "file_type": "rationale",
       "source_file": "pipeline.py",
-      "source_location": "L73",
-      "id": "scanner_pipeline_rationale_73",
-      "community": 4,
+      "source_location": "L77",
+      "id": "scanner_pipeline_rationale_77",
+      "community": 2,
       "norm_label": "roda o pipeline para um arquivo.      reuse `engine` quando processar multiplos"
     },
     {
-      "label": "Processa m\u00faltiplos arquivos reusando uma \u00fanica inst\u00e2ncia do engine.",
+      "label": "Processa m\u00faltiplos arquivos reusando uma \u00fanica inst\u00e2ncia do engine.      Quando",
       "file_type": "rationale",
       "source_file": "pipeline.py",
-      "source_location": "L112",
-      "id": "scanner_pipeline_rationale_112",
-      "community": 3,
-      "norm_label": "processa multiplos arquivos reusando uma unica instancia do engine."
+      "source_location": "L129",
+      "id": "scanner_pipeline_rationale_129",
+      "community": 0,
+      "norm_label": "processa multiplos arquivos reusando uma unica instancia do engine.      quando"
+    },
+    {
+      "label": "Concatena MDs de m\u00faltiplos resultados em um \u00fanico arquivo.      Cada se\u00e7\u00e3o come\u00e7",
+      "file_type": "rationale",
+      "source_file": "pipeline.py",
+      "source_location": "L181",
+      "id": "scanner_pipeline_rationale_181",
+      "community": 13,
+      "norm_label": "concatena mds de multiplos resultados em um unico arquivo.      cada secao comec"
     },
     {
       "label": "Expande um caminho: arquivo \u00fanico \u2192 [arquivo]; pasta \u2192 todos os suportados.",
       "file_type": "rationale",
       "source_file": "pipeline.py",
-      "source_location": "L136",
-      "id": "scanner_pipeline_rationale_136",
-      "community": 5,
+      "source_location": "L220",
+      "id": "scanner_pipeline_rationale_220",
+      "community": 6,
       "norm_label": "expande um caminho: arquivo unico \u2192 [arquivo]; pasta \u2192 todos os suportados."
     },
     {
@@ -369,7 +405,7 @@
       "source_file": "__init__.py",
       "source_location": "L1",
       "id": "init_py",
-      "community": 0,
+      "community": 5,
       "norm_label": "__init__.py"
     },
     {
@@ -378,7 +414,7 @@
       "source_file": "__init__.py",
       "source_location": "L1",
       "id": "scanner_init_rationale_1",
-      "community": 0,
+      "community": 5,
       "norm_label": "scanner de imagens \u2014 ocr de fotos de paginas para markdown estruturado + docx."
     },
     {
@@ -387,7 +423,7 @@
       "source_file": "__main__.py",
       "source_location": "L1",
       "id": "main_py",
-      "community": 11,
+      "community": 14,
       "norm_label": "__main__.py"
     },
     {
@@ -396,7 +432,7 @@
       "source_file": "__main__.py",
       "source_location": "L1",
       "id": "scanner_main_rationale_1",
-      "community": 11,
+      "community": 14,
       "norm_label": "permite invocar o scanner via `python -m scanner`."
     },
     {
@@ -412,43 +448,52 @@
       "label": "ExtractionResult",
       "file_type": "code",
       "source_file": "engine\\docling_engine.py",
-      "source_location": "L34",
+      "source_location": "L48",
       "id": "engine_docling_engine_extractionresult",
-      "community": 2,
+      "community": 3,
       "norm_label": "extractionresult"
     },
     {
       "label": "DoclingEngine",
       "file_type": "code",
       "source_file": "engine\\docling_engine.py",
-      "source_location": "L43",
+      "source_location": "L62",
       "id": "engine_docling_engine_doclingengine",
-      "community": 3,
+      "community": 0,
       "norm_label": "doclingengine"
     },
     {
       "label": ".__init__()",
       "file_type": "code",
       "source_file": "engine\\docling_engine.py",
-      "source_location": "L49",
+      "source_location": "L71",
       "id": "engine_docling_engine_doclingengine_init",
-      "community": 1,
+      "community": 7,
       "norm_label": ".__init__()"
+    },
+    {
+      "label": "_resolve_device()",
+      "file_type": "code",
+      "source_file": "engine\\docling_engine.py",
+      "source_location": "L157",
+      "id": "engine_docling_engine_resolve_device",
+      "community": 7,
+      "norm_label": "_resolve_device()"
     },
     {
       "label": ".extract()",
       "file_type": "code",
       "source_file": "engine\\docling_engine.py",
-      "source_location": "L76",
+      "source_location": "L179",
       "id": "engine_docling_engine_doclingengine_extract",
-      "community": 2,
+      "community": 3,
       "norm_label": ".extract()"
     },
     {
       "label": "_validate_source()",
       "file_type": "code",
       "source_file": "engine\\docling_engine.py",
-      "source_location": "L120",
+      "source_location": "L240",
       "id": "engine_docling_engine_validate_source",
       "community": 7,
       "norm_label": "_validate_source()"
@@ -463,31 +508,40 @@
       "norm_label": "adapter para docling documentconverter.  encapsula toda a interacao com a api al"
     },
     {
-      "label": "Resultado da extra\u00e7\u00e3o \u2014 payload puro, sem efeitos colaterais.",
+      "label": "Resultado da extra\u00e7\u00e3o \u2014 payload puro, paths para arquivos j\u00e1 gravados.      O Do",
       "file_type": "rationale",
       "source_file": "engine\\docling_engine.py",
-      "source_location": "L35",
-      "id": "engine_docling_engine_rationale_35",
-      "community": 2,
-      "norm_label": "resultado da extracao \u2014 payload puro, sem efeitos colaterais."
+      "source_location": "L49",
+      "id": "engine_docling_engine_rationale_49",
+      "community": 3,
+      "norm_label": "resultado da extracao \u2014 payload puro, paths para arquivos ja gravados.      o do"
     },
     {
       "label": "Wrapper fino do `DocumentConverter` do Docling.      Inicializa\u00e7\u00e3o cara (carrega",
       "file_type": "rationale",
       "source_file": "engine\\docling_engine.py",
-      "source_location": "L44",
-      "id": "engine_docling_engine_rationale_44",
-      "community": 2,
+      "source_location": "L63",
+      "id": "engine_docling_engine_rationale_63",
+      "community": 0,
       "norm_label": "wrapper fino do `documentconverter` do docling.      inicializacao cara (carrega"
     },
     {
-      "label": "Extrai conte\u00fado do arquivo `source` salvando imagens em `artifacts_dir`.",
+      "label": "Resolve 'auto' para 'cuda' se dispon\u00edvel, sen\u00e3o 'cpu'.",
       "file_type": "rationale",
       "source_file": "engine\\docling_engine.py",
-      "source_location": "L77",
-      "id": "engine_docling_engine_rationale_77",
-      "community": 2,
-      "norm_label": "extrai conteudo do arquivo `source` salvando imagens em `artifacts_dir`."
+      "source_location": "L158",
+      "id": "engine_docling_engine_rationale_158",
+      "community": 6,
+      "norm_label": "resolve 'auto' para 'cuda' se disponivel, senao 'cpu'."
+    },
+    {
+      "label": "Extrai conte\u00fado do arquivo `source` para `markdown_target` + imagens em `artifac",
+      "file_type": "rationale",
+      "source_file": "engine\\docling_engine.py",
+      "source_location": "L186",
+      "id": "engine_docling_engine_rationale_186",
+      "community": 3,
+      "norm_label": "extrai conteudo do arquivo `source` para `markdown_target` + imagens em `artifac"
     },
     {
       "label": "__init__.py",
@@ -495,7 +549,7 @@
       "source_file": "engine\\__init__.py",
       "source_location": "L1",
       "id": "engine_init_py",
-      "community": 10,
+      "community": 16,
       "norm_label": "__init__.py"
     },
     {
@@ -504,7 +558,7 @@
       "source_file": "engine\\__init__.py",
       "source_location": "L1",
       "id": "engine_init_rationale_1",
-      "community": 10,
+      "community": 16,
       "norm_label": "engines de extracao. atualmente: docling (default)."
     },
     {
@@ -553,13 +607,13 @@
       "norm_label": "converte um arquivo markdown para docx preservando imagens e estrutura.      arg"
     },
     {
-      "label": "Garante que pandoc est\u00e1 dispon\u00edvel. Tenta auto-download se necess\u00e1rio.",
+      "label": "Garante que pandoc est\u00e1 dispon\u00edvel.      Ordem de busca:     1. PATH do shell (`",
       "file_type": "rationale",
       "source_file": "export\\docx.py",
       "source_location": "L71",
       "id": "export_docx_rationale_71",
       "community": 1,
-      "norm_label": "garante que pandoc esta disponivel. tenta auto-download se necessario."
+      "norm_label": "garante que pandoc esta disponivel.      ordem de busca:     1. path do shell (`"
     },
     {
       "label": "markdown.py",
@@ -567,7 +621,7 @@
       "source_file": "export\\markdown.py",
       "source_location": "L1",
       "id": "export_markdown_py",
-      "community": 6,
+      "community": 9,
       "norm_label": "markdown.py"
     },
     {
@@ -576,7 +630,7 @@
       "source_file": "export\\markdown.py",
       "source_location": "L11",
       "id": "export_markdown_write_markdown",
-      "community": 6,
+      "community": 9,
       "norm_label": "write_markdown()"
     },
     {
@@ -585,7 +639,7 @@
       "source_file": "export\\markdown.py",
       "source_location": "L1",
       "id": "export_markdown_rationale_1",
-      "community": 6,
+      "community": 9,
       "norm_label": "persistencia do markdown extraido."
     },
     {
@@ -594,7 +648,7 @@
       "source_file": "export\\markdown.py",
       "source_location": "L12",
       "id": "export_markdown_rationale_12",
-      "community": 6,
+      "community": 9,
       "norm_label": "escreve o markdown em `target`, criando pastas pai se necessario.      returns:"
     },
     {
@@ -603,7 +657,7 @@
       "source_file": "export\\__init__.py",
       "source_location": "L1",
       "id": "export_init_py",
-      "community": 12,
+      "community": 17,
       "norm_label": "__init__.py"
     },
     {
@@ -612,7 +666,7 @@
       "source_file": "export\\__init__.py",
       "source_location": "L1",
       "id": "export_init_rationale_1",
-      "community": 12,
+      "community": 17,
       "norm_label": "exporters \u2014 escrevem o resultado da extracao em formatos finais."
     }
   ],
@@ -657,7 +711,19 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "cli.py",
-      "source_location": "L107",
+      "source_location": "L178",
+      "weight": 1.0,
+      "_src": "cli_py",
+      "_tgt": "scanner_cli_resolve_merge",
+      "source": "cli_py",
+      "target": "scanner_cli_resolve_merge",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "cli.py",
+      "source_location": "L198",
       "weight": 1.0,
       "_src": "cli_py",
       "_tgt": "scanner_cli_render_results",
@@ -693,7 +759,19 @@
       "relation": "calls",
       "confidence": "EXTRACTED",
       "source_file": "cli.py",
-      "source_location": "L101",
+      "source_location": "L136",
+      "weight": 1.0,
+      "_src": "scanner_cli_convert",
+      "_tgt": "scanner_cli_resolve_merge",
+      "source": "scanner_cli_convert",
+      "target": "scanner_cli_resolve_merge",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "cli.py",
+      "source_location": "L172",
       "weight": 1.0,
       "_src": "scanner_cli_convert",
       "_tgt": "scanner_cli_render_results",
@@ -705,12 +783,12 @@
       "relation": "rationale_for",
       "confidence": "EXTRACTED",
       "source_file": "cli.py",
-      "source_location": "L77",
+      "source_location": "L118",
       "weight": 1.0,
-      "_src": "scanner_cli_rationale_77",
+      "_src": "scanner_cli_rationale_118",
       "_tgt": "scanner_cli_convert",
       "source": "scanner_cli_convert",
-      "target": "scanner_cli_rationale_77",
+      "target": "scanner_cli_rationale_118",
       "confidence_score": 1.0
     },
     {
@@ -718,7 +796,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.8,
       "source_file": "cli.py",
-      "source_location": "L86",
+      "source_location": "L127",
       "weight": 1.0,
       "_src": "scanner_cli_convert",
       "_tgt": "scanner_pipeline_collect_inputs",
@@ -730,7 +808,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.8,
       "source_file": "cli.py",
-      "source_location": "L94",
+      "source_location": "L159",
       "weight": 1.0,
       "_src": "scanner_cli_convert",
       "_tgt": "scanner_pipeline_scan_batch",
@@ -741,12 +819,24 @@
       "relation": "rationale_for",
       "confidence": "EXTRACTED",
       "source_file": "cli.py",
-      "source_location": "L108",
+      "source_location": "L179",
       "weight": 1.0,
-      "_src": "scanner_cli_rationale_108",
+      "_src": "scanner_cli_rationale_179",
+      "_tgt": "scanner_cli_resolve_merge",
+      "source": "scanner_cli_resolve_merge",
+      "target": "scanner_cli_rationale_179",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "cli.py",
+      "source_location": "L199",
+      "weight": 1.0,
+      "_src": "scanner_cli_rationale_199",
       "_tgt": "scanner_cli_render_results",
       "source": "scanner_cli_render_results",
-      "target": "scanner_cli_rationale_108",
+      "target": "scanner_cli_rationale_199",
       "confidence_score": 1.0
     },
     {
@@ -803,9 +893,9 @@
       "source_file": "cli.py",
       "source_location": "L19",
       "weight": 0.8,
-      "_src": "scanner_cli_rationale_77",
+      "_src": "scanner_cli_rationale_118",
       "_tgt": "scanner_errors_scannererror",
-      "source": "scanner_cli_rationale_77",
+      "source": "scanner_cli_rationale_118",
       "target": "scanner_errors_scannererror",
       "confidence_score": 0.5
     },
@@ -815,9 +905,9 @@
       "source_file": "cli.py",
       "source_location": "L20",
       "weight": 0.8,
-      "_src": "scanner_cli_rationale_77",
+      "_src": "scanner_cli_rationale_118",
       "_tgt": "scanner_pipeline_outputformat",
-      "source": "scanner_cli_rationale_77",
+      "source": "scanner_cli_rationale_118",
       "target": "scanner_pipeline_outputformat",
       "confidence_score": 0.5
     },
@@ -827,9 +917,9 @@
       "source_file": "cli.py",
       "source_location": "L19",
       "weight": 0.8,
-      "_src": "scanner_cli_rationale_108",
+      "_src": "scanner_cli_rationale_179",
       "_tgt": "scanner_errors_scannererror",
-      "source": "scanner_cli_rationale_108",
+      "source": "scanner_cli_rationale_179",
       "target": "scanner_errors_scannererror",
       "confidence_score": 0.5
     },
@@ -839,9 +929,33 @@
       "source_file": "cli.py",
       "source_location": "L20",
       "weight": 0.8,
-      "_src": "scanner_cli_rationale_108",
+      "_src": "scanner_cli_rationale_179",
       "_tgt": "scanner_pipeline_outputformat",
-      "source": "scanner_cli_rationale_108",
+      "source": "scanner_cli_rationale_179",
+      "target": "scanner_pipeline_outputformat",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "uses",
+      "confidence": "INFERRED",
+      "source_file": "cli.py",
+      "source_location": "L19",
+      "weight": 0.8,
+      "_src": "scanner_cli_rationale_199",
+      "_tgt": "scanner_errors_scannererror",
+      "source": "scanner_cli_rationale_199",
+      "target": "scanner_errors_scannererror",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "uses",
+      "confidence": "INFERRED",
+      "source_file": "cli.py",
+      "source_location": "L20",
+      "weight": 0.8,
+      "_src": "scanner_cli_rationale_199",
+      "_tgt": "scanner_pipeline_outputformat",
+      "source": "scanner_cli_rationale_199",
       "target": "scanner_pipeline_outputformat",
       "confidence_score": 0.5
     },
@@ -1079,10 +1193,10 @@
       "source_file": "pipeline.py",
       "source_location": "L15",
       "weight": 0.8,
-      "_src": "scanner_pipeline_rationale_42",
+      "_src": "scanner_pipeline_rationale_46",
       "_tgt": "scanner_errors_invalidinputerror",
       "source": "scanner_errors_invalidinputerror",
-      "target": "scanner_pipeline_rationale_42",
+      "target": "scanner_pipeline_rationale_46",
       "confidence_score": 0.5
     },
     {
@@ -1091,10 +1205,10 @@
       "source_file": "pipeline.py",
       "source_location": "L15",
       "weight": 0.8,
-      "_src": "scanner_pipeline_rationale_62",
+      "_src": "scanner_pipeline_rationale_66",
       "_tgt": "scanner_errors_invalidinputerror",
       "source": "scanner_errors_invalidinputerror",
-      "target": "scanner_pipeline_rationale_62",
+      "target": "scanner_pipeline_rationale_66",
       "confidence_score": 0.5
     },
     {
@@ -1103,10 +1217,10 @@
       "source_file": "pipeline.py",
       "source_location": "L15",
       "weight": 0.8,
-      "_src": "scanner_pipeline_rationale_73",
+      "_src": "scanner_pipeline_rationale_77",
       "_tgt": "scanner_errors_invalidinputerror",
       "source": "scanner_errors_invalidinputerror",
-      "target": "scanner_pipeline_rationale_73",
+      "target": "scanner_pipeline_rationale_77",
       "confidence_score": 0.5
     },
     {
@@ -1115,10 +1229,10 @@
       "source_file": "pipeline.py",
       "source_location": "L15",
       "weight": 0.8,
-      "_src": "scanner_pipeline_rationale_112",
+      "_src": "scanner_pipeline_rationale_129",
       "_tgt": "scanner_errors_invalidinputerror",
       "source": "scanner_errors_invalidinputerror",
-      "target": "scanner_pipeline_rationale_112",
+      "target": "scanner_pipeline_rationale_129",
       "confidence_score": 0.5
     },
     {
@@ -1127,10 +1241,22 @@
       "source_file": "pipeline.py",
       "source_location": "L15",
       "weight": 0.8,
-      "_src": "scanner_pipeline_rationale_136",
+      "_src": "scanner_pipeline_rationale_181",
       "_tgt": "scanner_errors_invalidinputerror",
       "source": "scanner_errors_invalidinputerror",
-      "target": "scanner_pipeline_rationale_136",
+      "target": "scanner_pipeline_rationale_181",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "uses",
+      "confidence": "INFERRED",
+      "source_file": "pipeline.py",
+      "source_location": "L15",
+      "weight": 0.8,
+      "_src": "scanner_pipeline_rationale_220",
+      "_tgt": "scanner_errors_invalidinputerror",
+      "source": "scanner_errors_invalidinputerror",
+      "target": "scanner_pipeline_rationale_220",
       "confidence_score": 0.5
     },
     {
@@ -1187,10 +1313,10 @@
       "source_file": "engine\\docling_engine.py",
       "source_location": "L20",
       "weight": 0.8,
-      "_src": "engine_docling_engine_rationale_35",
+      "_src": "engine_docling_engine_rationale_49",
       "_tgt": "scanner_errors_invalidinputerror",
       "source": "scanner_errors_invalidinputerror",
-      "target": "engine_docling_engine_rationale_35",
+      "target": "engine_docling_engine_rationale_49",
       "confidence_score": 0.5
     },
     {
@@ -1199,10 +1325,10 @@
       "source_file": "engine\\docling_engine.py",
       "source_location": "L20",
       "weight": 0.8,
-      "_src": "engine_docling_engine_rationale_44",
+      "_src": "engine_docling_engine_rationale_63",
       "_tgt": "scanner_errors_invalidinputerror",
       "source": "scanner_errors_invalidinputerror",
-      "target": "engine_docling_engine_rationale_44",
+      "target": "engine_docling_engine_rationale_63",
       "confidence_score": 0.5
     },
     {
@@ -1211,10 +1337,22 @@
       "source_file": "engine\\docling_engine.py",
       "source_location": "L20",
       "weight": 0.8,
-      "_src": "engine_docling_engine_rationale_77",
+      "_src": "engine_docling_engine_rationale_158",
       "_tgt": "scanner_errors_invalidinputerror",
       "source": "scanner_errors_invalidinputerror",
-      "target": "engine_docling_engine_rationale_77",
+      "target": "engine_docling_engine_rationale_158",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "uses",
+      "confidence": "INFERRED",
+      "source_file": "engine\\docling_engine.py",
+      "source_location": "L20",
+      "weight": 0.8,
+      "_src": "engine_docling_engine_rationale_186",
+      "_tgt": "scanner_errors_invalidinputerror",
+      "source": "scanner_errors_invalidinputerror",
+      "target": "engine_docling_engine_rationale_186",
       "confidence_score": 0.5
     },
     {
@@ -1222,7 +1360,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.8,
       "source_file": "pipeline.py",
-      "source_location": "L139",
+      "source_location": "L223",
       "weight": 1.0,
       "_src": "scanner_pipeline_collect_inputs",
       "_tgt": "scanner_errors_invalidinputerror",
@@ -1234,7 +1372,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.8,
       "source_file": "pipeline.py",
-      "source_location": "L158",
+      "source_location": "L242",
       "weight": 1.0,
       "_src": "scanner_pipeline_validate_request",
       "_tgt": "scanner_errors_invalidinputerror",
@@ -1246,7 +1384,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.8,
       "source_file": "engine\\docling_engine.py",
-      "source_location": "L122",
+      "source_location": "L242",
       "weight": 1.0,
       "_src": "engine_docling_engine_validate_source",
       "_tgt": "scanner_errors_invalidinputerror",
@@ -1319,10 +1457,10 @@
       "source_file": "engine\\docling_engine.py",
       "source_location": "L20",
       "weight": 0.8,
-      "_src": "engine_docling_engine_rationale_35",
+      "_src": "engine_docling_engine_rationale_49",
       "_tgt": "scanner_errors_conversionerror",
       "source": "scanner_errors_conversionerror",
-      "target": "engine_docling_engine_rationale_35",
+      "target": "engine_docling_engine_rationale_49",
       "confidence_score": 0.5
     },
     {
@@ -1331,10 +1469,10 @@
       "source_file": "engine\\docling_engine.py",
       "source_location": "L20",
       "weight": 0.8,
-      "_src": "engine_docling_engine_rationale_44",
+      "_src": "engine_docling_engine_rationale_63",
       "_tgt": "scanner_errors_conversionerror",
       "source": "scanner_errors_conversionerror",
-      "target": "engine_docling_engine_rationale_44",
+      "target": "engine_docling_engine_rationale_63",
       "confidence_score": 0.5
     },
     {
@@ -1343,10 +1481,22 @@
       "source_file": "engine\\docling_engine.py",
       "source_location": "L20",
       "weight": 0.8,
-      "_src": "engine_docling_engine_rationale_77",
+      "_src": "engine_docling_engine_rationale_158",
       "_tgt": "scanner_errors_conversionerror",
       "source": "scanner_errors_conversionerror",
-      "target": "engine_docling_engine_rationale_77",
+      "target": "engine_docling_engine_rationale_158",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "uses",
+      "confidence": "INFERRED",
+      "source_file": "engine\\docling_engine.py",
+      "source_location": "L20",
+      "weight": 0.8,
+      "_src": "engine_docling_engine_rationale_186",
+      "_tgt": "scanner_errors_conversionerror",
+      "source": "scanner_errors_conversionerror",
+      "target": "engine_docling_engine_rationale_186",
       "confidence_score": 0.5
     },
     {
@@ -1390,7 +1540,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.8,
       "source_file": "engine\\docling_engine.py",
-      "source_location": "L99",
+      "source_location": "L210",
       "weight": 1.0,
       "_src": "engine_docling_engine_doclingengine_extract",
       "_tgt": "scanner_errors_conversionerror",
@@ -1463,10 +1613,10 @@
       "source_file": "engine\\docling_engine.py",
       "source_location": "L20",
       "weight": 0.8,
-      "_src": "engine_docling_engine_rationale_35",
+      "_src": "engine_docling_engine_rationale_49",
       "_tgt": "scanner_errors_configurationerror",
       "source": "scanner_errors_configurationerror",
-      "target": "engine_docling_engine_rationale_35",
+      "target": "engine_docling_engine_rationale_49",
       "confidence_score": 0.5
     },
     {
@@ -1475,10 +1625,10 @@
       "source_file": "engine\\docling_engine.py",
       "source_location": "L20",
       "weight": 0.8,
-      "_src": "engine_docling_engine_rationale_44",
+      "_src": "engine_docling_engine_rationale_63",
       "_tgt": "scanner_errors_configurationerror",
       "source": "scanner_errors_configurationerror",
-      "target": "engine_docling_engine_rationale_44",
+      "target": "engine_docling_engine_rationale_63",
       "confidence_score": 0.5
     },
     {
@@ -1487,10 +1637,22 @@
       "source_file": "engine\\docling_engine.py",
       "source_location": "L20",
       "weight": 0.8,
-      "_src": "engine_docling_engine_rationale_77",
+      "_src": "engine_docling_engine_rationale_158",
       "_tgt": "scanner_errors_configurationerror",
       "source": "scanner_errors_configurationerror",
-      "target": "engine_docling_engine_rationale_77",
+      "target": "engine_docling_engine_rationale_158",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "uses",
+      "confidence": "INFERRED",
+      "source_file": "engine\\docling_engine.py",
+      "source_location": "L20",
+      "weight": 0.8,
+      "_src": "engine_docling_engine_rationale_186",
+      "_tgt": "scanner_errors_configurationerror",
+      "source": "scanner_errors_configurationerror",
+      "target": "engine_docling_engine_rationale_186",
       "confidence_score": 0.5
     },
     {
@@ -1534,7 +1696,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.8,
       "source_file": "engine\\docling_engine.py",
-      "source_location": "L57",
+      "source_location": "L98",
       "weight": 1.0,
       "_src": "engine_docling_engine_doclingengine_init",
       "_tgt": "scanner_errors_configurationerror",
@@ -1558,7 +1720,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.8,
       "source_file": "export\\docx.py",
-      "source_location": "L78",
+      "source_location": "L87",
       "weight": 1.0,
       "_src": "export_docx_ensure_pandoc",
       "_tgt": "scanner_errors_configurationerror",
@@ -1593,7 +1755,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "pipeline.py",
-      "source_location": "L41",
+      "source_location": "L45",
       "weight": 1.0,
       "_src": "pipeline_py",
       "_tgt": "scanner_pipeline_scanresult",
@@ -1605,7 +1767,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "pipeline.py",
-      "source_location": "L61",
+      "source_location": "L65",
       "weight": 1.0,
       "_src": "pipeline_py",
       "_tgt": "scanner_pipeline_batchresult",
@@ -1617,7 +1779,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "pipeline.py",
-      "source_location": "L68",
+      "source_location": "L72",
       "weight": 1.0,
       "_src": "pipeline_py",
       "_tgt": "scanner_pipeline_total",
@@ -1629,7 +1791,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "pipeline.py",
-      "source_location": "L72",
+      "source_location": "L76",
       "weight": 1.0,
       "_src": "pipeline_py",
       "_tgt": "scanner_pipeline_scan",
@@ -1641,7 +1803,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "pipeline.py",
-      "source_location": "L105",
+      "source_location": "L116",
       "weight": 1.0,
       "_src": "pipeline_py",
       "_tgt": "scanner_pipeline_scan_batch",
@@ -1653,7 +1815,19 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "pipeline.py",
-      "source_location": "L135",
+      "source_location": "L174",
+      "weight": 1.0,
+      "_src": "pipeline_py",
+      "_tgt": "scanner_pipeline_merge_results",
+      "source": "pipeline_py",
+      "target": "scanner_pipeline_merge_results",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "pipeline.py",
+      "source_location": "L219",
       "weight": 1.0,
       "_src": "pipeline_py",
       "_tgt": "scanner_pipeline_collect_inputs",
@@ -1665,7 +1839,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "pipeline.py",
-      "source_location": "L156",
+      "source_location": "L240",
       "weight": 1.0,
       "_src": "pipeline_py",
       "_tgt": "scanner_pipeline_validate_request",
@@ -1737,7 +1911,7 @@
       "relation": "calls",
       "confidence": "EXTRACTED",
       "source_file": "pipeline.py",
-      "source_location": "L121",
+      "source_location": "L148",
       "weight": 1.0,
       "_src": "scanner_pipeline_scan_batch",
       "_tgt": "scanner_pipeline_scanrequest",
@@ -1785,7 +1959,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "pipeline.py",
-      "source_location": "L51",
+      "source_location": "L55",
       "weight": 1.0,
       "_src": "scanner_pipeline_scanresult",
       "_tgt": "scanner_pipeline_scanresult_str",
@@ -1797,7 +1971,7 @@
       "relation": "calls",
       "confidence": "EXTRACTED",
       "source_file": "pipeline.py",
-      "source_location": "L95",
+      "source_location": "L106",
       "weight": 1.0,
       "_src": "scanner_pipeline_scan",
       "_tgt": "scanner_pipeline_scanresult",
@@ -1809,12 +1983,12 @@
       "relation": "rationale_for",
       "confidence": "EXTRACTED",
       "source_file": "pipeline.py",
-      "source_location": "L42",
+      "source_location": "L46",
       "weight": 1.0,
-      "_src": "scanner_pipeline_rationale_42",
+      "_src": "scanner_pipeline_rationale_46",
       "_tgt": "scanner_pipeline_scanresult",
       "source": "scanner_pipeline_scanresult",
-      "target": "scanner_pipeline_rationale_42",
+      "target": "scanner_pipeline_rationale_46",
       "confidence_score": 1.0
     },
     {
@@ -1845,7 +2019,7 @@
       "relation": "calls",
       "confidence": "EXTRACTED",
       "source_file": "pipeline.py",
-      "source_location": "L114",
+      "source_location": "L135",
       "weight": 1.0,
       "_src": "scanner_pipeline_scan_batch",
       "_tgt": "scanner_pipeline_batchresult",
@@ -1857,12 +2031,12 @@
       "relation": "rationale_for",
       "confidence": "EXTRACTED",
       "source_file": "pipeline.py",
-      "source_location": "L62",
+      "source_location": "L66",
       "weight": 1.0,
-      "_src": "scanner_pipeline_rationale_62",
+      "_src": "scanner_pipeline_rationale_66",
       "_tgt": "scanner_pipeline_batchresult",
       "source": "scanner_pipeline_batchresult",
-      "target": "scanner_pipeline_rationale_62",
+      "target": "scanner_pipeline_rationale_66",
       "confidence_score": 1.0
     },
     {
@@ -1881,7 +2055,7 @@
       "relation": "calls",
       "confidence": "EXTRACTED",
       "source_file": "pipeline.py",
-      "source_location": "L77",
+      "source_location": "L81",
       "weight": 1.0,
       "_src": "scanner_pipeline_scan",
       "_tgt": "scanner_pipeline_validate_request",
@@ -1893,7 +2067,7 @@
       "relation": "calls",
       "confidence": "EXTRACTED",
       "source_file": "pipeline.py",
-      "source_location": "L127",
+      "source_location": "L158",
       "weight": 1.0,
       "_src": "scanner_pipeline_scan_batch",
       "_tgt": "scanner_pipeline_scan",
@@ -1905,12 +2079,12 @@
       "relation": "rationale_for",
       "confidence": "EXTRACTED",
       "source_file": "pipeline.py",
-      "source_location": "L73",
+      "source_location": "L77",
       "weight": 1.0,
-      "_src": "scanner_pipeline_rationale_73",
+      "_src": "scanner_pipeline_rationale_77",
       "_tgt": "scanner_pipeline_scan",
       "source": "scanner_pipeline_scan",
-      "target": "scanner_pipeline_rationale_73",
+      "target": "scanner_pipeline_rationale_77",
       "confidence_score": 1.0
     },
     {
@@ -1918,7 +2092,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.8,
       "source_file": "pipeline.py",
-      "source_location": "L78",
+      "source_location": "L82",
       "weight": 1.0,
       "_src": "scanner_pipeline_scan",
       "_tgt": "engine_docling_engine_doclingengine",
@@ -1930,19 +2104,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.8,
       "source_file": "pipeline.py",
-      "source_location": "L89",
-      "weight": 1.0,
-      "_src": "scanner_pipeline_scan",
-      "_tgt": "export_markdown_write_markdown",
-      "source": "scanner_pipeline_scan",
-      "target": "export_markdown_write_markdown"
-    },
-    {
-      "relation": "calls",
-      "confidence": "INFERRED",
-      "confidence_score": 0.8,
-      "source_file": "pipeline.py",
-      "source_location": "L93",
+      "source_location": "L104",
       "weight": 1.0,
       "_src": "scanner_pipeline_scan",
       "_tgt": "export_docx_write_docx",
@@ -1950,15 +2112,27 @@
       "target": "export_docx_write_docx"
     },
     {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "pipeline.py",
+      "source_location": "L164",
+      "weight": 1.0,
+      "_src": "scanner_pipeline_scan_batch",
+      "_tgt": "scanner_pipeline_merge_results",
+      "source": "scanner_pipeline_scan_batch",
+      "target": "scanner_pipeline_merge_results",
+      "confidence_score": 1.0
+    },
+    {
       "relation": "rationale_for",
       "confidence": "EXTRACTED",
       "source_file": "pipeline.py",
-      "source_location": "L112",
+      "source_location": "L129",
       "weight": 1.0,
-      "_src": "scanner_pipeline_rationale_112",
+      "_src": "scanner_pipeline_rationale_129",
       "_tgt": "scanner_pipeline_scan_batch",
       "source": "scanner_pipeline_scan_batch",
-      "target": "scanner_pipeline_rationale_112",
+      "target": "scanner_pipeline_rationale_129",
       "confidence_score": 1.0
     },
     {
@@ -1966,7 +2140,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.8,
       "source_file": "pipeline.py",
-      "source_location": "L116",
+      "source_location": "L137",
       "weight": 1.0,
       "_src": "scanner_pipeline_scan_batch",
       "_tgt": "engine_docling_engine_doclingengine",
@@ -1977,12 +2151,36 @@
       "relation": "rationale_for",
       "confidence": "EXTRACTED",
       "source_file": "pipeline.py",
-      "source_location": "L136",
+      "source_location": "L181",
       "weight": 1.0,
-      "_src": "scanner_pipeline_rationale_136",
+      "_src": "scanner_pipeline_rationale_181",
+      "_tgt": "scanner_pipeline_merge_results",
+      "source": "scanner_pipeline_merge_results",
+      "target": "scanner_pipeline_rationale_181",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "pipeline.py",
+      "source_location": "L213",
+      "weight": 1.0,
+      "_src": "scanner_pipeline_merge_results",
+      "_tgt": "export_docx_write_docx",
+      "source": "scanner_pipeline_merge_results",
+      "target": "export_docx_write_docx"
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "pipeline.py",
+      "source_location": "L220",
+      "weight": 1.0,
+      "_src": "scanner_pipeline_rationale_220",
       "_tgt": "scanner_pipeline_collect_inputs",
       "source": "scanner_pipeline_collect_inputs",
-      "target": "scanner_pipeline_rationale_136",
+      "target": "scanner_pipeline_rationale_220",
       "confidence_score": 1.0
     },
     {
@@ -2027,9 +2225,9 @@
       "source_file": "pipeline.py",
       "source_location": "L14",
       "weight": 0.8,
-      "_src": "scanner_pipeline_rationale_42",
+      "_src": "scanner_pipeline_rationale_46",
       "_tgt": "engine_docling_engine_doclingengine",
-      "source": "scanner_pipeline_rationale_42",
+      "source": "scanner_pipeline_rationale_46",
       "target": "engine_docling_engine_doclingengine",
       "confidence_score": 0.5
     },
@@ -2039,9 +2237,9 @@
       "source_file": "pipeline.py",
       "source_location": "L14",
       "weight": 0.8,
-      "_src": "scanner_pipeline_rationale_62",
+      "_src": "scanner_pipeline_rationale_66",
       "_tgt": "engine_docling_engine_doclingengine",
-      "source": "scanner_pipeline_rationale_62",
+      "source": "scanner_pipeline_rationale_66",
       "target": "engine_docling_engine_doclingengine",
       "confidence_score": 0.5
     },
@@ -2051,9 +2249,9 @@
       "source_file": "pipeline.py",
       "source_location": "L14",
       "weight": 0.8,
-      "_src": "scanner_pipeline_rationale_73",
+      "_src": "scanner_pipeline_rationale_77",
       "_tgt": "engine_docling_engine_doclingengine",
-      "source": "scanner_pipeline_rationale_73",
+      "source": "scanner_pipeline_rationale_77",
       "target": "engine_docling_engine_doclingengine",
       "confidence_score": 0.5
     },
@@ -2063,9 +2261,9 @@
       "source_file": "pipeline.py",
       "source_location": "L14",
       "weight": 0.8,
-      "_src": "scanner_pipeline_rationale_112",
+      "_src": "scanner_pipeline_rationale_129",
       "_tgt": "engine_docling_engine_doclingengine",
-      "source": "scanner_pipeline_rationale_112",
+      "source": "scanner_pipeline_rationale_129",
       "target": "engine_docling_engine_doclingengine",
       "confidence_score": 0.5
     },
@@ -2075,9 +2273,21 @@
       "source_file": "pipeline.py",
       "source_location": "L14",
       "weight": 0.8,
-      "_src": "scanner_pipeline_rationale_136",
+      "_src": "scanner_pipeline_rationale_181",
       "_tgt": "engine_docling_engine_doclingengine",
-      "source": "scanner_pipeline_rationale_136",
+      "source": "scanner_pipeline_rationale_181",
+      "target": "engine_docling_engine_doclingengine",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "uses",
+      "confidence": "INFERRED",
+      "source_file": "pipeline.py",
+      "source_location": "L14",
+      "weight": 0.8,
+      "_src": "scanner_pipeline_rationale_220",
+      "_tgt": "engine_docling_engine_doclingengine",
+      "source": "scanner_pipeline_rationale_220",
       "target": "engine_docling_engine_doclingengine",
       "confidence_score": 0.5
     },
@@ -2109,7 +2319,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "engine\\docling_engine.py",
-      "source_location": "L34",
+      "source_location": "L48",
       "weight": 1.0,
       "_src": "engine_docling_engine_py",
       "_tgt": "engine_docling_engine_extractionresult",
@@ -2121,7 +2331,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "engine\\docling_engine.py",
-      "source_location": "L43",
+      "source_location": "L62",
       "weight": 1.0,
       "_src": "engine_docling_engine_py",
       "_tgt": "engine_docling_engine_doclingengine",
@@ -2133,7 +2343,19 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "engine\\docling_engine.py",
-      "source_location": "L120",
+      "source_location": "L157",
+      "weight": 1.0,
+      "_src": "engine_docling_engine_py",
+      "_tgt": "engine_docling_engine_resolve_device",
+      "source": "engine_docling_engine_py",
+      "target": "engine_docling_engine_resolve_device",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "engine\\docling_engine.py",
+      "source_location": "L240",
       "weight": 1.0,
       "_src": "engine_docling_engine_py",
       "_tgt": "engine_docling_engine_validate_source",
@@ -2157,7 +2379,7 @@
       "relation": "calls",
       "confidence": "EXTRACTED",
       "source_file": "engine\\docling_engine.py",
-      "source_location": "L112",
+      "source_location": "L232",
       "weight": 1.0,
       "_src": "engine_docling_engine_doclingengine_extract",
       "_tgt": "engine_docling_engine_extractionresult",
@@ -2169,19 +2391,19 @@
       "relation": "rationale_for",
       "confidence": "EXTRACTED",
       "source_file": "engine\\docling_engine.py",
-      "source_location": "L35",
+      "source_location": "L49",
       "weight": 1.0,
-      "_src": "engine_docling_engine_rationale_35",
+      "_src": "engine_docling_engine_rationale_49",
       "_tgt": "engine_docling_engine_extractionresult",
       "source": "engine_docling_engine_extractionresult",
-      "target": "engine_docling_engine_rationale_35",
+      "target": "engine_docling_engine_rationale_49",
       "confidence_score": 1.0
     },
     {
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "engine\\docling_engine.py",
-      "source_location": "L49",
+      "source_location": "L71",
       "weight": 1.0,
       "_src": "engine_docling_engine_doclingengine",
       "_tgt": "engine_docling_engine_doclingengine_init",
@@ -2193,7 +2415,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "engine\\docling_engine.py",
-      "source_location": "L76",
+      "source_location": "L179",
       "weight": 1.0,
       "_src": "engine_docling_engine_doclingengine",
       "_tgt": "engine_docling_engine_doclingengine_extract",
@@ -2205,12 +2427,12 @@
       "relation": "rationale_for",
       "confidence": "EXTRACTED",
       "source_file": "engine\\docling_engine.py",
-      "source_location": "L44",
+      "source_location": "L63",
       "weight": 1.0,
-      "_src": "engine_docling_engine_rationale_44",
+      "_src": "engine_docling_engine_rationale_63",
       "_tgt": "engine_docling_engine_doclingengine",
       "source": "engine_docling_engine_doclingengine",
-      "target": "engine_docling_engine_rationale_44",
+      "target": "engine_docling_engine_rationale_63",
       "confidence_score": 1.0
     },
     {
@@ -2229,7 +2451,19 @@
       "relation": "calls",
       "confidence": "EXTRACTED",
       "source_file": "engine\\docling_engine.py",
-      "source_location": "L90",
+      "source_location": "L102",
+      "weight": 1.0,
+      "_src": "engine_docling_engine_doclingengine_init",
+      "_tgt": "engine_docling_engine_resolve_device",
+      "source": "engine_docling_engine_doclingengine_init",
+      "target": "engine_docling_engine_resolve_device",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "engine\\docling_engine.py",
+      "source_location": "L200",
       "weight": 1.0,
       "_src": "engine_docling_engine_doclingengine_extract",
       "_tgt": "engine_docling_engine_validate_source",
@@ -2241,12 +2475,12 @@
       "relation": "rationale_for",
       "confidence": "EXTRACTED",
       "source_file": "engine\\docling_engine.py",
-      "source_location": "L77",
+      "source_location": "L186",
       "weight": 1.0,
-      "_src": "engine_docling_engine_rationale_77",
+      "_src": "engine_docling_engine_rationale_186",
       "_tgt": "engine_docling_engine_doclingengine_extract",
       "source": "engine_docling_engine_doclingengine_extract",
-      "target": "engine_docling_engine_rationale_77",
+      "target": "engine_docling_engine_rationale_186",
       "confidence_score": 1.0
     },
     {

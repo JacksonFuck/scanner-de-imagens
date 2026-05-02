@@ -4,6 +4,8 @@
 
 Construído sobre [Docling](https://github.com/DS4SD/docling) (IBM Research) — engine que aceita JPG/PNG/PDF nativamente, faz OCR, detecta tabelas e classifica imagens dentro das páginas.
 
+📖 **[Documentação completa em docs/HANDOFF.md](docs/HANDOFF.md)** — instalação, arquitetura, decisões, troubleshooting, roadmap.
+
 ---
 
 ## Instalação

@@ -73,6 +73,13 @@ ehthumbs.db
 # Source clonada do Docling — não versionar no repo do app
 docling-main/
 
+# ---- Modelos de OCR (downloads externos) ----
+# Tessdata é ~22MB; usuário baixa do tessdata_best repo
+tessdata-portuguese/
+
+# ---- Outputs do scanner ----
+output/
+
 # ---- Imagens de teste / dados grandes ----
 samples/*.png
 samples/*.jpg
