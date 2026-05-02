@@ -68,7 +68,16 @@ def write_docx(markdown_path: Path, target: Path, *, resource_dir: Path | None =
 
 
 def _ensure_pandoc() -> str:
-    """Garante que pandoc está disponível. Tenta auto-download se necessário."""
+    """Garante que pandoc está disponível.
+
+    Ordem de busca:
+    1. PATH do shell (`shutil.which`) — pandoc instalado pelo usuário
+    2. Cache do pypandoc (`pypandoc.get_pandoc_path`) — auto-download anterior
+    3. Caminho conhecido do Windows (`~/AppData/Local/Pandoc/pandoc.exe`)
+    4. Auto-download como último recurso
+
+    Sem isso, o passo 4 é tentado a cada chamada e GitHub retorna 403 (rate limit).
+    """
     if shutil.which("pandoc"):
         return "pandoc"
 
@@ -77,7 +86,22 @@ def _ensure_pandoc() -> str:
     except ImportError as exc:
         raise ConfigurationError("pypandoc não instalado.") from exc
 
-    log.warning("pandoc não encontrado no PATH — fazendo download via pypandoc")
+    # Tenta usar pandoc baixado anteriormente pelo pypandoc
+    try:
+        cached = pypandoc.get_pandoc_path()
+        if cached and Path(cached).exists():
+            log.debug("pandoc cacheado encontrado: %s", cached)
+            return cached
+    except OSError:
+        pass  # pypandoc lança OSError se nunca baixou
+
+    # Fallback explícito ao path padrão do Windows
+    win_default = Path.home() / "AppData" / "Local" / "Pandoc" / "pandoc.exe"
+    if win_default.exists():
+        log.debug("pandoc encontrado em %s", win_default)
+        return str(win_default)
+
+    log.warning("pandoc não encontrado em PATH/cache — fazendo download via pypandoc")
     try:
         pypandoc.download_pandoc()
     except Exception as exc:

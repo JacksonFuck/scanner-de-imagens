@@ -73,6 +73,13 @@ def convert(
     no_tables: Annotated[
         bool, typer.Option("--no-tables", help="Desabilita reconhecimento de tabelas")
     ] = False,
+    device: Annotated[
+        str,
+        typer.Option(
+            "--device",
+            help="Dispositivo de inferência: 'auto' (default, usa GPU se disponível), 'cuda', 'cpu'",
+        ),
+    ] = "auto",
 ) -> None:
     """Converte foto(s) de página(s) em Markdown estruturado.
 
@@ -96,6 +103,7 @@ def convert(
         output_dir,
         formats=fmt,
         do_ocr=not no_ocr,
+        device=device,
     )
 
     _render_results(result)

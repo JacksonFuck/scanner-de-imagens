@@ -35,6 +35,7 @@ class ScanRequest:
     formats: OutputFormat = OutputFormat.MD
     do_ocr: bool = True
     do_table_structure: bool = True
+    device: str = "auto"  # 'auto' | 'cuda' | 'cpu'
 
 
 @dataclass(slots=True)
@@ -78,6 +79,7 @@ def scan(request: ScanRequest, *, engine: DoclingEngine | None = None) -> ScanRe
     engine = engine or DoclingEngine(
         do_ocr=request.do_ocr,
         do_table_structure=request.do_table_structure,
+        device=request.device,
     )
 
     base = request.source.stem
@@ -111,12 +113,13 @@ def scan_batch(
     *,
     formats: OutputFormat = OutputFormat.MD,
     do_ocr: bool = True,
+    device: str = "auto",
 ) -> BatchResult:
     """Processa múltiplos arquivos reusando uma única instância do engine."""
     if not sources:
         return BatchResult()
 
-    engine = DoclingEngine(do_ocr=do_ocr)
+    engine = DoclingEngine(do_ocr=do_ocr, device=device)
     result = BatchResult()
 
     for src in sources:
@@ -126,6 +129,7 @@ def scan_batch(
                 output_dir=output_dir,
                 formats=formats,
                 do_ocr=do_ocr,
+                device=device,
             )
             result.successes.append(scan(req, engine=engine))
         except Exception as exc:  # captura amplo: não queremos parar o batch

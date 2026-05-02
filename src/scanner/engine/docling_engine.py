@@ -49,12 +49,25 @@ class DoclingEngine:
     """Wrapper fino do `DocumentConverter` do Docling.
 
     Inicialização cara (carrega modelos). Reuse a mesma instância para batches.
+
+    Auto-detecção de GPU: se `device='auto'` (default) e PyTorch+CUDA estão
+    disponíveis, usa GPU. Caso contrário cai para CPU silenciosamente.
     """
 
-    def __init__(self, *, do_ocr: bool = True, do_table_structure: bool = True) -> None:
+    def __init__(
+        self,
+        *,
+        do_ocr: bool = True,
+        do_table_structure: bool = True,
+        device: str = "auto",  # 'auto' | 'cuda' | 'cpu'
+    ) -> None:
         # Import tardio: a importação do docling demora ~2s e baixa modelos no primeiro
         # uso. Não queremos pagar esse custo em testes que não tocam o engine.
         try:
+            from docling.datamodel.accelerator_options import (
+                AcceleratorDevice,
+                AcceleratorOptions,
+            )
             from docling.datamodel.base_models import InputFormat
             from docling.datamodel.pipeline_options import PdfPipelineOptions
             from docling.document_converter import DocumentConverter, PdfFormatOption
@@ -63,7 +76,14 @@ class DoclingEngine:
                 "Docling não está instalado. Rode: pip install docling"
             ) from exc
 
+        resolved_device = self._resolve_device(device)
+        accelerator = AcceleratorOptions(
+            device=AcceleratorDevice.CUDA if resolved_device == "cuda" else AcceleratorDevice.CPU,
+            num_threads=4,
+        )
+
         pipeline_options = PdfPipelineOptions()
+        pipeline_options.accelerator_options = accelerator
         pipeline_options.do_ocr = do_ocr
         pipeline_options.do_table_structure = do_table_structure
         # Gera imagens das páginas e elementos visuais em alta resolução
@@ -74,9 +94,36 @@ class DoclingEngine:
         self._converter = DocumentConverter(
             format_options={
                 InputFormat.PDF: PdfFormatOption(pipeline_options=pipeline_options),
+                InputFormat.IMAGE: PdfFormatOption(pipeline_options=pipeline_options),
             }
         )
-        log.debug("DocumentConverter inicializado (do_ocr=%s)", do_ocr)
+        log.info(
+            "DocumentConverter inicializado (do_ocr=%s, device=%s)",
+            do_ocr, resolved_device,
+        )
+
+    @staticmethod
+    def _resolve_device(requested: str) -> str:
+        """Resolve 'auto' para 'cuda' se disponível, senão 'cpu'."""
+        if requested == "cpu":
+            return "cpu"
+        if requested == "cuda":
+            # Validação explícita: avisa se cuda foi pedido mas não disponível
+            try:
+                import torch
+                if not torch.cuda.is_available():
+                    log.warning("CUDA pedido mas não disponível — caindo para CPU")
+                    return "cpu"
+            except ImportError:
+                log.warning("PyTorch não instalado — usando CPU")
+                return "cpu"
+            return "cuda"
+        # auto
+        try:
+            import torch
+            return "cuda" if torch.cuda.is_available() else "cpu"
+        except ImportError:
+            return "cpu"
 
     def extract(
         self,
