@@ -1,25 +1,24 @@
-#!/usr/bin/env python3
-"""
-postprocess_md.py
-=================
-Pós-processador de markdowns gerados pelo OCR Docling em modo "sem PT".
+"""Implementação do pós-processador PT-BR (lib).
 
-Aplica:
-1. Dicionário de palavras comuns sem acento → com acento (curado para PT-BR)
-2. Regex para corrigir espaços/pontuação (";" excessivos, espaço antes de pontuação)
-3. Heurística "0" → "O" no início de palavras quando o contexto é português
+Movido de `scripts/postprocess_md.py` para se tornar um módulo importável
+(originalmente um script CLI standalone). API pública via
+`src/scanner/postprocess/__init__.py`.
 
-Uso:
-    python postprocess_md.py --input-dir output/gestao-ps --output-dir output/gestao-ps-corrigido
-    python postprocess_md.py --input-dir output/gestao-ps --output-dir output/gestao-ps-corrigido --merge
+Aplica em ordem:
+1. `fix_accents`     — palavras comuns sem acento → com acento (ACCENT_MAP)
+2. `fix_spaces_and_punct` — espaço antes de pontuação ASCII (.,;:!?)
+3. `fix_zero_as_o`   — "0" no início de palavras vira "O" (artigo confundido)
+
+Helpers: `process_markdown(content)` aplica tudo preservando blocos de código.
+`fix_text` é alias público de `process_markdown`. `merge_into_book` consolida
+vários MDs em um só com sumário.
+
+Pré-requisito da Fase 1 (FastAPI): backend importa este módulo como biblioteca.
 """
 
 from __future__ import annotations
 
-import argparse
 import re
-import shutil
-import sys
 from pathlib import Path
 
 # ---------------------------------------------------------------------------
@@ -85,11 +84,8 @@ ACCENT_MAP: dict[str, str] = {
     "isencao": "isenção", "isencoes": "isenções",
     "concessao": "concessão", "concessoes": "concessões",
     "obtencao": "obtenção",
-    "previsao": "previsão",
-    "investigacao": "investigação",
     "cessao": "cessão",
     "cessacao": "cessação",
-    "construcao": "construção",
     "destruicao": "destruição",
     "reconstrucao": "reconstrução",
     "produzao": "produção", "producao": "produção", "producoes": "produções",
@@ -177,11 +173,8 @@ ACCENT_MAP: dict[str, str] = {
     "ocupacao": "ocupação", "ocupacoes": "ocupações",
     "circunstancia": "circunstância", "circunstancias": "circunstâncias",
     "consciencia": "consciência",
-    "experiencia": "experiência", "experiencias": "experiências",
     "diferenca": "diferença", "diferencas": "diferenças",
-    "preferencia": "preferência", "preferencias": "preferências",
     "essencial": "essencial",
-    "presenca": "presença",
     "frequencia": "frequência", "frequente": "frequente",
     "consequencia": "consequência", "consequencias": "consequências",
     "agencia": "agência", "agencias": "agências",
@@ -212,7 +205,6 @@ ACCENT_MAP: dict[str, str] = {
     "ja_existente": "já existente",  # composta — não match
 
     # ç (cedilha)
-    "decisao": "decisão",
     "comecar": "começar",
     "comeca": "começa",
     "comecou": "começou",
@@ -225,14 +217,12 @@ ACCENT_MAP: dict[str, str] = {
     "abracar": "abraçar",
     "lancar": "lançar",
     "lancamento": "lançamento",
-    "consciencia": "consciência",
 
     # Verbos comuns
     "tera": "terá",
     "fara": "fará",
     "passara": "passará",
     "sera": "será",
-    "estara": "estará",
     "estara": "estará",
     "ira": "irá",
     "havera": "haverá",
@@ -266,7 +256,6 @@ ACCENT_MAP: dict[str, str] = {
     "agora": "agora",  # já correto
     "depois": "depois",  # já correto
     "ja_": "já",
-    "rapido": "rápido",
     "duvida": "dúvida", "duvidas": "dúvidas",
     "epoca": "época", "epocas": "épocas",
     "historia": "história", "historias": "histórias",
@@ -278,12 +267,9 @@ ACCENT_MAP: dict[str, str] = {
     "fisiologico": "fisiológico",
     "patologico": "patológico", "patologica": "patológica",
     "sintoma": "sintoma",  # já correto
-    "ate": "até",
-    "voce": "você",
     "alguns": "alguns",  # já correto
     "varias": "várias", "varios": "vários",
     "anteriores": "anteriores", "anterior": "anterior",  # já correto
-    "ultimo": "último",
     "vai": "vai",  # já correto
     "vao": "vão",
     "irao": "irão",
@@ -300,7 +286,6 @@ ACCENT_MAP: dict[str, str] = {
     "obrigatorio": "obrigatório", "obrigatoria": "obrigatória",
     "voluntario": "voluntário", "voluntaria": "voluntária",
     "imediato": "imediato",  # já correto
-    "diario": "diário", "diaria": "diária",
     "semanario": "semanário",
     "saidas": "saídas", "saida": "saída",
     "entrada": "entrada", "entradas": "entradas",
@@ -309,7 +294,6 @@ ACCENT_MAP: dict[str, str] = {
     "categoria": "categoria",  # já correto
     "memoria": "memória", "memorias": "memórias",
     "vitoria": "vitória",
-    "historia": "história",
     "matria": "matéria",
     "materia": "matéria", "materias": "matérias",
     "criterio": "critério", "criterios": "critérios",
@@ -429,58 +413,9 @@ def merge_into_book(
 
 
 # ---------------------------------------------------------------------------
-# CLI
+# Public API alias
 # ---------------------------------------------------------------------------
+# `fix_text` é o nome canônico exposto via __init__.py — apontamos para a
+# implementação histórica `process_markdown` para manter retrocompat.
 
-
-def main() -> int:
-    parser = argparse.ArgumentParser(description="Pós-processa MDs do scanner.")
-    parser.add_argument("--input-dir", required=True, type=Path)
-    parser.add_argument("--output-dir", required=True, type=Path)
-    parser.add_argument("--merge", action="store_true", help="Também gera arquivo único consolidado")
-    parser.add_argument("--merge-name", default="livro-consolidado")
-    parser.add_argument(
-        "--title", default="Documento Consolidado", help="Título do livro consolidado"
-    )
-    parser.add_argument("--copy-images", action="store_true", help="Copia pastas de imagens junto")
-    args = parser.parse_args()
-
-    in_dir: Path = args.input_dir.resolve()
-    out_dir: Path = args.output_dir.resolve()
-
-    if not in_dir.is_dir():
-        print(f"[error] input-dir não existe: {in_dir}", file=sys.stderr)
-        return 2
-
-    out_dir.mkdir(parents=True, exist_ok=True)
-    mds = sorted(in_dir.glob("*.md"))
-    if not mds:
-        print(f"[error] sem .md em {in_dir}", file=sys.stderr)
-        return 2
-
-    print(f"[info] processando {len(mds)} arquivo(s) de {in_dir}")
-    written: list[Path] = []
-    for src in mds:
-        target = out_dir / src.name
-        original = src.read_text(encoding="utf-8")
-        fixed = process_markdown(original)
-        target.write_text(fixed, encoding="utf-8")
-        written.append(target)
-        print(f"  [ok] {src.name}")
-
-        if args.copy_images:
-            img_dir = in_dir / f"{src.stem}-images"
-            if img_dir.is_dir():
-                shutil.copytree(img_dir, out_dir / img_dir.name, dirs_exist_ok=True)
-
-    if args.merge:
-        merged = out_dir / f"{args.merge_name}.md"
-        merge_into_book(written, merged, title=args.title)
-        print(f"[merge] {merged} ({merged.stat().st_size / 1024:.1f} KB)")
-
-    print(f"[done] processados={len(written)}")
-    return 0
-
-
-if __name__ == "__main__":
-    raise SystemExit(main())
+fix_text = process_markdown
