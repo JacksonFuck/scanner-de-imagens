@@ -60,6 +60,9 @@ class DoclingEngine:
         do_ocr: bool = True,
         do_table_structure: bool = True,
         device: str = "auto",  # 'auto' | 'cuda' | 'cpu'
+        ocr_languages: list[str] | None = None,
+        images_scale: float = 3.0,
+        force_full_page_ocr: bool = True,
     ) -> None:
         # Import tardio: a importação do docling demora ~2s e baixa modelos no primeiro
         # uso. Não queremos pagar esse custo em testes que não tocam o engine.
@@ -69,7 +72,10 @@ class DoclingEngine:
                 AcceleratorOptions,
             )
             from docling.datamodel.base_models import InputFormat
-            from docling.datamodel.pipeline_options import PdfPipelineOptions
+            from docling.datamodel.pipeline_options import (
+                EasyOcrOptions,
+                PdfPipelineOptions,
+            )
             from docling.document_converter import DocumentConverter, PdfFormatOption
         except ImportError as exc:
             raise ConfigurationError(
@@ -82,14 +88,27 @@ class DoclingEngine:
             num_threads=4,
         )
 
+        # Por que PT precisa ser explícito: EasyOcrOptions default é
+        # ['fr','de','es','en'] — sem PT acentos viram ASCII (ção -> cao).
+        # 'pt' + 'en' cobre documentos brasileiros bilíngues e siglas em inglês.
+        if ocr_languages is None:
+            ocr_languages = ["pt", "en"]
+        ocr_options = EasyOcrOptions(
+            lang=ocr_languages,
+            force_full_page_ocr=force_full_page_ocr,
+            confidence_threshold=0.3,  # mais permissivo: aceita caracteres acentuados
+            use_gpu=(resolved_device == "cuda"),
+        )
+
         pipeline_options = PdfPipelineOptions()
         pipeline_options.accelerator_options = accelerator
         pipeline_options.do_ocr = do_ocr
         pipeline_options.do_table_structure = do_table_structure
+        pipeline_options.ocr_options = ocr_options
         # Gera imagens das páginas e elementos visuais em alta resolução
         pipeline_options.generate_page_images = True
         pipeline_options.generate_picture_images = True
-        pipeline_options.images_scale = 2.0  # 2x para preservar qualidade
+        pipeline_options.images_scale = images_scale  # 3x = melhor OCR em fotos
 
         self._converter = DocumentConverter(
             format_options={
@@ -98,8 +117,8 @@ class DoclingEngine:
             }
         )
         log.info(
-            "DocumentConverter inicializado (do_ocr=%s, device=%s)",
-            do_ocr, resolved_device,
+            "DocumentConverter inicializado (do_ocr=%s, device=%s, langs=%s, scale=%.1fx)",
+            do_ocr, resolved_device, ocr_languages, images_scale,
         )
 
     @staticmethod

@@ -36,6 +36,7 @@ class ScanRequest:
     do_ocr: bool = True
     do_table_structure: bool = True
     device: str = "auto"  # 'auto' | 'cuda' | 'cpu'
+    ocr_languages: tuple[str, ...] = ("pt", "en")
 
 
 @dataclass(slots=True)
@@ -80,6 +81,7 @@ def scan(request: ScanRequest, *, engine: DoclingEngine | None = None) -> ScanRe
         do_ocr=request.do_ocr,
         do_table_structure=request.do_table_structure,
         device=request.device,
+        ocr_languages=list(request.ocr_languages),
     )
 
     base = request.source.stem
@@ -114,12 +116,23 @@ def scan_batch(
     formats: OutputFormat = OutputFormat.MD,
     do_ocr: bool = True,
     device: str = "auto",
+    ocr_languages: tuple[str, ...] = ("pt", "en"),
+    merge: bool = False,
+    merge_name: str = "combined",
 ) -> BatchResult:
-    """Processa múltiplos arquivos reusando uma única instância do engine."""
+    """Processa múltiplos arquivos reusando uma única instância do engine.
+
+    Quando `merge=True`, ao final concatena todos os MDs em `<merge_name>.md`
+    (e `.docx` se solicitado). Os arquivos individuais permanecem.
+    """
     if not sources:
         return BatchResult()
 
-    engine = DoclingEngine(do_ocr=do_ocr, device=device)
+    engine = DoclingEngine(
+        do_ocr=do_ocr,
+        device=device,
+        ocr_languages=list(ocr_languages),
+    )
     result = BatchResult()
 
     for src in sources:
@@ -130,13 +143,67 @@ def scan_batch(
                 formats=formats,
                 do_ocr=do_ocr,
                 device=device,
+                ocr_languages=ocr_languages,
             )
             result.successes.append(scan(req, engine=engine))
         except Exception as exc:  # captura amplo: não queremos parar o batch
             log.exception("Falha em %s", src)
             result.failures.append((src, exc))
 
+    if merge and result.successes:
+        merge_results(
+            result.successes,
+            output_dir,
+            base_name=merge_name,
+            formats=formats,
+        )
+
     return result
+
+
+def merge_results(
+    results: list[ScanResult],
+    output_dir: Path,
+    *,
+    base_name: str = "combined",
+    formats: OutputFormat = OutputFormat.MD,
+) -> Path:
+    """Concatena MDs de múltiplos resultados em um único arquivo.
+
+    Cada seção começa com um heading H1 com o nome da imagem original e um
+    separador horizontal antes da próxima. Se `formats` incluir DOCX, também
+    gera o `.docx` correspondente via pandoc.
+
+    Returns:
+        Path do MD combinado (DOCX, se gerado, fica como `base_name.docx`).
+    """
+    from scanner.export import write_docx
+
+    output_dir = output_dir.resolve()
+    target_md = output_dir / f"{base_name}.md"
+
+    parts: list[str] = []
+    parts.append(f"# {base_name.replace('-', ' ').title()}\n")
+    parts.append(f"*Documento consolidado de {len(results)} imagem(ns).*\n\n")
+
+    for r in sorted(results, key=lambda x: x.source.name):
+        parts.append(f"\n---\n\n## {r.source.stem}\n\n")
+        # Lê o MD individual e re-escreve sem alterar (paths de imagem ficam relativos)
+        try:
+            content = r.markdown_path.read_text(encoding="utf-8")
+            parts.append(content.lstrip())
+        except OSError as exc:
+            parts.append(f"*Erro ao ler {r.markdown_path.name}: {exc}*\n")
+
+    target_md.write_text("".join(parts), encoding="utf-8")
+    log.info("Merge MD: %s (%d seções)", target_md, len(results))
+
+    if formats in (OutputFormat.DOCX, OutputFormat.BOTH):
+        target_docx = output_dir / f"{base_name}.docx"
+        write_docx(target_md, target_docx, resource_dir=output_dir)
+        log.info("Merge DOCX: %s", target_docx)
+
+    return target_md
 
 
 def collect_inputs(path: Path) -> list[Path]:

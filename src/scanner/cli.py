@@ -80,6 +80,25 @@ def convert(
             help="Dispositivo de inferência: 'auto' (default, usa GPU se disponível), 'cuda', 'cpu'",
         ),
     ] = "auto",
+    ocr_lang: Annotated[
+        str,
+        typer.Option(
+            "--ocr-lang",
+            help="Idiomas do OCR separados por vírgula (default: 'pt,en')",
+        ),
+    ] = "pt,en",
+    merge: Annotated[
+        bool | None,
+        typer.Option(
+            "--merge/--no-merge",
+            help="Consolidar múltiplas imagens em um único arquivo. "
+                 "Se não passado, pergunta interativamente quando há > 1 imagem.",
+        ),
+    ] = None,
+    merge_name: Annotated[
+        str,
+        typer.Option("--merge-name", help="Nome base do arquivo consolidado (sem extensão)"),
+    ] = "combined",
 ) -> None:
     """Converte foto(s) de página(s) em Markdown estruturado.
 
@@ -98,18 +117,54 @@ def convert(
     console.print(f"[bold]Processando {len(inputs)} arquivo(s)[/bold]")
     output_dir.mkdir(parents=True, exist_ok=True)
 
+    # Resolve merge: explícito > pergunta interativa > default (False)
+    merge_resolved = _resolve_merge(merge, len(inputs))
+
+    languages = tuple(s.strip() for s in ocr_lang.split(",") if s.strip())
+    if not languages:
+        languages = ("pt", "en")
+
+    if merge_resolved:
+        console.print(f"[dim]Modo: arquivo único → {merge_name}.md (+ docx se -f both/docx)[/dim]")
+    else:
+        console.print("[dim]Modo: arquivos separados (um por imagem)[/dim]")
+    console.print(f"[dim]OCR: idiomas={list(languages)}, device={device}[/dim]")
+
     result = scan_batch(
         inputs,
         output_dir,
         formats=fmt,
         do_ocr=not no_ocr,
         device=device,
+        ocr_languages=languages,
+        merge=merge_resolved,
+        merge_name=merge_name,
     )
 
     _render_results(result)
 
     if result.failures:
         raise typer.Exit(code=1)
+
+
+def _resolve_merge(explicit: bool | None, n_inputs: int) -> bool:
+    """Resolve a flag --merge.
+
+    - Se explícito (True/False): usa o valor passado.
+    - Se None E há > 1 imagem E stdin é TTY: pergunta interativamente.
+    - Caso contrário (None + 1 imagem ou não-tty): default False.
+    """
+    if explicit is not None:
+        return explicit
+    if n_inputs <= 1:
+        return False
+    # Pergunta apenas em sessão interativa (evita travar em pipes/CI)
+    if not sys.stdin.isatty():
+        return False
+    return typer.confirm(
+        f"Consolidar as {n_inputs} imagens em UM único arquivo?",
+        default=False,
+    )
 
 
 def _render_results(result) -> None:  # type: ignore[no-untyped-def]
