@@ -41,9 +41,55 @@ def test_convert_pasta_vazia(tmp_path: Path) -> None:
     assert result.exit_code == 2
 
 
-@pytest.mark.parametrize("fmt", ["md", "docx", "both"])
+@pytest.mark.parametrize("fmt", ["md", "docx", "pdf", "all", "both"])
 def test_help_aceita_formatos_validos(fmt: str) -> None:
-    """Sanity: enum OutputFormat aceita os 3 valores documentados."""
+    """Sanity: enum OutputFormat aceita todos os 5 valores documentados.
+
+    Inclui 'pdf' e 'all' (Task 2) e 'both' (alias deprecated mantido até v0.3).
+    """
     from scanner.pipeline import OutputFormat
 
     OutputFormat(fmt)  # não levanta
+
+
+def test_convert_emits_deprecation_warning_for_both(tmp_path: Path) -> None:
+    """`-f both` deve imprimir aviso de deprecation antes de processar.
+
+    Usamos pasta vazia para forçar saída rápida (não chama Docling) — o
+    aviso é impresso ANTES da validação de inputs, então estará no output.
+    """
+    empty = tmp_path / "empty"
+    empty.mkdir()
+    result = runner.invoke(
+        app,
+        ["convert", str(empty), "-o", str(tmp_path / "out"), "-f", "both"],
+    )
+    combined_output = (result.output or "") + (result.stderr or "")
+    assert "deprecated" in combined_output.lower()
+    assert "both" in combined_output.lower()
+
+
+def test_convert_no_warning_for_all(tmp_path: Path) -> None:
+    """`-f all` é o substituto canônico — sem aviso de deprecation."""
+    empty = tmp_path / "empty"
+    empty.mkdir()
+    result = runner.invoke(
+        app,
+        ["convert", str(empty), "-o", str(tmp_path / "out"), "-f", "all"],
+    )
+    combined_output = (result.output or "") + (result.stderr or "")
+    assert "deprecated" not in combined_output.lower()
+
+
+def test_convert_accepts_pdf_format(tmp_path: Path) -> None:
+    """`-f pdf` é um valor válido (Typer não rejeita por validação de enum)."""
+    empty = tmp_path / "empty"
+    empty.mkdir()
+    result = runner.invoke(
+        app,
+        ["convert", str(empty), "-o", str(tmp_path / "out"), "-f", "pdf"],
+    )
+    # Pasta vazia → exit 2 (nosso erro), mas NÃO o exit 2 de validação Typer
+    assert result.exit_code == 2
+    combined_output = (result.output or "") + (result.stderr or "")
+    assert "Invalid value" not in combined_output

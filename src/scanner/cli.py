@@ -21,7 +21,7 @@ from scanner.pipeline import OutputFormat, collect_inputs, scan_batch
 
 app = typer.Typer(
     name="scanner",
-    help="Scanner OCR de fotos de páginas de livros/artigos → Markdown + DOCX.",
+    help="Scanner OCR de fotos de páginas de livros/artigos → Markdown + DOCX + PDF.",
     no_args_is_help=True,
     add_completion=False,
 )
@@ -67,7 +67,11 @@ def convert(
     ] = Path("./output"),
     fmt: Annotated[
         OutputFormat,
-        typer.Option("-f", "--format", help="Formato de saída"),
+        typer.Option(
+            "-f",
+            "--format",
+            help="Formato de saída: md | docx | pdf | all | both (deprecated alias de all)",
+        ),
     ] = OutputFormat.MD,
     no_ocr: Annotated[bool, typer.Option("--no-ocr", help="Desabilita OCR")] = False,
     no_tables: Annotated[
@@ -117,12 +121,26 @@ def convert(
 ) -> None:
     """Converte foto(s) de página(s) em Markdown estruturado.
 
+    Formatos aceitos via -f:
+      md    → apenas Markdown
+      docx  → Markdown + DOCX
+      pdf   → Markdown + PDF
+      all   → Markdown + DOCX + PDF
+      both  → [DEPRECATED] alias de 'all', será removido em v0.3
+
     Exemplos:
 
       scanner convert ./pagina.jpg -o ./out
 
-      scanner convert ./fotos/ -o ./out -f both
+      scanner convert ./fotos/ -o ./out -f all
     """
+    # Aviso de deprecation se o usuário passou 'both'
+    if fmt == OutputFormat.BOTH:
+        err_console.print(
+            "[yellow]DEPRECATED:[/yellow] '-f both' será removido em v0.3. "
+            "Use '-f all' (gera MD + DOCX + PDF)."
+        )
+
     try:
         inputs = collect_inputs(source)
     except ScannerError as exc:
@@ -140,7 +158,10 @@ def convert(
         languages = ("pt", "en")
 
     if merge_resolved:
-        console.print(f"[dim]Modo: arquivo único → {merge_name}.md (+ docx se -f both/docx)[/dim]")
+        console.print(
+            f"[dim]Modo: arquivo único → {merge_name}.md "
+            f"(+ docx/pdf conforme -f {fmt.value})[/dim]"
+        )
     else:
         console.print("[dim]Modo: arquivos separados (um por imagem)[/dim]")
 
