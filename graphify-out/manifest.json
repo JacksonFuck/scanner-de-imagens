@@ -1355,25 +1355,21 @@
     "mtime": 1777697468.3617177,
     "hash": "bd051398b0d41cc8d7c54750f529da0b"
   },
-  "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\scripts\\postprocess_md.py": {
-    "mtime": 1777736864.7392206,
-    "hash": "a3e7121273e32b00a842b5ffafcce4cf"
-  },
   "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\scripts\\sync_claude_obsidian.ps1": {
     "mtime": 1777697494.957951,
     "hash": "b64b1033e3ba8184824edac0d5b967ab"
   },
   "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\src\\scanner\\cli.py": {
-    "mtime": 1777736644.869475,
-    "hash": "9b0660eba03ca8b8c760fabc415a79cb"
+    "mtime": 1777744290.4059973,
+    "hash": "8277df6e8d90249cdf7fb3683620721e"
   },
   "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\src\\scanner\\errors.py": {
     "mtime": 1777698052.935989,
     "hash": "4cfa3a443461ca13ca3047ebaf2f670f"
   },
   "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\src\\scanner\\pipeline.py": {
-    "mtime": 1777736624.5418656,
-    "hash": "b65e3eda0c274b413ff809e59d1d9018"
+    "mtime": 1777744091.7875051,
+    "hash": "1da195cb604aaad2cbca6b6f86553883"
   },
   "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\src\\scanner\\__init__.py": {
     "mtime": 1777698040.7317882,
@@ -1392,32 +1388,56 @@
     "hash": "e20d039c8b0d41dd9d20e45eeb20c0e1"
   },
   "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\src\\scanner\\export\\docx.py": {
-    "mtime": 1777702793.6339147,
-    "hash": "28204cedb2aba68e9c0e51f8e61532ab"
+    "mtime": 1777743911.692304,
+    "hash": "a2af80b361cfdb2bec362e75be4e4430"
   },
   "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\src\\scanner\\export\\markdown.py": {
     "mtime": 1777698100.370662,
     "hash": "a07bead2646be2c05aa22470594d9538"
   },
+  "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\src\\scanner\\export\\pdf.py": {
+    "mtime": 1777743932.659773,
+    "hash": "7cde532f53da81cfbb32d2aae51dafab"
+  },
+  "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\src\\scanner\\export\\_pandoc.py": {
+    "mtime": 1777743891.1561182,
+    "hash": "7d8cd8e4bfe0512ba68773a9cd201b79"
+  },
   "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\src\\scanner\\export\\__init__.py": {
-    "mtime": 1777698093.5889156,
-    "hash": "0de3a12c3d8b208051146d940727d6d8"
+    "mtime": 1777743942.1595995,
+    "hash": "1eda29c2157ed3daea3f113cb06935f8"
+  },
+  "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\src\\scanner\\postprocess\\ptbr.py": {
+    "mtime": 1777743602.5315456,
+    "hash": "1c352e6fa31ce51094500da76f658852"
+  },
+  "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\src\\scanner\\postprocess\\__init__.py": {
+    "mtime": 1777743341.354629,
+    "hash": "1f5f6e886ca9a9b6e5610e4d4c4dbd7d"
   },
   "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\tests\\conftest.py": {
     "mtime": 1777698423.452737,
     "hash": "f3983d44c6d1385be7d5cb91a8efda51"
   },
   "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\tests\\test_cli.py": {
-    "mtime": 1777698220.2571068,
-    "hash": "9a38a1033e04242e2a71f89bd25c686c"
+    "mtime": 1777744254.0263264,
+    "hash": "6bb0ba703906d63e6e5b017996d5f200"
   },
   "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\tests\\test_engine.py": {
     "mtime": 1777698209.2412107,
     "hash": "36b13fe6868a46f91ce4682ee15cdce7"
   },
+  "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\tests\\test_export_pdf.py": {
+    "mtime": 1777743995.771072,
+    "hash": "cdab222e8aaaebcab17ab0797ad8a65e"
+  },
   "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\tests\\test_pipeline.py": {
-    "mtime": 1777698194.907726,
-    "hash": "934e375e68ec6cb43af4b2ae97413411"
+    "mtime": 1777744115.748636,
+    "hash": "bd6f76e124571d36452aa5885b59a49f"
+  },
+  "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\tests\\test_postprocess.py": {
+    "mtime": 1777743623.386456,
+    "hash": "d188928412a8db510b7628c9fbfba3a0"
   },
   "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\tests\\__init__.py": {
     "mtime": 1777698171.8909101,
@@ -1716,99 +1736,99 @@
     "hash": "5581a36cc1012a08325084549f52d581"
   },
   "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\graphify-out\\converted\\docx_checkboxes_facbb38f.md": {
-    "mtime": 1777741978.1816466,
+    "mtime": 1777744639.5212622,
     "hash": "dd9e3c38400b148b151c32c11f3cb967"
   },
   "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\graphify-out\\converted\\docx_external_image_3c718786.md": {
-    "mtime": 1777741978.2016733,
+    "mtime": 1777744639.538922,
     "hash": "17ed8c1845601b01a82828e88a0d3b8a"
   },
   "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\graphify-out\\converted\\docx_grouped_images_d3f2404b.md": {
-    "mtime": 1777741978.2166774,
+    "mtime": 1777744639.5499485,
     "hash": "55d133a5246dc904c14cd9d350dd23b1"
   },
   "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\graphify-out\\converted\\docx_rich_cells_f26a7c3f.md": {
-    "mtime": 1777741978.2372856,
+    "mtime": 1777744639.568138,
     "hash": "fa103ebeec2a5cc04d2eb66b568d5fa7"
   },
   "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\graphify-out\\converted\\docx_vml_images_4556ac97.md": {
-    "mtime": 1777741978.2579195,
+    "mtime": 1777744639.5883646,
     "hash": "527758fafe1a3b6853ffad85a9ccbb3c"
   },
   "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\graphify-out\\converted\\equations_8c6847d5.md": {
-    "mtime": 1777741978.289171,
+    "mtime": 1777744639.6190743,
     "hash": "b8fb9da4ab67ae4cf984cf73aa806ec6"
   },
   "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\graphify-out\\converted\\list_after_num_headers_f1ed6fa3.md": {
-    "mtime": 1777741978.3029425,
+    "mtime": 1777744639.631147,
     "hash": "c9e475ebaeb61d6103b6fce43516fdd6"
   },
   "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\graphify-out\\converted\\lorem_ipsum_bc988c7c.md": {
-    "mtime": 1777741978.3142498,
+    "mtime": 1777744639.6404004,
     "hash": "69510120d0d28e30db220fc41d0f63a8"
   },
   "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\graphify-out\\converted\\omml_frac_superscript_ae73c52c.md": {
-    "mtime": 1777741978.3325577,
+    "mtime": 1777744639.6567698,
     "hash": "123b043041d616eee99a066a4eb9dc14"
   },
   "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\graphify-out\\converted\\omml_func_log_def99a64.md": {
-    "mtime": 1777741978.3516383,
+    "mtime": 1777744639.6720357,
     "hash": "46714ded6f361af58dbdee0af735cb0a"
   },
   "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\graphify-out\\converted\\omml_multi_equation_paragraph_fb24ff6f.md": {
-    "mtime": 1777741978.3682702,
+    "mtime": 1777744639.6862483,
     "hash": "5958a7de9b7dcdb480f04cce46adca40"
   },
   "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\graphify-out\\converted\\omml_text_escapes_in_math_c1fc0d13.md": {
-    "mtime": 1777741978.385006,
+    "mtime": 1777744639.7015195,
     "hash": "28ed0b3d07a80944ce30522ee86aa426"
   },
   "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\graphify-out\\converted\\tablecell_e287fbbe.md": {
-    "mtime": 1777741978.3946426,
+    "mtime": 1777744639.7095716,
     "hash": "23032783f7ecad29cd22e7c9cefcacae"
   },
   "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\graphify-out\\converted\\table_with_equations_a300ced0.md": {
-    "mtime": 1777741978.4031851,
+    "mtime": 1777744639.7183943,
     "hash": "ec5b8d541d28ad782a50be81e6348c96"
   },
   "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\graphify-out\\converted\\test_emf_docx_1b27d64b.md": {
-    "mtime": 1777741978.4227457,
+    "mtime": 1777744639.7324932,
     "hash": "e16180f41ca14094e61dff8002785834"
   },
   "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\graphify-out\\converted\\textbox_a9b4c5f1.md": {
-    "mtime": 1777741978.4401953,
+    "mtime": 1777744639.750129,
     "hash": "34a49a982dcfdb9c6869d5455e307efc"
   },
   "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\graphify-out\\converted\\unit_test_formatting_9b3b4216.md": {
-    "mtime": 1777741978.4560983,
+    "mtime": 1777744639.7643967,
     "hash": "22cb9b045fd71a57ea6a3620c8b4a365"
   },
   "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\graphify-out\\converted\\unit_test_headers_d4ca40e5.md": {
-    "mtime": 1777741978.475119,
+    "mtime": 1777744639.7848256,
     "hash": "1a48d3b655ae2b65e7acc0e418c9828f"
   },
   "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\graphify-out\\converted\\unit_test_headers_numbered_72a4c5a1.md": {
-    "mtime": 1777741978.5064385,
+    "mtime": 1777744639.8120432,
     "hash": "c1bbfa6f286a84b48e384922a5a2b868"
   },
   "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\graphify-out\\converted\\unit_test_lists_78e6d5d6.md": {
-    "mtime": 1777741978.5294273,
+    "mtime": 1777744639.8342366,
     "hash": "12fc6a4d08b41a78ff756e0c29c1b3c8"
   },
   "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\graphify-out\\converted\\word_comments_7ee4f9ea.md": {
-    "mtime": 1777741978.554865,
+    "mtime": 1777744639.859334,
     "hash": "e71eec29ec1bc115a6d5f889b9b05742"
   },
   "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\graphify-out\\converted\\word_image_anchors_cb98d585.md": {
-    "mtime": 1777741978.566653,
+    "mtime": 1777744639.8756945,
     "hash": "53e4ae4d77b57b72e75ffe2ecbce6472"
   },
   "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\graphify-out\\converted\\word_sample_13327f4a.md": {
-    "mtime": 1777741978.5855083,
+    "mtime": 1777744639.8985865,
     "hash": "7ff318eb19dc1a42bc3142b68c072d27"
   },
   "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\graphify-out\\converted\\word_tables_843ea34b.md": {
-    "mtime": 1777741978.6071951,
+    "mtime": 1777744639.9234908,
     "hash": "399f3d96197369d79d83f3cdb38ce960"
   },
   "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\docling-main\\docling-main\\tests\\data\\groundtruth\\docling_v1\\2203.01017v2.doctags.txt": {
@@ -2672,31 +2692,31 @@
     "hash": "293a8f99ec7d581cbab1687abf863729"
   },
   "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\graphify-out\\converted\\xlsx_01_c72bcbb2.md": {
-    "mtime": 1777741981.2577682,
+    "mtime": 1777744640.914148,
     "hash": "638bb6cfcc5e7f5b9f9e75100fa2f5fe"
   },
   "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\graphify-out\\converted\\xlsx_03_chartsheet_59f1c09b.md": {
-    "mtime": 1777741981.2773838,
+    "mtime": 1777744640.9267125,
     "hash": "2b7d53cc4dc90f006eaea08eac7c426f"
   },
   "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\graphify-out\\converted\\xlsx_04_inflated_1bc23514.md": {
-    "mtime": 1777741981.6302853,
+    "mtime": 1777744641.2839398,
     "hash": "697adc298dff2c6ce89667680cd0da91"
   },
   "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\graphify-out\\converted\\xlsx_05_table_with_title_269e3974.md": {
-    "mtime": 1777741981.6427956,
+    "mtime": 1777744641.2952561,
     "hash": "960fa4fc4ae864991188de35b3735a73"
   },
   "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\graphify-out\\converted\\xlsx_06_edge_cases__75f00fad.md": {
-    "mtime": 1777741981.6581457,
+    "mtime": 1777744641.309507,
     "hash": "bcbe8db2f0313e3dec917d35280f9d97"
   },
   "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\graphify-out\\converted\\xlsx_07_gap_tolerance__a65694bd.md": {
-    "mtime": 1777741981.6774302,
+    "mtime": 1777744641.3266149,
     "hash": "6822f6781e5541eda2728697becf62b8"
   },
   "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\graphify-out\\converted\\xlsx_08_one_cell_anchor_0125ba02.md": {
-    "mtime": 1777741981.6878219,
+    "mtime": 1777744641.335277,
     "hash": "e848314e2cd8fa8a77a8ed3e509f5bc4"
   },
   "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\docling-main\\docling-main\\tests\\data_scanned\\groundtruth\\docling_v1\\ocr_test.doctags.txt": {
@@ -2783,6 +2803,10 @@
     "mtime": 1777737500.9512331,
     "hash": "eab2dea34d8cef0d41546490b113715c"
   },
+  "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\docs\\superpowers\\plans\\2026-05-02-phase-0-backend-refactor.md": {
+    "mtime": 1777742390.302091,
+    "hash": "55d15b211f1ee235765c6f745ba03d18"
+  },
   "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\docs\\superpowers\\specs\\2026-05-02-web-app-pwa-design.md": {
     "mtime": 1777741843.311802,
     "hash": "cbfcda82eb0099ec0539edb337925377"
@@ -2792,7 +2816,7 @@
     "hash": "8ec9a528e18f1cb11ea1d7c3ac78416c"
   },
   "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\graphify-out\\converted\\paper-page-with-table_ed0d95ed.md": {
-    "mtime": 1777741981.8581033,
+    "mtime": 1777744641.4539084,
     "hash": "b4a2d7ebf3d28a1c8009c2fc8c4d1c73"
   },
   "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\output\\paper-page-with-table.md": {
@@ -2800,7 +2824,7 @@
     "hash": "c42857c659acea57afd9cc98f1399b4b"
   },
   "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\graphify-out\\converted\\Gest\u00e3o de Pronto-Socorro  (1)_c97c4740.md": {
-    "mtime": 1777741981.8713236,
+    "mtime": 1777744641.4644258,
     "hash": "b818a00b9dee2f5202a911aa23cfe6ab"
   },
   "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\output\\gestao-ps\\Gest\u00e3o de Pronto-Socorro  (1).md": {
@@ -2808,7 +2832,7 @@
     "hash": "1ba4df2414ec7d38f00ec752f2c825e3"
   },
   "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\graphify-out\\converted\\Gest\u00e3o de Pronto-Socorro  (10)_466cb941.md": {
-    "mtime": 1777741981.8849604,
+    "mtime": 1777744641.4766464,
     "hash": "19d5dedb3cdee58a6aad0bf4485841a2"
   },
   "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\output\\gestao-ps\\Gest\u00e3o de Pronto-Socorro  (10).md": {
@@ -2816,7 +2840,7 @@
     "hash": "e5264bc8febe3ddda84e340d4d195ded"
   },
   "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\graphify-out\\converted\\Gest\u00e3o de Pronto-Socorro  (11)_253063b8.md": {
-    "mtime": 1777741981.8950014,
+    "mtime": 1777744641.4857957,
     "hash": "6143e431c5c246c0ab73364ea363ed1f"
   },
   "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\output\\gestao-ps\\Gest\u00e3o de Pronto-Socorro  (11).md": {
@@ -2824,7 +2848,7 @@
     "hash": "a3600d2e6e32875bab7bc84bd0378e5f"
   },
   "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\graphify-out\\converted\\Gest\u00e3o de Pronto-Socorro  (12)_7156584d.md": {
-    "mtime": 1777741981.9067283,
+    "mtime": 1777744641.4958706,
     "hash": "8ad668417634a2b61a4d11497464fc44"
   },
   "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\output\\gestao-ps\\Gest\u00e3o de Pronto-Socorro  (12).md": {
@@ -2832,7 +2856,7 @@
     "hash": "4ad668877cad40b4c57acca484e3b37c"
   },
   "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\graphify-out\\converted\\Gest\u00e3o de Pronto-Socorro  (13)_2aa2ee57.md": {
-    "mtime": 1777741981.9177072,
+    "mtime": 1777744641.5055568,
     "hash": "d3ff1b4b1483e7d9981c98f212afd05d"
   },
   "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\output\\gestao-ps\\Gest\u00e3o de Pronto-Socorro  (13).md": {
@@ -2840,7 +2864,7 @@
     "hash": "aa6f9b832f151515646245f27185344d"
   },
   "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\graphify-out\\converted\\Gest\u00e3o de Pronto-Socorro  (14)_07c55ea6.md": {
-    "mtime": 1777741981.9306467,
+    "mtime": 1777744641.518458,
     "hash": "b235d209d02fe6087377de51d42ba722"
   },
   "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\output\\gestao-ps\\Gest\u00e3o de Pronto-Socorro  (14).md": {
@@ -2848,7 +2872,7 @@
     "hash": "1ec57884023cc05decf8df41134a88e9"
   },
   "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\graphify-out\\converted\\Gest\u00e3o de Pronto-Socorro  (15)_bc8ac5c8.md": {
-    "mtime": 1777741981.9427776,
+    "mtime": 1777744641.5304806,
     "hash": "d3cd59c52c4d0b9c3ae43ca96531f55b"
   },
   "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\output\\gestao-ps\\Gest\u00e3o de Pronto-Socorro  (15).md": {
@@ -2856,7 +2880,7 @@
     "hash": "bc2bded742f2fd8943ad7dea96363bd5"
   },
   "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\graphify-out\\converted\\Gest\u00e3o de Pronto-Socorro  (16)_437fea52.md": {
-    "mtime": 1777741981.955158,
+    "mtime": 1777744641.5426035,
     "hash": "b12a0f2ea358c5d62d95b2ae788ae05f"
   },
   "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\output\\gestao-ps\\Gest\u00e3o de Pronto-Socorro  (16).md": {
@@ -2864,7 +2888,7 @@
     "hash": "c563cf3ce7786b893ff8b863ba5b57a4"
   },
   "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\graphify-out\\converted\\Gest\u00e3o de Pronto-Socorro  (17)_e8a31610.md": {
-    "mtime": 1777741981.9687953,
+    "mtime": 1777744641.5553916,
     "hash": "b2b5cd2840a46c4e30c749bdd8adade6"
   },
   "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\output\\gestao-ps\\Gest\u00e3o de Pronto-Socorro  (17).md": {
@@ -2872,7 +2896,7 @@
     "hash": "c3c3d6061c6ca5ace3f31d0df3a29ccb"
   },
   "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\graphify-out\\converted\\Gest\u00e3o de Pronto-Socorro  (18)_8f6012a5.md": {
-    "mtime": 1777741981.9805093,
+    "mtime": 1777744641.5653439,
     "hash": "189a77fdf8db39bd3bb78f768d687b99"
   },
   "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\output\\gestao-ps\\Gest\u00e3o de Pronto-Socorro  (18).md": {
@@ -2880,7 +2904,7 @@
     "hash": "057da5f064ae0085d6aa9819ce869483"
   },
   "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\graphify-out\\converted\\Gest\u00e3o de Pronto-Socorro  (19)_fc9347f2.md": {
-    "mtime": 1777741981.993201,
+    "mtime": 1777744641.576511,
     "hash": "01fbf5dbec7da96804a428900309fded"
   },
   "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\output\\gestao-ps\\Gest\u00e3o de Pronto-Socorro  (19).md": {
@@ -2888,7 +2912,7 @@
     "hash": "a49bc4b3596aece208f75a2d32042b87"
   },
   "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\graphify-out\\converted\\Gest\u00e3o de Pronto-Socorro  (2)_aaadc2f4.md": {
-    "mtime": 1777741982.0082312,
+    "mtime": 1777744641.588799,
     "hash": "320d79fe7ad1e3ac55f26c03e08fd318"
   },
   "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\output\\gestao-ps\\Gest\u00e3o de Pronto-Socorro  (2).md": {
@@ -2896,7 +2920,7 @@
     "hash": "db1061f61b36e5aea527e32884349b3d"
   },
   "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\graphify-out\\converted\\Gest\u00e3o de Pronto-Socorro  (20)_281cccd3.md": {
-    "mtime": 1777741982.0215857,
+    "mtime": 1777744641.598308,
     "hash": "ddc5d344819a54719c309174b7035175"
   },
   "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\output\\gestao-ps\\Gest\u00e3o de Pronto-Socorro  (20).md": {
@@ -2904,7 +2928,7 @@
     "hash": "e0c4758ac788e396526f6a9ebe7ba9b1"
   },
   "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\graphify-out\\converted\\Gest\u00e3o de Pronto-Socorro  (21)_60479ba7.md": {
-    "mtime": 1777741982.0351381,
+    "mtime": 1777744641.6116571,
     "hash": "f7c8699a445a1e66a2f77192f6196961"
   },
   "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\output\\gestao-ps\\Gest\u00e3o de Pronto-Socorro  (21).md": {
@@ -2912,7 +2936,7 @@
     "hash": "405a4926810604c5b913121d1538e797"
   },
   "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\graphify-out\\converted\\Gest\u00e3o de Pronto-Socorro  (22)_0bc2e5bb.md": {
-    "mtime": 1777741982.04669,
+    "mtime": 1777744641.621848,
     "hash": "a17354a6c207087c9f447d1589969b87"
   },
   "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\output\\gestao-ps\\Gest\u00e3o de Pronto-Socorro  (22).md": {
@@ -2920,7 +2944,7 @@
     "hash": "5b9d5e648079f903f260cd0dd1ab1124"
   },
   "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\graphify-out\\converted\\Gest\u00e3o de Pronto-Socorro  (23)_5da489d8.md": {
-    "mtime": 1777741982.0579486,
+    "mtime": 1777744641.629901,
     "hash": "40afcd801ad062695bd4d708259e6196"
   },
   "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\output\\gestao-ps\\Gest\u00e3o de Pronto-Socorro  (23).md": {
@@ -2928,7 +2952,7 @@
     "hash": "8ec4bdd66d379c3b752252f40c053e7f"
   },
   "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\graphify-out\\converted\\Gest\u00e3o de Pronto-Socorro  (24)_5d936bb3.md": {
-    "mtime": 1777741982.069762,
+    "mtime": 1777744641.642087,
     "hash": "9e48a0d060e56f98d5c174ce4669165d"
   },
   "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\output\\gestao-ps\\Gest\u00e3o de Pronto-Socorro  (24).md": {
@@ -2936,7 +2960,7 @@
     "hash": "c8b36436c1e2b834fb5762470c5043d5"
   },
   "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\graphify-out\\converted\\Gest\u00e3o de Pronto-Socorro  (25)_baa0b130.md": {
-    "mtime": 1777741982.0824878,
+    "mtime": 1777744641.6522317,
     "hash": "30e4ff852f40a0c20e8e8c554f821c7a"
   },
   "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\output\\gestao-ps\\Gest\u00e3o de Pronto-Socorro  (25).md": {
@@ -2944,7 +2968,7 @@
     "hash": "a6e0f6453091895616affa165a9e9c18"
   },
   "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\graphify-out\\converted\\Gest\u00e3o de Pronto-Socorro  (26)_d1cd011a.md": {
-    "mtime": 1777741982.0950108,
+    "mtime": 1777744641.6648743,
     "hash": "3f5ebd5fc4774352b75cf4df6846a834"
   },
   "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\output\\gestao-ps\\Gest\u00e3o de Pronto-Socorro  (26).md": {
@@ -2952,7 +2976,7 @@
     "hash": "655279c9f367a9c4bb0940ffc037e64a"
   },
   "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\graphify-out\\converted\\Gest\u00e3o de Pronto-Socorro  (27)_ad3b3d64.md": {
-    "mtime": 1777741982.1086957,
+    "mtime": 1777744641.6760638,
     "hash": "336348b8704f82e7a152a0e74ac59885"
   },
   "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\output\\gestao-ps\\Gest\u00e3o de Pronto-Socorro  (27).md": {
@@ -2960,7 +2984,7 @@
     "hash": "42432d59eba28171b90cd6001a1aa816"
   },
   "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\graphify-out\\converted\\Gest\u00e3o de Pronto-Socorro  (28)_f3472494.md": {
-    "mtime": 1777741982.1199343,
+    "mtime": 1777744641.6871262,
     "hash": "28d6493dd14c2bf5eade065f8e31a0e6"
   },
   "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\output\\gestao-ps\\Gest\u00e3o de Pronto-Socorro  (28).md": {
@@ -2968,7 +2992,7 @@
     "hash": "60a3d09a58b286d59877acba700f487d"
   },
   "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\graphify-out\\converted\\Gest\u00e3o de Pronto-Socorro  (29)_7348b0f1.md": {
-    "mtime": 1777741982.1321516,
+    "mtime": 1777744641.696634,
     "hash": "e5b910b91ee5a7a0ca24b5c4017549b9"
   },
   "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\output\\gestao-ps\\Gest\u00e3o de Pronto-Socorro  (29).md": {
@@ -2976,7 +3000,7 @@
     "hash": "a143ebcd1b9c33fe4c8f044b1c155f2e"
   },
   "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\graphify-out\\converted\\Gest\u00e3o de Pronto-Socorro  (3)_6ebc1bf3.md": {
-    "mtime": 1777741982.1470487,
+    "mtime": 1777744641.710471,
     "hash": "be7bdfe7502487dc9248bac347e744a3"
   },
   "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\output\\gestao-ps\\Gest\u00e3o de Pronto-Socorro  (3).md": {
@@ -2984,7 +3008,7 @@
     "hash": "ab19a25d6589222c5f4f1f054cf53376"
   },
   "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\graphify-out\\converted\\Gest\u00e3o de Pronto-Socorro  (30)_ee9f7746.md": {
-    "mtime": 1777741982.1607668,
+    "mtime": 1777744641.7219384,
     "hash": "97b421be48a01d0c51ed109da9dcea08"
   },
   "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\output\\gestao-ps\\Gest\u00e3o de Pronto-Socorro  (30).md": {
@@ -2992,7 +3016,7 @@
     "hash": "bf89da695b9a65d9efdb2b13ae0d37d6"
   },
   "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\graphify-out\\converted\\Gest\u00e3o de Pronto-Socorro  (31)_5d0bccc8.md": {
-    "mtime": 1777741982.1835594,
+    "mtime": 1777744641.7409613,
     "hash": "04c22bb19c8f4d01fe7e5dec6373cbb7"
   },
   "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\output\\gestao-ps\\Gest\u00e3o de Pronto-Socorro  (31).md": {
@@ -3000,7 +3024,7 @@
     "hash": "da8e2de57c300cb4171aeda095a2516c"
   },
   "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\graphify-out\\converted\\Gest\u00e3o de Pronto-Socorro  (32)_63fa7584.md": {
-    "mtime": 1777741982.1965575,
+    "mtime": 1777744641.7539432,
     "hash": "32245eba86b2c3ed42811812838a6302"
   },
   "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\output\\gestao-ps\\Gest\u00e3o de Pronto-Socorro  (32).md": {
@@ -3008,7 +3032,7 @@
     "hash": "7a411372121d375534fc1c5a4b032cd3"
   },
   "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\graphify-out\\converted\\Gest\u00e3o de Pronto-Socorro  (33)_266f673b.md": {
-    "mtime": 1777741982.2104113,
+    "mtime": 1777744641.763965,
     "hash": "a7ea6c68c3ce387f0b1a73fb4cfc2bcc"
   },
   "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\output\\gestao-ps\\Gest\u00e3o de Pronto-Socorro  (33).md": {
@@ -3016,7 +3040,7 @@
     "hash": "53c0cc11c39923e345e348a3ef8f9713"
   },
   "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\graphify-out\\converted\\Gest\u00e3o de Pronto-Socorro  (34)_091a8891.md": {
-    "mtime": 1777741982.219803,
+    "mtime": 1777744641.7736146,
     "hash": "3648648ad2f85954e50f6021960bf583"
   },
   "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\output\\gestao-ps\\Gest\u00e3o de Pronto-Socorro  (34).md": {
@@ -3024,7 +3048,7 @@
     "hash": "09cadf992796af675583c0f2c8d94386"
   },
   "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\graphify-out\\converted\\Gest\u00e3o de Pronto-Socorro  (35)_780c7a55.md": {
-    "mtime": 1777741982.2303588,
+    "mtime": 1777744641.784192,
     "hash": "6feae392c1d58e89a0248179b3e8878f"
   },
   "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\output\\gestao-ps\\Gest\u00e3o de Pronto-Socorro  (35).md": {
@@ -3032,7 +3056,7 @@
     "hash": "d2123d282587c8911dcd96a845c25a39"
   },
   "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\graphify-out\\converted\\Gest\u00e3o de Pronto-Socorro  (36)_a15e8601.md": {
-    "mtime": 1777741982.2455454,
+    "mtime": 1777744641.7958887,
     "hash": "422553b7a15fb3d522a5c77d6a608ae8"
   },
   "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\output\\gestao-ps\\Gest\u00e3o de Pronto-Socorro  (36).md": {
@@ -3040,7 +3064,7 @@
     "hash": "7dcc2e044d2e95727bf5831765fc7861"
   },
   "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\graphify-out\\converted\\Gest\u00e3o de Pronto-Socorro  (37)_c9652a5d.md": {
-    "mtime": 1777741982.257828,
+    "mtime": 1777744641.8083692,
     "hash": "59924672f6872351d6fe3937e25cd638"
   },
   "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\output\\gestao-ps\\Gest\u00e3o de Pronto-Socorro  (37).md": {
@@ -3048,7 +3072,7 @@
     "hash": "b75603ae0008b0d6ea238bf82adb9b2d"
   },
   "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\graphify-out\\converted\\Gest\u00e3o de Pronto-Socorro  (38)_da0b3b66.md": {
-    "mtime": 1777741982.2703521,
+    "mtime": 1777744641.820475,
     "hash": "466e9e79c69da4191c6b962e48fb4cea"
   },
   "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\output\\gestao-ps\\Gest\u00e3o de Pronto-Socorro  (38).md": {
@@ -3056,7 +3080,7 @@
     "hash": "cc31035f705f526799b354d3d970fbaa"
   },
   "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\graphify-out\\converted\\Gest\u00e3o de Pronto-Socorro  (39)_53cbc6d1.md": {
-    "mtime": 1777741982.283457,
+    "mtime": 1777744641.8304954,
     "hash": "375005382714f6d161be0c26de76cf6c"
   },
   "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\output\\gestao-ps\\Gest\u00e3o de Pronto-Socorro  (39).md": {
@@ -3064,7 +3088,7 @@
     "hash": "c2c8394531f51ef59f57313cd5e98640"
   },
   "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\graphify-out\\converted\\Gest\u00e3o de Pronto-Socorro  (4)_8d2ecede.md": {
-    "mtime": 1777741982.2997618,
+    "mtime": 1777744641.8474207,
     "hash": "e6bd9e1620d84cda9f397a32c652675d"
   },
   "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\output\\gestao-ps\\Gest\u00e3o de Pronto-Socorro  (4).md": {
@@ -3072,7 +3096,7 @@
     "hash": "1696d88ca0f077d5cb4d759c4f21bc89"
   },
   "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\graphify-out\\converted\\Gest\u00e3o de Pronto-Socorro  (40)_6957f221.md": {
-    "mtime": 1777741982.312397,
+    "mtime": 1777744641.8597946,
     "hash": "28120c7c711873cff4a8543060f910c6"
   },
   "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\output\\gestao-ps\\Gest\u00e3o de Pronto-Socorro  (40).md": {
@@ -3080,7 +3104,7 @@
     "hash": "d51c7087f463dfae66ae9c02a2d6b1c6"
   },
   "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\graphify-out\\converted\\Gest\u00e3o de Pronto-Socorro  (41)_0fa8eef8.md": {
-    "mtime": 1777741982.3249853,
+    "mtime": 1777744641.8720202,
     "hash": "f06b011ba82051860f65139d1a8b4813"
   },
   "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\output\\gestao-ps\\Gest\u00e3o de Pronto-Socorro  (41).md": {
@@ -3088,7 +3112,7 @@
     "hash": "4bb15701bc23f5a2f7fb10660327059f"
   },
   "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\graphify-out\\converted\\Gest\u00e3o de Pronto-Socorro  (42)_e401f443.md": {
-    "mtime": 1777741982.3397968,
+    "mtime": 1777744641.885325,
     "hash": "a9b042ad38e7061a134be6716da8910b"
   },
   "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\output\\gestao-ps\\Gest\u00e3o de Pronto-Socorro  (42).md": {
@@ -3096,7 +3120,7 @@
     "hash": "ebf68d806d3cde937f2a3921e265dc3e"
   },
   "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\graphify-out\\converted\\Gest\u00e3o de Pronto-Socorro  (43)_cf1a9cda.md": {
-    "mtime": 1777741982.358662,
+    "mtime": 1777744641.8989422,
     "hash": "432d6742d6b5c5f49fd8653844a8be63"
   },
   "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\output\\gestao-ps\\Gest\u00e3o de Pronto-Socorro  (43).md": {
@@ -3104,7 +3128,7 @@
     "hash": "f16a0e8da84fe8377d4e6f6ca32b295c"
   },
   "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\graphify-out\\converted\\Gest\u00e3o de Pronto-Socorro  (44)_a44e33c4.md": {
-    "mtime": 1777741982.3771698,
+    "mtime": 1777744641.9111676,
     "hash": "800e576ec099657401ce587b0540526c"
   },
   "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\output\\gestao-ps\\Gest\u00e3o de Pronto-Socorro  (44).md": {
@@ -3112,7 +3136,7 @@
     "hash": "989896508c910a7e54846e92f2fc039f"
   },
   "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\graphify-out\\converted\\Gest\u00e3o de Pronto-Socorro  (45)_17910c62.md": {
-    "mtime": 1777741982.3957453,
+    "mtime": 1777744641.9280596,
     "hash": "18431eb638652a35028ae6dc636b4f64"
   },
   "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\output\\gestao-ps\\Gest\u00e3o de Pronto-Socorro  (45).md": {
@@ -3120,7 +3144,7 @@
     "hash": "18a01ef2fa80499de017b9e16c294a90"
   },
   "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\graphify-out\\converted\\Gest\u00e3o de Pronto-Socorro  (46)_e2f2965f.md": {
-    "mtime": 1777741982.4084296,
+    "mtime": 1777744641.9392626,
     "hash": "4b032f4ba4f6647e8a061b0d16372114"
   },
   "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\output\\gestao-ps\\Gest\u00e3o de Pronto-Socorro  (46).md": {
@@ -3128,7 +3152,7 @@
     "hash": "0663ad3bfe4b882b4218d878ed206b33"
   },
   "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\graphify-out\\converted\\Gest\u00e3o de Pronto-Socorro  (47)_c2e25ef8.md": {
-    "mtime": 1777741982.4202883,
+    "mtime": 1777744641.9508183,
     "hash": "f13a72f2195183ef74804479a770ba59"
   },
   "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\output\\gestao-ps\\Gest\u00e3o de Pronto-Socorro  (47).md": {
@@ -3136,7 +3160,7 @@
     "hash": "32e169c3f4ce30683f06a008f177ab50"
   },
   "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\graphify-out\\converted\\Gest\u00e3o de Pronto-Socorro  (48)_a044d6cb.md": {
-    "mtime": 1777741982.4333723,
+    "mtime": 1777744641.9618773,
     "hash": "654868c83ad0019a51a085287415f134"
   },
   "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\output\\gestao-ps\\Gest\u00e3o de Pronto-Socorro  (48).md": {
@@ -3144,7 +3168,7 @@
     "hash": "69b1048792ababaa1748c0ed16059696"
   },
   "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\graphify-out\\converted\\Gest\u00e3o de Pronto-Socorro  (49)_4795a454.md": {
-    "mtime": 1777741982.4477408,
+    "mtime": 1777744641.9715521,
     "hash": "13fb5cd9a1ff897fc611b8ee4e5d2e10"
   },
   "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\output\\gestao-ps\\Gest\u00e3o de Pronto-Socorro  (49).md": {
@@ -3152,7 +3176,7 @@
     "hash": "fee263809a44a91122d080fa4b6a455b"
   },
   "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\graphify-out\\converted\\Gest\u00e3o de Pronto-Socorro  (5)_269c2d5a.md": {
-    "mtime": 1777741982.487676,
+    "mtime": 1777744641.9923122,
     "hash": "8e174c5972b5b62b9da1c9626749ff90"
   },
   "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\output\\gestao-ps\\Gest\u00e3o de Pronto-Socorro  (5).md": {
@@ -3160,7 +3184,7 @@
     "hash": "db9e35d3bf3e3df3970a2810581d5624"
   },
   "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\graphify-out\\converted\\Gest\u00e3o de Pronto-Socorro  (50)_bd935546.md": {
-    "mtime": 1777741982.5021627,
+    "mtime": 1777744642.0025575,
     "hash": "32f9cc1808cb1ba8d109887a0f9bfbe1"
   },
   "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\output\\gestao-ps\\Gest\u00e3o de Pronto-Socorro  (50).md": {
@@ -3168,7 +3192,7 @@
     "hash": "2f963842db30f242258a422483ef3832"
   },
   "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\graphify-out\\converted\\Gest\u00e3o de Pronto-Socorro  (51)_4d350c72.md": {
-    "mtime": 1777741982.5162075,
+    "mtime": 1777744642.0123591,
     "hash": "970c7b31914e21f915f47d9b5c995d78"
   },
   "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\output\\gestao-ps\\Gest\u00e3o de Pronto-Socorro  (51).md": {
@@ -3176,7 +3200,7 @@
     "hash": "127e63a940422aab433ac69ad3b1348d"
   },
   "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\graphify-out\\converted\\Gest\u00e3o de Pronto-Socorro  (52)_a6ac951d.md": {
-    "mtime": 1777741982.5303984,
+    "mtime": 1777744642.022149,
     "hash": "d9c64ced0fb5f091354e5d2522ced64d"
   },
   "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\output\\gestao-ps\\Gest\u00e3o de Pronto-Socorro  (52).md": {
@@ -3184,7 +3208,7 @@
     "hash": "163462dda1ed05eccd5f556bc3874021"
   },
   "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\graphify-out\\converted\\Gest\u00e3o de Pronto-Socorro  (53)_2be41434.md": {
-    "mtime": 1777741982.5463855,
+    "mtime": 1777744642.032166,
     "hash": "0449e01e1b2441472dd00a4f37914602"
   },
   "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\output\\gestao-ps\\Gest\u00e3o de Pronto-Socorro  (53).md": {
@@ -3192,7 +3216,7 @@
     "hash": "982207cc1f7d4d4c68a7eab8d2c1795a"
   },
   "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\graphify-out\\converted\\Gest\u00e3o de Pronto-Socorro  (54)_a94a61f7.md": {
-    "mtime": 1777741982.5624864,
+    "mtime": 1777744642.0452557,
     "hash": "72a87859551d8beec8282bf5cc87c631"
   },
   "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\output\\gestao-ps\\Gest\u00e3o de Pronto-Socorro  (54).md": {
@@ -3200,7 +3224,7 @@
     "hash": "553d6f23c66c814624486cc26d6f7867"
   },
   "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\graphify-out\\converted\\Gest\u00e3o de Pronto-Socorro  (55)_8f6bc5e9.md": {
-    "mtime": 1777741982.5794811,
+    "mtime": 1777744642.0574358,
     "hash": "468119848bcf6875c0d7e85fe8391e08"
   },
   "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\output\\gestao-ps\\Gest\u00e3o de Pronto-Socorro  (55).md": {
@@ -3208,7 +3232,7 @@
     "hash": "64cbb547c6ff5df1b1f32aac51575083"
   },
   "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\graphify-out\\converted\\Gest\u00e3o de Pronto-Socorro  (56)_7006811b.md": {
-    "mtime": 1777741982.5924253,
+    "mtime": 1777744642.0685775,
     "hash": "792285ed7fd16973d09f9b721f34d340"
   },
   "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\output\\gestao-ps\\Gest\u00e3o de Pronto-Socorro  (56).md": {
@@ -3216,7 +3240,7 @@
     "hash": "55726102cd3140038b5d4002ac3621d9"
   },
   "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\graphify-out\\converted\\Gest\u00e3o de Pronto-Socorro  (57)_4c5d4ee6.md": {
-    "mtime": 1777741982.616519,
+    "mtime": 1777744642.0786755,
     "hash": "e935e0f356ace94f4f55a2283502e181"
   },
   "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\output\\gestao-ps\\Gest\u00e3o de Pronto-Socorro  (57).md": {
@@ -3224,7 +3248,7 @@
     "hash": "c34d659a54affaa4e63cd79a6fe591f9"
   },
   "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\graphify-out\\converted\\Gest\u00e3o de Pronto-Socorro  (58)_83ef54d6.md": {
-    "mtime": 1777741982.6377783,
+    "mtime": 1777744642.0914562,
     "hash": "5b2d73e5941db87826054afa4301883f"
   },
   "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\output\\gestao-ps\\Gest\u00e3o de Pronto-Socorro  (58).md": {
@@ -3232,7 +3256,7 @@
     "hash": "3257e45f099c4ceedabe9c46731c4c14"
   },
   "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\graphify-out\\converted\\Gest\u00e3o de Pronto-Socorro  (59)_9087b206.md": {
-    "mtime": 1777741982.65265,
+    "mtime": 1777744642.1049843,
     "hash": "14762af1b5a0ddf003b79056fd1b0dd5"
   },
   "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\output\\gestao-ps\\Gest\u00e3o de Pronto-Socorro  (59).md": {
@@ -3240,7 +3264,7 @@
     "hash": "18603b53a7245ded8c98ac944650dc77"
   },
   "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\graphify-out\\converted\\Gest\u00e3o de Pronto-Socorro  (6)_3427a6c3.md": {
-    "mtime": 1777741982.6654768,
+    "mtime": 1777744642.113602,
     "hash": "646e9b92199df67d7249d18058cdb01b"
   },
   "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\output\\gestao-ps\\Gest\u00e3o de Pronto-Socorro  (6).md": {
@@ -3248,7 +3272,7 @@
     "hash": "1d5c96504ca57f3e791bb67d4e88179d"
   },
   "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\graphify-out\\converted\\Gest\u00e3o de Pronto-Socorro  (60)_6d0645d1.md": {
-    "mtime": 1777741982.677498,
+    "mtime": 1777744642.1254325,
     "hash": "0a9cdba18ade95976598f79c22035e21"
   },
   "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\output\\gestao-ps\\Gest\u00e3o de Pronto-Socorro  (60).md": {
@@ -3256,7 +3280,7 @@
     "hash": "aebdcbe335b7deff9a6291e146ebf02d"
   },
   "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\graphify-out\\converted\\Gest\u00e3o de Pronto-Socorro  (61)_12451289.md": {
-    "mtime": 1777741982.6906977,
+    "mtime": 1777744642.136969,
     "hash": "bebc4eccf3a79fe58c95563362a8c539"
   },
   "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\output\\gestao-ps\\Gest\u00e3o de Pronto-Socorro  (61).md": {
@@ -3264,7 +3288,7 @@
     "hash": "657e006acc2ebc49ad3b5fc9fd1c24f6"
   },
   "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\graphify-out\\converted\\Gest\u00e3o de Pronto-Socorro  (62)_ec33fc6f.md": {
-    "mtime": 1777741982.7036874,
+    "mtime": 1777744642.1498904,
     "hash": "7799a008f78c5a8eede934e13e6a586b"
   },
   "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\output\\gestao-ps\\Gest\u00e3o de Pronto-Socorro  (62).md": {
@@ -3272,7 +3296,7 @@
     "hash": "cfd8b6cf6fbbb26eaf7ee94bf158aadd"
   },
   "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\graphify-out\\converted\\Gest\u00e3o de Pronto-Socorro  (63)_29780f2b.md": {
-    "mtime": 1777741982.7174754,
+    "mtime": 1777744642.160599,
     "hash": "bcb1a4b0c453683c3b04e89c7b5bb23a"
   },
   "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\output\\gestao-ps\\Gest\u00e3o de Pronto-Socorro  (63).md": {
@@ -3280,7 +3304,7 @@
     "hash": "fb9d67ce30aca7b4f4fc3cd46feb3027"
   },
   "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\graphify-out\\converted\\Gest\u00e3o de Pronto-Socorro  (64)_7bc15da5.md": {
-    "mtime": 1777741982.7311425,
+    "mtime": 1777744642.1710327,
     "hash": "7985f73657495156d4969bcbea6c304b"
   },
   "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\output\\gestao-ps\\Gest\u00e3o de Pronto-Socorro  (64).md": {
@@ -3288,7 +3312,7 @@
     "hash": "3dff64ba1df4b4963c210f1341039d05"
   },
   "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\graphify-out\\converted\\Gest\u00e3o de Pronto-Socorro  (65)_82c4a94a.md": {
-    "mtime": 1777741982.7425077,
+    "mtime": 1777744642.1795447,
     "hash": "5b56b2710ddca5b03ad9c1b25c0df998"
   },
   "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\output\\gestao-ps\\Gest\u00e3o de Pronto-Socorro  (65).md": {
@@ -3296,7 +3320,7 @@
     "hash": "b1c5cab19ad8a2c85bb1286792c80781"
   },
   "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\graphify-out\\converted\\Gest\u00e3o de Pronto-Socorro  (66)_88fb2fa0.md": {
-    "mtime": 1777741982.7553306,
+    "mtime": 1777744642.1894946,
     "hash": "fa91b68d0beb3933282613c61b96a6f9"
   },
   "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\output\\gestao-ps\\Gest\u00e3o de Pronto-Socorro  (66).md": {
@@ -3304,7 +3328,7 @@
     "hash": "6ab1b8cb953e0d610e3db34cc68e295f"
   },
   "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\graphify-out\\converted\\Gest\u00e3o de Pronto-Socorro  (67)_6b3a1382.md": {
-    "mtime": 1777741982.769058,
+    "mtime": 1777744642.2008564,
     "hash": "40d06be8becc8b795f6cd9eabe3a572c"
   },
   "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\output\\gestao-ps\\Gest\u00e3o de Pronto-Socorro  (67).md": {
@@ -3312,7 +3336,7 @@
     "hash": "dd0cd3a7d9e9e31bc67b93afa47b7f5f"
   },
   "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\graphify-out\\converted\\Gest\u00e3o de Pronto-Socorro  (68)_68aa4838.md": {
-    "mtime": 1777741982.7824805,
+    "mtime": 1777744642.2103655,
     "hash": "47773ddbee77a644e62cb435c0a96804"
   },
   "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\output\\gestao-ps\\Gest\u00e3o de Pronto-Socorro  (68).md": {
@@ -3320,7 +3344,7 @@
     "hash": "b513acfa9ea4fe53e50d9e2e225603f9"
   },
   "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\graphify-out\\converted\\Gest\u00e3o de Pronto-Socorro  (69)_a52dd911.md": {
-    "mtime": 1777741982.795479,
+    "mtime": 1777744642.2220383,
     "hash": "330012aab1f04fde6a123ba7865e732f"
   },
   "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\output\\gestao-ps\\Gest\u00e3o de Pronto-Socorro  (69).md": {
@@ -3328,7 +3352,7 @@
     "hash": "a1d5168add3c649597fd7cdac2db7e1f"
   },
   "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\graphify-out\\converted\\Gest\u00e3o de Pronto-Socorro  (7)_acc7053e.md": {
-    "mtime": 1777741982.8073826,
+    "mtime": 1777744642.2316937,
     "hash": "52ca69ef7420acbfff504a0ed1e6fa1b"
   },
   "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\output\\gestao-ps\\Gest\u00e3o de Pronto-Socorro  (7).md": {
@@ -3336,7 +3360,7 @@
     "hash": "b090bc97c29cf508de49754efbcb5f2e"
   },
   "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\graphify-out\\converted\\Gest\u00e3o de Pronto-Socorro  (8)_3da47304.md": {
-    "mtime": 1777741982.8202527,
+    "mtime": 1777744642.2397158,
     "hash": "a76feb5d3a9c8a5dc0b6cf4900ad70ae"
   },
   "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\output\\gestao-ps\\Gest\u00e3o de Pronto-Socorro  (8).md": {
@@ -3344,7 +3368,7 @@
     "hash": "83fc9e296c858c59a026ea519fb00699"
   },
   "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\graphify-out\\converted\\Gest\u00e3o de Pronto-Socorro  (9)_0829deb0.md": {
-    "mtime": 1777741982.8317163,
+    "mtime": 1777744642.2512786,
     "hash": "de338355ae79b432a698f0e81f88f0c7"
   },
   "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\output\\gestao-ps\\Gest\u00e3o de Pronto-Socorro  (9).md": {
@@ -3352,7 +3376,7 @@
     "hash": "942352dc768ab28256b4ef9a69c359e0"
   },
   "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\graphify-out\\converted\\gestao-pronto-socorro_f90921b9.md": {
-    "mtime": 1777741984.3367543,
+    "mtime": 1777744643.8125007,
     "hash": "5d9586ff48c3f608cd0b4263359bfa93"
   },
   "C:\\Users\\jacks\\OneDrive\\2\u00ba C\u00e9rebro\\Scanner de imagens\\output\\gestao-ps-corrigido\\gestao-pronto-socorro.md": {
