@@ -54,37 +54,37 @@
 > Spec: `docs/superpowers/specs/2026-05-02-web-app-pwa-design.md` Section 8
 
 ### Setup
-- [ ] Scaffolding `apps/web/` com Next.js 15 + App Router + TypeScript
-- [ ] Tailwind 4 + design tokens (cores, spacing — ref `vault/projeto/design.md`)
-- [ ] Configurar proxy `/api` e `/ws` para localhost:8000 em dev (`next.config.ts`)
-- [ ] Variáveis: `NEXT_PUBLIC_API_BASE_URL`
+- [x] Scaffolding `apps/web/` com Next.js 15 + App Router + TypeScript
+- [x] Tailwind 4 (config base — design tokens detalhados pendente)
+- [x] Configurar proxy `/api` e `/ws` para localhost:8000 em dev (`next.config.ts`)
+- [x] Variáveis: `NEXT_PUBLIC_API_BASE_URL`
 
 ### Componentes core
-- [ ] `lib/api.ts` — typed client gerado a partir de `JobSummary`/`JobDetail`/etc (manual, sem openapi-codegen no MVP)
-- [ ] `lib/ws.ts` — wrapper sobre WebSocket com reconexão exponencial
-- [ ] `lib/upload.ts` — multipart com progresso (XHR para suportar onProgress)
+- [x] `lib/api.ts` — typed client (JobSummary/JobDetail/etc, manual)
+- [x] `lib/ws.ts` — wrapper sobre WebSocket com reconexão exponencial
+- [ ] `lib/upload.ts` — multipart com progresso (XHR para suportar onProgress) — adiado, fetch básico no MVP
 
 ### Páginas
-- [ ] `/` — Dashboard:
-  - [ ] Drop zone (react-dropzone) com preview thumbnails
-  - [ ] Toggle merge / formatos (`md` | `docx` | `pdf` | `all`)
-  - [ ] Painel "Avançado" colapsável (OCR engine, lang, device)
-  - [ ] Botão "Iniciar" → POST /api/jobs → redirect para `/jobs/<id>`
-- [ ] `/jobs` — Lista:
-  - [ ] Filtros: ativos/concluídos/favoritos
-  - [ ] Card por job: thumb da 1ª foto, título, status badge, tempo decorrido
-  - [ ] Pull-to-refresh + paginação infinita
-- [ ] `/jobs/<id>` — Detalhe:
-  - [ ] Conexão WS para progresso ao vivo
-  - [ ] Lista de files com download (link direto)
-  - [ ] Botões: Favoritar (PATCH), Deletar (DELETE), Compartilhar (Web Share API)
-- [ ] `/health` (admin/debug) — JSON do `/api/health` com graceful loading
+- [x] `/` — Dashboard:
+  - [x] Drop zone (react-dropzone) com preview thumbnails
+  - [x] Toggle merge / formatos (`md` | `docx` | `pdf` | `all`)
+  - [x] Painel "Avançado" colapsável (OCR engine, lang, device)
+  - [x] Botão "Iniciar" → POST /api/jobs → redirect para `/jobs/<id>`
+- [x] `/jobs` — Lista:
+  - [x] Filtros: ativos/concluídos/favoritos
+  - [x] Card por job: thumb da 1ª foto, título, status badge, tempo
+  - [x] Paginação simples (infinita pendente)
+- [x] `/jobs/<id>` — Detalhe:
+  - [x] Conexão WS para progresso ao vivo
+  - [x] Lista de files com download (link direto)
+  - [x] Botões: Favoritar (PATCH), Deletar (DELETE) — Compartilhar pendente
+- [x] `/health` (admin/debug) — JSON do `/api/health` com graceful loading
 
 ### UX
-- [ ] Loading states (skeleton)
-- [ ] Toast de erro genérico (Sonner)
-- [ ] Confirmação de delete via modal
-- [ ] Dark mode opcional
+- [ ] Loading states (skeleton) — atual usa Spinner
+- [x] Toast de erro genérico (Sonner)
+- [ ] Confirmação de delete via modal — atual usa confirm() nativo
+- [x] Dark mode opcional (segue prefers-color-scheme)
 
 ### Tests
 - [ ] Vitest + Testing Library para 5-10 componentes críticos

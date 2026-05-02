@@ -20,7 +20,7 @@ Sistema dual: **CLI** para uso local + **API REST/WebSocket** para integração 
 | **Pós-processador PT-BR** | ✅ Funcional | ~150 palavras + regex |
 | **Push notifications** | ⏭️ Phase 1C | VAPID keys + service worker |
 | **PATCH/DELETE /api/jobs** | ⏭️ Phase 1C | Favoritar, renomear, apagar |
-| **Frontend Next.js** | ⏭️ Phase 2 | Dashboard + dropzone + dark mode |
+| **Frontend Next.js** | 🟡 Phase 2 (scaffold) | `apps/web/` — Next.js 15 + Tailwind 4 + WS live |
 | **PWA** | ⏭️ Phase 3 | Service worker + manifest + push UI |
 | **Deploy Docker + Hostinger** | ⏭️ Phase 4 | docker-compose + nginx + Let's Encrypt |
 
@@ -36,6 +36,20 @@ Sistema dual: **CLI** para uso local + **API REST/WebSocket** para integração 
 - **GPU**: PyTorch 2.11+cu128 (Python 3.14 compat)
 
 110 testes passing, ruff clean.
+
+---
+
+## Frontend (`apps/web/`)
+
+Aplicação Next.js 15 (App Router) que consome a API. Inclui dashboard com dropzone, lista paginada de jobs (filtros: ativos, concluídos, favoritos), detalhe com progresso ao vivo via WebSocket, favoritar/deletar e download de outputs. Stack: TypeScript strict, Tailwind 4, lucide-react, react-dropzone, sonner.
+
+```bash
+cd apps/web
+cp .env.local.example .env.local
+npm install && npm run dev
+```
+
+Detalhes: [`apps/web/README.md`](apps/web/README.md).
 
 ---
 
