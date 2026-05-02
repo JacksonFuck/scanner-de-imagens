@@ -6,6 +6,8 @@ import { toast } from "sonner";
 import { ChevronDown, ChevronRight } from "lucide-react";
 import { DropZone } from "@/components/DropZone";
 import { Spinner } from "@/components/Spinner";
+import { EnablePush } from "@/components/EnablePush";
+import { InstallPrompt } from "@/components/InstallPrompt";
 import { createJob } from "@/lib/api";
 import { cn } from "@/lib/cn";
 
@@ -148,6 +150,12 @@ export default function HomePage() {
         {submitting && <Spinner />}
         Iniciar
       </button>
+
+      <div className="pt-6 mt-6 border-t border-zinc-200 dark:border-zinc-800 flex flex-wrap items-center gap-3 text-xs text-zinc-500">
+        <span className="font-medium text-zinc-600 dark:text-zinc-400">Configurações</span>
+        <EnablePush />
+        <InstallPrompt />
+      </div>
     </div>
   );
 }
