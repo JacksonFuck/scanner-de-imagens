@@ -58,6 +58,14 @@ env/
 htmlcov/
 dist/
 build/
+pytest-of-*/
+
+# ---- Node / Next.js ----
+node_modules/
+.next/
+out/
+.turbo/
+.vercel/
 
 # ---- IDE / editor ----
 .idea/
