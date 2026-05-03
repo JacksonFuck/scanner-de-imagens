@@ -144,14 +144,22 @@ class WorkerPool:
 
 
 async def _finalize_job(job_id: str, result: dict) -> None:
-    """Atualiza o Job no DB e dispara push notifications."""
+    """Atualiza o Job no DB, persiste arquivos de saída e dispara push.
+
+    O `result` vem do `WorkerResult` do subprocess (asdict), com chaves:
+    `status`, `page_count`, `error_msg`, `output_files` (lista de tuplas
+    `(role, filename, size_bytes)`).
+    """
     from scanner_api.db.engine import async_session_factory
-    from scanner_api.db.models import Job, PushSubscription
+    from scanner_api.db.models import Job, JobFile, PushSubscription
 
     factory = async_session_factory()
     status = str(result.get("status", "error"))
     page_count = result.get("page_count")
-    error_msg = result.get("error")
+    # WorkerResult.error_msg é a chave canônica; alguns paths legados podiam
+    # mandar 'error' — aceitar ambos para robustez.
+    error_msg = result.get("error_msg") or result.get("error")
+    output_files = result.get("output_files") or []
 
     async with factory() as session:
         job = await session.get(Job, job_id)
@@ -164,6 +172,27 @@ async def _finalize_job(job_id: str, result: dict) -> None:
             job.page_count = page_count
         if error_msg:
             job.error_msg = str(error_msg)
+
+        # Persiste outputs (md, docx, pdf, image) gerados pelo worker. Sem
+        # estas linhas, GET /api/jobs/{id} mostra só os inputs e o frontend
+        # nunca apresenta links de download mesmo com os arquivos no disco.
+        for entry in output_files:
+            try:
+                role, filename, size_bytes = entry
+            except (TypeError, ValueError):
+                log.warning(
+                    "Job %s: output_files entry malformed: %r", job_id, entry
+                )
+                continue
+            session.add(
+                JobFile(
+                    job_id=job_id,
+                    role=str(role),
+                    filename=str(filename),
+                    size_bytes=int(size_bytes) if size_bytes is not None else 0,
+                )
+            )
+
         title = job.title
         await session.commit()
 
