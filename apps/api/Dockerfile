@@ -27,8 +27,11 @@ COPY apps/api ./apps/api
 
 # Instala scanner core (editável) + api (editável).
 # Ordem importa: api depende do scanner core via import.
+# easyocr é OCR engine padrão do scanner — mantido fora do pyproject.toml
+# por ser pesado (~80MB + modelos baixados lazy em /root/.EasyOCR/).
 RUN pip install --no-cache-dir -e . \
-    && pip install --no-cache-dir -e ./apps/api
+    && pip install --no-cache-dir -e ./apps/api \
+    && pip install --no-cache-dir easyocr
 
 # Pasta padrão de dados — montada como volume em produção
 ENV SCANNER_DATA_DIR=/data
