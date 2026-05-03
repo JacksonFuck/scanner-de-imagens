@@ -55,12 +55,15 @@ export default function JobsListPage() {
   ];
 
   return (
-    <div className="space-y-4">
-      <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-semibold">Jobs</h1>
+    <div className="space-y-6">
+      <div className="space-y-1">
+        <p className="text-[10px] font-black uppercase tracking-[0.3em] text-cyan-500/70">
+          Histórico
+        </p>
+        <h1 className="text-3xl font-black tracking-tighter">Jobs</h1>
       </div>
 
-      <div className="flex gap-1 border-b border-zinc-200 dark:border-zinc-800">
+      <div className="flex flex-wrap gap-1 p-1 rounded-2xl glass w-fit">
         {TABS.map((t) => (
           <button
             key={t.key}
@@ -69,10 +72,10 @@ export default function JobsListPage() {
               setPage(1);
             }}
             className={cn(
-              "px-3 py-2 text-sm border-b-2 -mb-px transition",
+              "px-4 py-1.5 text-[11px] font-bold uppercase tracking-widest rounded-xl transition-all",
               tab === t.key
-                ? "border-blue-500 text-blue-600"
-                : "border-transparent text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100",
+                ? "bg-gradient-to-br from-cyan-500 to-teal-500 text-slate-950 shadow-lg shadow-cyan-500/20"
+                : "text-slate-400 hover:text-slate-100 hover:bg-white/5",
             )}
           >
             {t.label}
@@ -81,40 +84,48 @@ export default function JobsListPage() {
       </div>
 
       {loading && (
-        <div className="flex items-center gap-2 text-sm text-zinc-500">
+        <div className="flex items-center gap-2 text-sm text-slate-500">
           <Spinner /> Carregando...
         </div>
       )}
-      {error && <div className="text-sm text-red-600">Erro: {error}</div>}
+      {error && (
+        <div className="rounded-2xl border border-rose-500/20 bg-rose-500/10 text-rose-400 text-sm p-4">
+          Erro: {error}
+        </div>
+      )}
 
       {data && data.items.length === 0 && !loading && (
-        <p className="text-sm text-zinc-500">Nenhum job encontrado.</p>
+        <div className="glass rounded-2xl p-8 text-center text-sm text-slate-500">
+          Nenhum job encontrado.
+        </div>
       )}
 
       {data && data.items.length > 0 && (
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           {data.items.map((job) => (
-            <JobCard key={job.id} job={job} />
+            <div key={job.id} className="card-stagger">
+              <JobCard job={job} />
+            </div>
           ))}
         </div>
       )}
 
       {data && data.total > PAGE_SIZE && (
-        <div className="flex items-center justify-center gap-2 pt-4">
+        <div className="flex items-center justify-center gap-3 pt-4">
           <button
             onClick={() => setPage((p) => Math.max(1, p - 1))}
             disabled={page <= 1}
-            className="p-2 rounded border border-zinc-300 dark:border-zinc-700 disabled:opacity-50"
+            className="p-2 rounded-xl border border-white/10 bg-slate-900/60 text-slate-300 hover:border-cyan-500/40 hover:text-cyan-400 transition disabled:opacity-40 disabled:cursor-not-allowed"
           >
             <ChevronLeft className="h-4 w-4" />
           </button>
-          <span className="text-sm">
+          <span className="text-xs font-mono text-slate-400">
             {page} / {totalPages}
           </span>
           <button
             onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
             disabled={page >= totalPages}
-            className="p-2 rounded border border-zinc-300 dark:border-zinc-700 disabled:opacity-50"
+            className="p-2 rounded-xl border border-white/10 bg-slate-900/60 text-slate-300 hover:border-cyan-500/40 hover:text-cyan-400 transition disabled:opacity-40 disabled:cursor-not-allowed"
           >
             <ChevronRight className="h-4 w-4" />
           </button>

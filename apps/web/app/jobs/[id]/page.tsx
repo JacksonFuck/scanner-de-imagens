@@ -82,13 +82,18 @@ export default function JobDetailPage() {
 
   if (loading) {
     return (
-      <div className="flex items-center gap-2 text-sm text-zinc-500">
+      <div className="flex items-center gap-2 text-sm text-slate-500">
         <Spinner /> Carregando...
       </div>
     );
   }
-  if (error) return <div className="text-red-600 text-sm">Erro: {error}</div>;
-  if (!job) return <div className="text-sm text-zinc-500">Job não encontrado.</div>;
+  if (error)
+    return (
+      <div className="rounded-2xl border border-rose-500/20 bg-rose-500/10 text-rose-400 text-sm p-4">
+        Erro: {error}
+      </div>
+    );
+  if (!job) return <div className="text-sm text-slate-500">Job não encontrado.</div>;
 
   const progress = liveProgress ?? job.progress;
   const isActive = job.status === "running" || job.status === "queued";
@@ -97,35 +102,39 @@ export default function JobDetailPage() {
     <div className="space-y-6">
       <button
         onClick={() => router.push("/jobs")}
-        className="inline-flex items-center gap-1 text-sm text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100"
+        className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-widest text-slate-400 hover:text-cyan-400 transition-colors"
       >
-        <ArrowLeft className="h-4 w-4" /> Voltar
+        <ArrowLeft className="h-3.5 w-3.5" /> Voltar
       </button>
 
-      <div className="flex items-start justify-between gap-3">
-        <div>
-          <h1 className="text-2xl font-semibold">{job.title || job.id}</h1>
-          <div className="mt-2 flex items-center gap-2">
+      <div className="glass rounded-3xl p-6 flex items-start justify-between gap-3">
+        <div className="min-w-0 flex-1">
+          <h1 className="text-2xl font-black tracking-tighter truncate">
+            {job.title || job.id}
+          </h1>
+          <div className="mt-2 flex items-center gap-2 flex-wrap">
             <StatusBadge status={job.status} />
-            <span className="text-xs text-zinc-500">
-              Criado: {new Date(job.created_at).toLocaleString()}
+            <span className="text-[10px] font-mono text-slate-500">
+              Criado · {new Date(job.created_at).toLocaleString()}
             </span>
           </div>
         </div>
-        <div className="flex gap-2">
+        <div className="flex gap-2 flex-shrink-0">
           <button
             onClick={handleFavorite}
             className={cn(
-              "p-2 rounded border border-zinc-300 dark:border-zinc-700",
-              job.is_favorite && "bg-amber-50 dark:bg-amber-900/20 border-amber-400",
+              "p-2 rounded-xl border transition-all",
+              job.is_favorite
+                ? "border-amber-400/40 bg-amber-500/10 text-amber-400"
+                : "border-white/10 bg-slate-900/60 text-slate-400 hover:border-amber-400/40 hover:text-amber-400",
             )}
             aria-label="Favoritar"
           >
-            <Star className={cn("h-4 w-4", job.is_favorite && "fill-amber-400 text-amber-400")} />
+            <Star className={cn("h-4 w-4", job.is_favorite && "fill-amber-400")} />
           </button>
           <button
             onClick={handleDelete}
-            className="p-2 rounded border border-zinc-300 dark:border-zinc-700 hover:border-red-400 hover:text-red-500"
+            className="p-2 rounded-xl border border-white/10 bg-slate-900/60 text-slate-400 hover:border-rose-500/40 hover:text-rose-400 transition-all"
             aria-label="Deletar"
           >
             <Trash2 className="h-4 w-4" />
@@ -134,42 +143,49 @@ export default function JobDetailPage() {
       </div>
 
       {isActive && (
-        <div className="rounded-lg border border-zinc-200 dark:border-zinc-800 p-4 space-y-2">
-          <div className="flex items-center justify-between text-sm">
-            <span>Progresso</span>
-            <span className="text-zinc-500">{Math.round(progress)}%</span>
+        <div className="glass rounded-2xl p-5 space-y-3 pulse-glow-active">
+          <div className="flex items-center justify-between">
+            <span className="text-[11px] font-bold uppercase tracking-widest text-slate-300">
+              Progresso
+            </span>
+            <span className="text-xs font-mono text-cyan-400">{Math.round(progress)}%</span>
           </div>
           <ProgressBar value={progress} />
-          {liveMessage && <p className="text-xs text-zinc-500">{liveMessage}</p>}
+          {liveMessage && <p className="text-xs text-slate-500">{liveMessage}</p>}
         </div>
       )}
 
       {job.error && (
-        <div className="rounded-lg border border-red-300 dark:border-red-800 bg-red-50 dark:bg-red-900/20 p-3 text-sm text-red-700 dark:text-red-300">
+        <div className="rounded-2xl border border-rose-500/20 bg-rose-500/10 p-4 text-sm text-rose-400">
           {job.error}
         </div>
       )}
 
       <div>
-        <h2 className="text-sm font-medium mb-2">Arquivos</h2>
+        <h2 className="text-[11px] font-bold uppercase tracking-widest text-slate-400 mb-3">
+          Arquivos
+        </h2>
         {job.files.length === 0 ? (
-          <p className="text-sm text-zinc-500">Nenhum arquivo ainda.</p>
+          <p className="text-sm text-slate-500">Nenhum arquivo ainda.</p>
         ) : (
-          <ul className="divide-y divide-zinc-200 dark:divide-zinc-800 rounded-lg border border-zinc-200 dark:border-zinc-800">
+          <ul className="glass rounded-2xl divide-y divide-white/5 overflow-hidden">
             {job.files.map((f) => (
-              <li key={f.filename} className="flex items-center justify-between gap-3 px-3 py-2 text-sm">
+              <li
+                key={f.filename}
+                className="flex items-center justify-between gap-3 px-4 py-3 text-sm hover:bg-white/[0.02] transition-colors"
+              >
                 <div className="min-w-0">
-                  <div className="truncate">{f.filename}</div>
-                  <div className="text-xs text-zinc-500">
+                  <div className="truncate text-slate-200">{f.filename}</div>
+                  <div className="text-[10px] font-mono text-slate-500 mt-0.5">
                     {f.kind} · {(f.size_bytes / 1024).toFixed(1)} KB
                   </div>
                 </div>
                 <a
                   href={fileUrl(job.id, f.filename)}
                   download
-                  className="inline-flex items-center gap-1 text-blue-600 hover:underline"
+                  className="inline-flex items-center gap-1.5 rounded-xl border border-white/10 bg-slate-900/60 px-3 py-1.5 text-[11px] font-bold uppercase tracking-widest text-cyan-400 hover:border-cyan-500/40 transition-colors"
                 >
-                  <Download className="h-4 w-4" /> Baixar
+                  <Download className="h-3.5 w-3.5" /> Baixar
                 </a>
               </li>
             ))}

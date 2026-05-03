@@ -36,18 +36,33 @@ export function DropZone({ files, onChange, disabled }: Props) {
       <div
         {...getRootProps()}
         className={cn(
-          "border-2 border-dashed rounded-lg p-8 text-center cursor-pointer transition",
+          "relative border-2 border-dashed rounded-2xl p-10 text-center cursor-pointer transition-all overflow-hidden group",
           isDragActive
-            ? "border-blue-500 bg-blue-50 dark:bg-blue-900/20"
-            : "border-zinc-300 dark:border-zinc-700 hover:border-blue-400",
+            ? "border-cyan-400 bg-cyan-500/5 glow-box"
+            : "border-white/10 hover:border-cyan-500/40 hover:bg-white/[0.02]",
           disabled && "opacity-50 pointer-events-none",
         )}
       >
         <input {...getInputProps()} />
-        <Upload className="mx-auto h-8 w-8 text-zinc-400" />
-        <p className="mt-2 text-sm text-zinc-600 dark:text-zinc-400">
-          {isDragActive ? "Solte aqui..." : "Arraste fotos ou PDFs, ou clique para selecionar"}
+        <div
+          className={cn(
+            "mx-auto mb-3 w-12 h-12 rounded-2xl flex items-center justify-center transition-all",
+            isDragActive
+              ? "bg-gradient-to-br from-cyan-500 to-teal-500 scale-110"
+              : "bg-slate-900/80 border border-white/5 group-hover:border-cyan-500/30",
+          )}
+        >
+          <Upload
+            className={cn(
+              "h-5 w-5 transition-colors",
+              isDragActive ? "text-slate-950" : "text-cyan-400",
+            )}
+          />
+        </div>
+        <p className="text-sm font-semibold text-slate-200">
+          {isDragActive ? "Solte aqui..." : "Arraste fotos ou PDFs"}
         </p>
+        <p className="mt-1 text-xs text-slate-500">ou clique para selecionar</p>
       </div>
 
       {files.length > 0 && (
@@ -55,14 +70,16 @@ export function DropZone({ files, onChange, disabled }: Props) {
           {files.map((f, i) => (
             <li
               key={`${f.name}-${i}`}
-              className="flex items-center justify-between gap-2 rounded border border-zinc-200 dark:border-zinc-800 px-3 py-2 text-sm"
+              className="flex items-center justify-between gap-2 rounded-xl border border-white/5 bg-slate-950/40 px-4 py-2.5 text-sm card-stagger"
             >
-              <span className="truncate flex-1">{f.name}</span>
-              <span className="text-xs text-zinc-500">{(f.size / 1024).toFixed(1)} KB</span>
+              <span className="truncate flex-1 text-slate-200">{f.name}</span>
+              <span className="text-[10px] font-mono text-slate-500">
+                {(f.size / 1024).toFixed(1)} KB
+              </span>
               <button
                 type="button"
                 onClick={() => remove(i)}
-                className="text-zinc-400 hover:text-red-500"
+                className="text-slate-500 hover:text-rose-400 transition-colors"
                 aria-label="Remover"
               >
                 <X className="h-4 w-4" />

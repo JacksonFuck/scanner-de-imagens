@@ -112,7 +112,7 @@ export function EnablePush() {
 
   if (permission === "unsupported") {
     return (
-      <div className="text-xs text-zinc-500">
+      <div className="text-[10px] text-slate-500">
         Notificações não suportadas neste navegador.
       </div>
     );
@@ -120,7 +120,7 @@ export function EnablePush() {
 
   if (permission === "denied") {
     return (
-      <div className="text-xs text-zinc-500">
+      <div className="text-[10px] text-slate-500">
         Notificações bloqueadas. Habilite nas configurações do navegador.
       </div>
     );
@@ -133,7 +133,7 @@ export function EnablePush() {
           type="button"
           onClick={disable}
           disabled={loading}
-          className="inline-flex items-center gap-2 rounded-md border border-zinc-300 dark:border-zinc-700 px-3 py-1.5 text-xs hover:bg-zinc-50 dark:hover:bg-zinc-900 disabled:opacity-50"
+          className="inline-flex items-center gap-2 rounded-xl border border-white/10 bg-slate-900/60 px-3 py-1.5 text-[11px] font-bold uppercase tracking-widest text-slate-300 hover:border-cyan-500/40 hover:text-cyan-400 transition-colors disabled:opacity-50"
         >
           <BellOff className="h-3.5 w-3.5" />
           Desativar notificações
@@ -143,13 +143,13 @@ export function EnablePush() {
           type="button"
           onClick={enable}
           disabled={loading}
-          className="inline-flex items-center gap-2 rounded-md border border-zinc-300 dark:border-zinc-700 px-3 py-1.5 text-xs hover:bg-zinc-50 dark:hover:bg-zinc-900 disabled:opacity-50"
+          className="inline-flex items-center gap-2 rounded-xl border border-white/10 bg-slate-900/60 px-3 py-1.5 text-[11px] font-bold uppercase tracking-widest text-slate-300 hover:border-cyan-500/40 hover:text-cyan-400 transition-colors disabled:opacity-50"
         >
           <Bell className="h-3.5 w-3.5" />
           {loading ? "Ativando..." : "Ativar notificações"}
         </button>
       )}
-      {error && <span className="text-xs text-red-500">{error}</span>}
+      {error && <span className="text-[10px] text-rose-400">{error}</span>}
     </div>
   );
 }

@@ -2,18 +2,18 @@ import { cn } from "@/lib/cn";
 import type { JobStatus } from "@/lib/types";
 
 const STYLES: Record<JobStatus, string> = {
-  queued: "bg-zinc-200 text-zinc-700 dark:bg-zinc-800 dark:text-zinc-300",
-  running: "bg-blue-100 text-blue-700 dark:bg-blue-900/40 dark:text-blue-300",
-  done: "bg-emerald-100 text-emerald-700 dark:bg-emerald-900/40 dark:text-emerald-300",
-  failed: "bg-red-100 text-red-700 dark:bg-red-900/40 dark:text-red-300",
-  canceled: "bg-amber-100 text-amber-700 dark:bg-amber-900/40 dark:text-amber-300",
+  queued: "bg-amber-500/10 text-amber-400 border-amber-500/20",
+  running: "bg-cyan-500/10 text-cyan-400 border-cyan-500/20",
+  done: "bg-emerald-500/10 text-emerald-400 border-emerald-500/20",
+  failed: "bg-rose-500/10 text-rose-400 border-rose-500/20",
+  canceled: "bg-slate-500/10 text-slate-400 border-slate-500/20",
 };
 
 export function StatusBadge({ status, className }: { status: JobStatus; className?: string }) {
   return (
     <span
       className={cn(
-        "inline-flex items-center rounded-full px-2 py-0.5 text-xs font-medium",
+        "inline-flex items-center rounded-full px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-widest border",
         STYLES[status],
         className,
       )}
