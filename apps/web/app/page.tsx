@@ -109,7 +109,7 @@ export default function HomePage() {
           <div className="space-y-4">
             <div>
               <label className="block text-[11px] font-bold uppercase tracking-widest text-slate-400 mb-2">
-                Formatos de saída
+                Formato de saída
               </label>
               <div className="flex flex-wrap gap-2">
                 {FORMAT_OPTIONS.map((f) => (
