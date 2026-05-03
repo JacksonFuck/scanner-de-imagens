@@ -27,11 +27,18 @@ export interface JobDetail extends JobSummary {
 }
 
 export interface ProgressEvent {
-  type: "progress" | "status" | "message";
-  progress?: number;
-  status?: JobStatus;
+  // Backend emits one of: 'started' | 'progress' | 'done' | 'error' | 'cancelled'.
+  type: "started" | "progress" | "done" | "error" | "cancelled" | string;
+  ts?: number;
+  // 'started' includes input_count
+  input_count?: number;
+  // 'progress' includes the file index (1-based) within the batch
+  current?: number;
+  total?: number;
+  current_file?: string;
+  // 'done'/'error' include
+  page_count?: number;
   message?: string;
-  ts?: string;
 }
 
 export interface JobListFilters {

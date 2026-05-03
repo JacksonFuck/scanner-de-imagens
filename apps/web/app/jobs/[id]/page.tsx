@@ -48,9 +48,15 @@ export default function JobDetailPage() {
 
     const conn = connectJobWs(jobId, {
       onEvent: (ev: ProgressEvent) => {
-        if (ev.progress !== undefined) setLiveProgress(ev.progress);
-        if (ev.message) setLiveMessage(ev.message);
-        if (ev.status && ev.status !== job.status) {
+        // Backend sends {type, current, total, ...} — derive a percentage.
+        if (ev.type === "progress" && ev.current && ev.total) {
+          setLiveProgress(Math.round((ev.current / ev.total) * 100));
+          if (ev.current_file) setLiveMessage(`Processando ${ev.current_file}`);
+        }
+        // Terminal events: refetch the job to reflect new status/files.
+        if (ev.type === "done" || ev.type === "error" || ev.type === "cancelled") {
+          if (ev.message) setLiveMessage(ev.message);
+          if (ev.type === "done") setLiveProgress(100);
           getJob(jobId).then(setJob).catch(() => {});
         }
       },
