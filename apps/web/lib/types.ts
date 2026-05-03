@@ -56,6 +56,11 @@ export interface CreateJobOptions {
   ocr_engine?: string;
 }
 
+export interface JobCreated {
+  id: string;
+  status: JobStatus;
+}
+
 export interface PatchJobBody {
   is_favorite?: boolean;
   title?: string;

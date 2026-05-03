@@ -1,8 +1,10 @@
 import type {
   CreateJobOptions,
+  JobCreated,
   JobDetail,
   JobListFilters,
   JobListResponse,
+  JobStatus,
   PatchJobBody,
 } from "./types";
 
@@ -43,16 +45,32 @@ export async function getJob(id: string): Promise<JobDetail> {
   return jsonOrThrow<JobDetail>(res);
 }
 
-export async function createJob(opts: CreateJobOptions): Promise<JobDetail> {
+export async function createJob(opts: CreateJobOptions): Promise<JobCreated> {
   const fd = new FormData();
   for (const f of opts.files) fd.append("files", f);
-  if (opts.formats) for (const fmt of opts.formats) fd.append("formats", fmt);
+
+  // Backend espera 'formats' como string única ('md'|'docx'|'pdf'|'all'|'both').
+  // Quando o usuário marca múltiplos formatos no UI, mandamos 'all'.
+  const fmts = opts.formats ?? ["md"];
+  const formatStr = fmts.length > 1 ? "all" : fmts[0];
+  fd.append("formats", formatStr);
+
   if (opts.merge !== undefined) fd.append("merge", String(opts.merge));
-  if (opts.device) fd.append("device", opts.device);
-  if (opts.lang) fd.append("lang", opts.lang);
-  if (opts.ocr_engine) fd.append("ocr_engine", opts.ocr_engine);
+
+  // Backend espera 'advanced' como JSON (JobAdvancedOptions). Embrulha as
+  // opções avançadas — só envia se o usuário customizou pelo menos uma.
+  const advanced: Record<string, string> = {};
+  if (opts.device) advanced.device = opts.device;
+  if (opts.lang) advanced.ocr_lang = opts.lang;
+  if (opts.ocr_engine) advanced.ocr_engine = opts.ocr_engine;
+  if (Object.keys(advanced).length > 0) {
+    fd.append("advanced", JSON.stringify(advanced));
+  }
+
   const res = await fetch(`${BASE}/jobs`, { method: "POST", body: fd });
-  return jsonOrThrow<JobDetail>(res);
+  // Backend retorna { job_id, status } — mapeia para o shape do frontend.
+  const raw = await jsonOrThrow<{ job_id: string; status: JobStatus }>(res);
+  return { id: raw.job_id, status: raw.status };
 }
 
 export async function patchJob(id: string, body: PatchJobBody): Promise<JobDetail> {

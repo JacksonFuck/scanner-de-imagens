@@ -34,9 +34,9 @@ export default function HomePage() {
   const [formats, setFormats] = useState<string[]>(["md"]);
   const [merge, setMerge] = useState(false);
   const [advancedOpen, setAdvancedOpen] = useState(false);
-  const [device, setDevice] = useState("cpu");
-  const [lang, setLang] = useState("por");
-  const [ocrEngine, setOcrEngine] = useState("");
+  const [device, setDevice] = useState("auto");
+  const [lang, setLang] = useState("pt,en");
+  const [ocrEngine, setOcrEngine] = useState("easyocr");
   const [submitting, setSubmitting] = useState(false);
 
   const toggleFormat = (f: string) => {
