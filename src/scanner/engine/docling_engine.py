@@ -218,6 +218,19 @@ class DoclingEngine:
         except Exception as exc:
             raise ConversionError(f"Falha ao gravar markdown de {source.name}: {exc}") from exc
 
+        # Docling writes image refs as bare `![alt](path)` — pandoc collapses
+        # consecutive spaces in URL parsing, so filenames with spaces or parens
+        # become unreadable on DOCX/PDF export. Rewrite to angle-bracket form.
+        from scanner.export.markdown import _wrap_image_urls
+
+        try:
+            md_text = markdown_target.read_text(encoding="utf-8")
+            fixed = _wrap_image_urls(md_text)
+            if fixed != md_text:
+                markdown_target.write_text(fixed, encoding="utf-8")
+        except OSError as exc:
+            log.warning("Falha ao reescrever markdown de %s: %s", source.name, exc)
+
         images = tuple(
             sorted(artifacts_dir.glob("*.png"))
             + sorted(artifacts_dir.glob("*.jpg"))
