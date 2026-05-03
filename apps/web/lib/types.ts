@@ -1,35 +1,29 @@
 export type JobStatus = "queued" | "running" | "done" | "failed" | "canceled";
 
-export type FileKind = "input" | "output" | "thumbnail" | "log";
+export type FileRole = "input" | "output" | "thumbnail" | "log";
 
 export interface JobFile {
   filename: string;
-  kind: FileKind | string;
+  role: FileRole | string;
   size_bytes: number;
 }
 
 export interface JobSummary {
   id: string;
-  title: string;
   status: JobStatus;
-  progress: number;
+  title: string | null;
+  input_count: number;
+  formats: string;
   created_at: string;
-  is_favorite: boolean;
-  thumbnail?: string | null;
+  is_favorite: number; // backend serializes SQLite Integer as 0|1
 }
 
 export interface JobDetail extends JobSummary {
+  merge_mode: number;
+  finished_at: string | null;
+  error_msg: string | null;
+  page_count: number | null;
   files: JobFile[];
-  started_at?: string | null;
-  completed_at?: string | null;
-  error?: string | null;
-}
-
-export interface JobListResponse {
-  items: JobSummary[];
-  total: number;
-  page: number;
-  limit: number;
 }
 
 export interface ProgressEvent {

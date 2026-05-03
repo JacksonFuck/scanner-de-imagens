@@ -1,26 +1,23 @@
 import Link from "next/link";
-import { Star } from "lucide-react";
+import { FileText, Star } from "lucide-react";
 import type { JobSummary } from "@/lib/types";
 import { StatusBadge } from "./StatusBadge";
-import { ProgressBar } from "./ProgressBar";
 import { cn } from "@/lib/cn";
 
 export function JobCard({ job }: { job: JobSummary }) {
   const created = new Date(job.created_at).toLocaleString();
+  const isActive = job.status === "running" || job.status === "queued";
   return (
     <Link
       href={`/jobs/${job.id}`}
       className={cn(
         "group block glass rounded-2xl p-4 transition-all hover:border-cyan-500/30 hover:-translate-y-0.5",
-        (job.status === "running" || job.status === "queued") && "pulse-glow-active",
+        isActive && "pulse-glow-active",
       )}
     >
       <div className="flex items-start gap-3">
-        <div className="w-16 h-16 rounded-xl bg-slate-900/80 border border-white/5 overflow-hidden flex-shrink-0">
-          {job.thumbnail ? (
-            // eslint-disable-next-line @next/next/no-img-element
-            <img src={job.thumbnail} alt="" className="w-full h-full object-cover" />
-          ) : null}
+        <div className="w-16 h-16 rounded-xl bg-slate-900/80 border border-white/5 flex items-center justify-center flex-shrink-0">
+          <FileText className="h-7 w-7 text-slate-600 group-hover:text-cyan-500/70 transition-colors" />
         </div>
         <div className="flex-1 min-w-0">
           <div className="flex items-center justify-between gap-2">
@@ -34,13 +31,13 @@ export function JobCard({ job }: { job: JobSummary }) {
               )}
             />
           </div>
-          <div className="mt-1.5 flex items-center gap-2">
+          <div className="mt-1.5 flex items-center gap-2 flex-wrap">
             <StatusBadge status={job.status} />
-            <span className="text-[10px] font-mono text-slate-500">{created}</span>
+            <span className="text-[10px] font-mono text-slate-500">
+              {job.input_count} foto{job.input_count !== 1 ? "s" : ""} · {job.formats}
+            </span>
           </div>
-          {(job.status === "running" || job.status === "queued") && (
-            <ProgressBar value={job.progress} className="mt-3" />
-          )}
+          <p className="mt-1 text-[10px] font-mono text-slate-600">{created}</p>
         </div>
       </div>
     </Link>

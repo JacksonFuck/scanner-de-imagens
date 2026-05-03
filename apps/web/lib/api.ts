@@ -3,8 +3,8 @@ import type {
   JobCreated,
   JobDetail,
   JobListFilters,
-  JobListResponse,
   JobStatus,
+  JobSummary,
   PatchJobBody,
 } from "./types";
 
@@ -29,7 +29,7 @@ export async function getHealth(): Promise<Record<string, unknown>> {
   return jsonOrThrow(res);
 }
 
-export async function listJobs(filters: JobListFilters = {}): Promise<JobListResponse> {
+export async function listJobs(filters: JobListFilters = {}): Promise<JobSummary[]> {
   const params = new URLSearchParams();
   if (filters.favorite !== undefined) params.set("favorite", String(filters.favorite));
   if (filters.status) params.set("status", filters.status);
@@ -37,7 +37,9 @@ export async function listJobs(filters: JobListFilters = {}): Promise<JobListRes
   if (filters.limit) params.set("limit", String(filters.limit));
   const qs = params.toString();
   const res = await fetch(`${BASE}/jobs${qs ? `?${qs}` : ""}`, { cache: "no-store" });
-  return jsonOrThrow<JobListResponse>(res);
+  // Backend returns a plain array (not wrapped). Defensive: accept either.
+  const raw = await jsonOrThrow<JobSummary[] | { items: JobSummary[] }>(res);
+  return Array.isArray(raw) ? raw : raw.items ?? [];
 }
 
 export async function getJob(id: string): Promise<JobDetail> {

@@ -68,6 +68,9 @@ export default function JobDetailPage() {
     }
   };
 
+  // Backend serializes is_favorite as 0|1 — coerce for boolean styling.
+  const fav = !!(job && job.is_favorite);
+
   const handleDelete = async () => {
     if (!job) return;
     if (!confirm("Deletar este job? Os arquivos serão removidos.")) return;
@@ -95,7 +98,9 @@ export default function JobDetailPage() {
     );
   if (!job) return <div className="text-sm text-slate-500">Job não encontrado.</div>;
 
-  const progress = liveProgress ?? job.progress;
+  // Progress is only available via WebSocket while active; backend job model
+  // doesn't persist a progress field. Default to 0 until first WS event.
+  const progress = liveProgress ?? 0;
   const isActive = job.status === "running" || job.status === "queued";
 
   return (
@@ -124,13 +129,13 @@ export default function JobDetailPage() {
             onClick={handleFavorite}
             className={cn(
               "p-2 rounded-xl border transition-all",
-              job.is_favorite
+              fav
                 ? "border-amber-400/40 bg-amber-500/10 text-amber-400"
                 : "border-white/10 bg-slate-900/60 text-slate-400 hover:border-amber-400/40 hover:text-amber-400",
             )}
             aria-label="Favoritar"
           >
-            <Star className={cn("h-4 w-4", job.is_favorite && "fill-amber-400")} />
+            <Star className={cn("h-4 w-4", fav && "fill-amber-400")} />
           </button>
           <button
             onClick={handleDelete}
@@ -155,9 +160,9 @@ export default function JobDetailPage() {
         </div>
       )}
 
-      {job.error && (
+      {job.error_msg && (
         <div className="rounded-2xl border border-rose-500/20 bg-rose-500/10 p-4 text-sm text-rose-400">
-          {job.error}
+          {job.error_msg}
         </div>
       )}
 
@@ -177,7 +182,7 @@ export default function JobDetailPage() {
                 <div className="min-w-0">
                   <div className="truncate text-slate-200">{f.filename}</div>
                   <div className="text-[10px] font-mono text-slate-500 mt-0.5">
-                    {f.kind} · {(f.size_bytes / 1024).toFixed(1)} KB
+                    {f.role} · {(f.size_bytes / 1024).toFixed(1)} KB
                   </div>
                 </div>
                 <a

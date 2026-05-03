@@ -6,7 +6,7 @@ import { JobCard } from "@/components/JobCard";
 import { Spinner } from "@/components/Spinner";
 import { listJobs } from "@/lib/api";
 import { cn } from "@/lib/cn";
-import type { JobListResponse, JobStatus } from "@/lib/types";
+import type { JobStatus, JobSummary } from "@/lib/types";
 
 type Tab = "all" | "active" | "done" | "favorite";
 
@@ -15,7 +15,7 @@ const PAGE_SIZE = 20;
 export default function JobsListPage() {
   const [tab, setTab] = useState<Tab>("all");
   const [page, setPage] = useState(1);
-  const [data, setData] = useState<JobListResponse | null>(null);
+  const [items, setItems] = useState<JobSummary[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -31,7 +31,7 @@ export default function JobsListPage() {
 
     listJobs(filters)
       .then((d) => {
-        if (!cancelled) setData(d);
+        if (!cancelled) setItems(d);
       })
       .catch((e) => {
         if (!cancelled) setError((e as Error).message);
@@ -45,7 +45,9 @@ export default function JobsListPage() {
     };
   }, [tab, page]);
 
-  const totalPages = data ? Math.max(1, Math.ceil(data.total / PAGE_SIZE)) : 1;
+  // Backend doesn't return total — we can only know if there's a next page when
+  // the current page is full. Previous is enabled whenever page > 1.
+  const hasNext = items.length === PAGE_SIZE;
 
   const TABS: { key: Tab; label: string }[] = [
     { key: "all", label: "Todos" },
@@ -94,15 +96,15 @@ export default function JobsListPage() {
         </div>
       )}
 
-      {data && data.items.length === 0 && !loading && (
+      {!loading && !error && items.length === 0 && (
         <div className="glass rounded-2xl p-8 text-center text-sm text-slate-500">
           Nenhum job encontrado.
         </div>
       )}
 
-      {data && data.items.length > 0 && (
+      {items.length > 0 && (
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          {data.items.map((job) => (
+          {items.map((job) => (
             <div key={job.id} className="card-stagger">
               <JobCard job={job} />
             </div>
@@ -110,7 +112,7 @@ export default function JobsListPage() {
         </div>
       )}
 
-      {data && data.total > PAGE_SIZE && (
+      {(page > 1 || hasNext) && (
         <div className="flex items-center justify-center gap-3 pt-4">
           <button
             onClick={() => setPage((p) => Math.max(1, p - 1))}
@@ -119,12 +121,10 @@ export default function JobsListPage() {
           >
             <ChevronLeft className="h-4 w-4" />
           </button>
-          <span className="text-xs font-mono text-slate-400">
-            {page} / {totalPages}
-          </span>
+          <span className="text-xs font-mono text-slate-400">Página {page}</span>
           <button
-            onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
-            disabled={page >= totalPages}
+            onClick={() => setPage((p) => p + 1)}
+            disabled={!hasNext}
             className="p-2 rounded-xl border border-white/10 bg-slate-900/60 text-slate-300 hover:border-cyan-500/40 hover:text-cyan-400 transition disabled:opacity-40 disabled:cursor-not-allowed"
           >
             <ChevronRight className="h-4 w-4" />
