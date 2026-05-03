@@ -34,6 +34,10 @@ RUN pip install --no-cache-dir -e . \
 ENV SCANNER_DATA_DIR=/data
 RUN mkdir -p /data/jobs
 
+COPY apps/api/docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
+RUN chmod +x /usr/local/bin/docker-entrypoint.sh
+
 EXPOSE 8000
 
+ENTRYPOINT ["/usr/local/bin/docker-entrypoint.sh"]
 CMD ["uvicorn", "scanner_api.main:app", "--host", "0.0.0.0", "--port", "8000"]
