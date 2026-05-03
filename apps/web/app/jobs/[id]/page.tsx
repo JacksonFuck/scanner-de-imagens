@@ -7,7 +7,7 @@ import { toast } from "sonner";
 import { StatusBadge } from "@/components/StatusBadge";
 import { ProgressBar } from "@/components/ProgressBar";
 import { Spinner } from "@/components/Spinner";
-import { deleteJob, fileUrl, getJob, patchJob } from "@/lib/api";
+import { deleteJob, fileUrl, getJob, jobZipUrl, patchJob } from "@/lib/api";
 import { connectJobWs } from "@/lib/ws";
 import type { JobDetail, ProgressEvent } from "@/lib/types";
 import { cn } from "@/lib/cn";
@@ -131,6 +131,15 @@ export default function JobDetailPage() {
           </div>
         </div>
         <div className="flex gap-2 flex-shrink-0">
+          {job.status === "done" && (
+            <a
+              href={jobZipUrl(job.id)}
+              download
+              className="inline-flex items-center gap-1.5 rounded-xl border border-cyan-500/40 bg-cyan-500/10 px-3 py-2 text-[11px] font-bold uppercase tracking-widest text-cyan-300 hover:bg-cyan-500/20 transition"
+            >
+              <Download className="h-3.5 w-3.5" /> Baixar tudo
+            </a>
+          )}
           <button
             onClick={handleFavorite}
             className={cn(

@@ -92,3 +92,7 @@ export async function deleteJob(id: string): Promise<void> {
 export function fileUrl(id: string, filename: string): string {
   return `${BASE}/jobs/${id}/files/${encodeURIComponent(filename)}`;
 }
+
+export function jobZipUrl(id: string): string {
+  return `${BASE}/jobs/${id}/download`;
+}

@@ -1,15 +1,22 @@
 """GET /api/jobs/{job_id}/files/{filename} — download seguro de outputs.
 
+Também expõe `GET /api/jobs/{job_id}/download` que retorna um ZIP com
+todos os arquivos da pasta `outputs/` (atalho para o usuário não precisar
+clicar em cada arquivo).
+
 Procura o arquivo solicitado em `outputs/`, `images/` e `inputs/` (nessa
 ordem) dentro do diretório do job. Valida path traversal antes de servir.
 """
 
 from __future__ import annotations
 
+import io
 import logging
+import re
+import zipfile
 
 from fastapi import APIRouter, Depends, HTTPException
-from fastapi.responses import FileResponse
+from fastapi.responses import FileResponse, StreamingResponse
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from scanner_api.db import get_session
@@ -23,6 +30,13 @@ router = APIRouter(prefix="/api/jobs", tags=["files"])
 
 # Subpastas onde procuramos o arquivo (ordem importa: outputs > images > inputs)
 _SEARCH_SUBDIRS = ("outputs", "images", "inputs")
+
+
+def _safe_zip_name(text: str) -> str:
+    """Sanitiza o título do job para virar nome de arquivo ZIP."""
+    text = text.strip() or "job"
+    text = re.sub(r"[^\w\-. ]+", "_", text, flags=re.UNICODE)
+    return text[:80]
 
 
 @router.get("/{job_id}/files/{filename}")
@@ -78,4 +92,53 @@ async def download_file(
     raise HTTPException(
         status_code=404,
         detail=f"Arquivo não encontrado no job {job_id}: {filename}",
+    )
+
+
+@router.get("/{job_id}/download")
+async def download_all(
+    job_id: str,
+    session: AsyncSession = Depends(get_session),
+) -> StreamingResponse:
+    """Retorna ZIP com todos os arquivos de `outputs/` do job.
+
+    Usado pelo botão de download direto da listagem de jobs. Inclui
+    Markdown, DOCX, PDF e a pasta `<base>-images/`. Não inclui inputs
+    (a foto original) — só o que foi gerado.
+    """
+    job = await session.get(Job, job_id)
+    if job is None:
+        raise HTTPException(status_code=404, detail=f"Job não encontrado: {job_id}")
+
+    settings = get_settings()
+    base = job_dir(settings.data_dir, job_id).resolve()
+    outputs_dir = (base / "outputs").resolve()
+
+    if not outputs_dir.exists() or not outputs_dir.is_dir():
+        raise HTTPException(
+            status_code=404, detail=f"Job {job_id} não tem outputs gerados ainda."
+        )
+
+    files = [p for p in outputs_dir.rglob("*") if p.is_file()]
+    if not files:
+        raise HTTPException(
+            status_code=404, detail=f"Job {job_id} ainda não produziu arquivos."
+        )
+
+    # Constrói o ZIP em memória — outputs típicos têm ~14 mds (~3 KB cada)
+    # + algumas imagens; cabe folgado em RAM. Para volumes maiores, vale
+    # migrar para zipstream-ng com StreamingResponse iterativo.
+    buf = io.BytesIO()
+    with zipfile.ZipFile(buf, "w", zipfile.ZIP_DEFLATED) as zf:
+        for path in files:
+            arcname = path.relative_to(outputs_dir).as_posix()
+            zf.write(path, arcname)
+    buf.seek(0)
+
+    title = _safe_zip_name(job.title or job_id)
+    log.info("ZIP %s: %d files, %d bytes", job_id, len(files), buf.getbuffer().nbytes)
+    return StreamingResponse(
+        buf,
+        media_type="application/zip",
+        headers={"Content-Disposition": f'attachment; filename="{title}.zip"'},
     )
